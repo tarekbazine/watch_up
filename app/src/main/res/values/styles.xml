@@ -19,6 +19,10 @@
         <item name="android:textColorSecondary">@color/colorAccent</item>
     </style>
 
+    <style name="card">
+        <item name="android:textColor">#fff</item>
+    </style>
+
     <style name="tt">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textColorLink">@color/colorAccent</item>
