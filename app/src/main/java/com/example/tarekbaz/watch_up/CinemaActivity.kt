@@ -1,13 +1,11 @@
 package com.example.tarekbaz.watch_up
 
 import android.support.design.widget.TabLayout
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -16,7 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import kotlinx.android.synthetic.main.activity_cinema.*
-import kotlinx.android.synthetic.main.fragment_cinema.view.*
+import kotlinx.android.synthetic.main.fragment_film.view.*
 
 class CinemaActivity : AppCompatActivity() {
 
@@ -77,23 +75,29 @@ class CinemaActivity : AppCompatActivity() {
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1)
+
+            if (position == 0)
+                return FilmFragment.newInstance(position + 1)
+
+//            if (position == 1)
+            return SalleFragment.newInstance(position + 1)
+
         }
 
         override fun getCount(): Int {
-            // Show 3 total pages.
-            return 3
+            // Show 2 total pages.
+            return 2
         }
     }
 
     /**
      * A placeholder fragment containing a simple view.
      */
-    class PlaceholderFragment : Fragment() {
+    class FilmFragment : Fragment() {
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
-            val rootView = inflater.inflate(R.layout.fragment_cinema, container, false)
+            val rootView = inflater.inflate(R.layout.fragment_film, container, false)
             rootView.section_label.text = getString(R.string.section_format, arguments.getInt(ARG_SECTION_NUMBER))
             return rootView
         }
@@ -109,8 +113,42 @@ class CinemaActivity : AppCompatActivity() {
              * Returns a new instance of this fragment for the given section
              * number.
              */
-            fun newInstance(sectionNumber: Int): PlaceholderFragment {
-                val fragment = PlaceholderFragment()
+            fun newInstance(sectionNumber: Int): FilmFragment {
+                val fragment = FilmFragment()
+                val args = Bundle()
+                args.putInt(ARG_SECTION_NUMBER, sectionNumber)
+                fragment.arguments = args
+                return fragment
+            }
+        }
+    }
+
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    class SalleFragment : Fragment() {
+
+        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                                  savedInstanceState: Bundle?): View? {
+            val rootView = inflater.inflate(R.layout.fragment_film, container, false)
+            rootView.section_label.text = getString(R.string.section_format, arguments.getInt(ARG_SECTION_NUMBER))
+            return rootView
+        }
+
+        companion object {
+            /**
+             * The fragment argument representing the section number for this
+             * fragment.
+             */
+            private val ARG_SECTION_NUMBER = "section_number"
+
+            /**
+             * Returns a new instance of this fragment for the given section
+             * number.
+             */
+            fun newInstance(sectionNumber: Int): SalleFragment {
+                val fragment = SalleFragment()
                 val args = Bundle()
                 args.putInt(ARG_SECTION_NUMBER, sectionNumber)
                 fragment.arguments = args

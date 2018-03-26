@@ -1,5 +1,6 @@
 package com.example.tarekbaz.watch_up
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -41,7 +42,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 // Handle the camera action
             }
             R.id.nav_cinema -> {
-
+                val intent = Intent(this, CinemaActivity::class.java)
+                // To pass any data to next activity
+//                intent.putExtra("keyIdentifier", value)
+                // start your next activity
+                startActivity(intent)
             }
             R.id.nav_series -> {
 

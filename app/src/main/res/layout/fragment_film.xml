@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context="com.example.tarekbaz.watch_up.CinemaActivity$PlaceholderFragment">
+    tools:context="com.example.tarekbaz.watch_up.CinemaActivity$FilmFragment">
 
     <TextView
         android:id="@+id/section_label"
