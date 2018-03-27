@@ -26,7 +26,6 @@ class HomeRecyclerViewAdapter(private val mContext: Context, names: List<String>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //TODO assign dynamic ids for images
         holder.image.setImageResource(mImageUrls!!.get(position))
         holder.name.setText(mNames!!.get(position))
 

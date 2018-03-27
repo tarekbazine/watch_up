@@ -23,6 +23,7 @@
             android:name=".CinemaActivity"
             android:label="@string/title_activity_cinema"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FilmDetailActivity"></activity>
     </application>
 
 </manifest>
