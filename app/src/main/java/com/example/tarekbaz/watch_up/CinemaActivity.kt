@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -14,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 
 import kotlinx.android.synthetic.main.activity_cinema.*
-import kotlinx.android.synthetic.main.fragment_film.view.*
 
 class CinemaActivity : AppCompatActivity() {
 
@@ -98,7 +99,13 @@ class CinemaActivity : AppCompatActivity() {
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
             val rootView = inflater.inflate(R.layout.fragment_film, container, false)
-//            rootView.section_label.text = getString(R.string.section_format, arguments.getInt(ARG_SECTION_NUMBER))
+
+            val layoutManager = LinearLayoutManager(context)
+            val filmRecycler = rootView.findViewById<RecyclerView>(R.id.film_recycler)
+            filmRecycler.setLayoutManager(layoutManager)
+            val adapter_films = FilmCinemaRecyclerViewAdapter(context)
+            filmRecycler.setAdapter(adapter_films)
+
             return rootView
         }
 
@@ -131,7 +138,7 @@ class CinemaActivity : AppCompatActivity() {
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
-            val rootView = inflater.inflate(R.layout.fragment_film, container, false)
+            val rootView = inflater.inflate(R.layout.fragment_salle, container, false)
 //            rootView.section_label.text = getString(R.string.section_format, arguments.getInt(ARG_SECTION_NUMBER))
             return rootView
         }

@@ -1,96 +1,11 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    app:cardCornerRadius="4dp"
-    tools:context="com.example.tarekbaz.watch_up.CinemaActivity$FilmFragment">
-
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/film_recycler"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBackground"
-        android:orientation="horizontal">
-
-
-        <LinearLayout
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:theme="@style/card">
-
-            <TextView
-                android:id="@+id/film_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="5dp"
-                android:text="film name" />
-
-            <TextView
-                android:id="@+id/film_realisator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="5dp"
-                android:text="Karim kayle" />
-
-            <TextView
-                android:id="@+id/film_salle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="5dp"
-                android:text="Alger grand poste" />
-
-            <TextView
-                android:id="@+id/film_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="5dp"
-                android:gravity="end"
-                android:text="Lundi 28 Mars 23:20"
-                android:textAlignment="gravity" />
-
-            <RatingBar
-                android:id="@+id/film_rating"
-                style="@style/Widget.AppCompat.RatingBar.Indicator"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-
-                android:layout_marginTop="5dp"
-                android:isIndicator="false"
-                android:numStars="7"
-                android:rating="3"
-
-                android:stepSize="1" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0px"
-            android:layout_height="200dp"
-            android:layout_weight="1"
-            android:src="@drawable/film4" />
-
-    </LinearLayout>
-
-</android.support.v7.widget.CardView>
+        android:layout_height="match_parent" />
+</LinearLayout>

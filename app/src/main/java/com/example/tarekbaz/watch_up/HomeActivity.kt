@@ -1,6 +1,5 @@
 package com.example.tarekbaz.watch_up
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
