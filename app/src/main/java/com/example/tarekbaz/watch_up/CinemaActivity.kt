@@ -80,7 +80,6 @@ class CinemaActivity : AppCompatActivity() {
             if (position == 0)
                 return FilmFragment.newInstance(position + 1)
 
-//            if (position == 1)
             return SalleFragment.newInstance(position + 1)
 
         }
@@ -96,6 +95,23 @@ class CinemaActivity : AppCompatActivity() {
      */
     class FilmFragment : Fragment() {
 
+        //TODO USE Models
+        val filmNames: List<String> = mutableListOf(
+                "La Belle et La Bète", "Hunger Game", "Drone", "Hunger Game 2"
+        )
+
+        val imageFilmsUrls: List<Int> = mutableListOf(
+                R.drawable.film4, R.drawable.film5, R.drawable.serie1, R.drawable.film5
+        )
+
+        val filmDirectors: List<String> = mutableListOf(
+                "Le throne de Fer", "LaCasa de Papel", "Breaking Bad", "LaCasa de Papel"
+        )
+
+        val filmCinema: List<String> = mutableListOf(
+                "Space excelsive", "From mars", "Live from the sea", "Directly from desert"
+        )
+
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
             val rootView = inflater.inflate(R.layout.fragment_film, container, false)
@@ -103,7 +119,7 @@ class CinemaActivity : AppCompatActivity() {
             val layoutManager = LinearLayoutManager(context)
             val filmRecycler = rootView.findViewById<RecyclerView>(R.id.film_recycler)
             filmRecycler.setLayoutManager(layoutManager)
-            val adapter_films = FilmCinemaRecyclerViewAdapter(context)
+            val adapter_films = FilmCinemaRecyclerViewAdapter(context, filmNames, imageFilmsUrls, filmDirectors, filmCinema)
             filmRecycler.setAdapter(adapter_films)
 
             return rootView
@@ -136,10 +152,33 @@ class CinemaActivity : AppCompatActivity() {
      */
     class SalleFragment : Fragment() {
 
+        //TODO USE Models
+        val salleNames: List<String> = mutableListOf(
+                "Vandome","salle 2","salle 3","salle 4"
+        )
+
+        val salleImages: List<Int> = mutableListOf(
+                R.drawable.cinema1, R.drawable.cinema2, R.drawable.cinema3, R.drawable.cinema1
+        )
+
+        val salleAddress: List<String> = mutableListOf(
+                "Paris, oued elsemar !", "Alger !LaCasa de Papel", "Oran !Breaking Bad", "Ghardaia !LaCasa de Papel"
+        )
+
+        val salleOpennings: List<String> = mutableListOf(
+                "7/7 de 8:00 à 23:00", "24/24 sauf samedi de 8:00 à 23:00","Toujours 10:00 à 23:00","de 8:00 à 20:00 sauf lundi"
+        )
+
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
             val rootView = inflater.inflate(R.layout.fragment_salle, container, false)
-//            rootView.section_label.text = getString(R.string.section_format, arguments.getInt(ARG_SECTION_NUMBER))
+
+            val layoutManager = LinearLayoutManager(context)
+            val salleRecycler = rootView.findViewById<RecyclerView>(R.id.salle_recycler)
+            salleRecycler.setLayoutManager(layoutManager)
+            val adapter_films = SalleCinemaRecyclerViewAdapter(context, salleNames, salleImages, salleAddress, salleOpennings)
+            salleRecycler.setAdapter(adapter_films)
+
             return rootView
         }
 

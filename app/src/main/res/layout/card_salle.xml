@@ -1,6 +1,113 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    tools:context="com.example.tarekbaz.watch_up.CinemaActivity$SalleFragment">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorAccent"
+        android:padding="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:theme="@style/card">
+
+                <TextView
+                    android:id="@+id/salle_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="5dp"
+                    android:text="salle name"
+                    android:textSize="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/placeholder_for_map" />
+
+                    <TextView
+                        android:id="@+id/salle_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:text="Karim kayle" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/open" />
+
+                    <TextView
+                        android:id="@+id/salle_opening"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:text="Lundi 28 Mars 23:20" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/salle_image"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/film4"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="2dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
