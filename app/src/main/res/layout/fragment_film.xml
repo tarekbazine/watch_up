@@ -1,24 +1,24 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp"
-    android:layout_margin="5dp">
 
-    <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorBackground"
-    android:orientation="horizontal"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="4dp"
     tools:context="com.example.tarekbaz.watch_up.CinemaActivity$FilmFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        android:orientation="horizontal">
 
 
         <LinearLayout
             android:layout_width="0px"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="2"
             android:orientation="vertical"
             android:paddingBottom="10dp"
@@ -72,7 +72,6 @@
                 style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
 
@@ -85,13 +84,13 @@
 
         </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0px"
-        android:layout_weight="1"
-        android:layout_height="200dp"
-        android:src="@drawable/film4" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0px"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:src="@drawable/film4" />
 
-</LinearLayout>
+    </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+</android.support.v7.widget.CardView>
