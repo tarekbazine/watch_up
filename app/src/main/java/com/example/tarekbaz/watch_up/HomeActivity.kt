@@ -37,7 +37,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
 
-
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         home_film_slider.setLayoutManager(layoutManager)
@@ -74,10 +73,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                // Handle the camera action
             }
             R.id.nav_cinema -> {
                 val intent = Intent(this, CinemaActivity::class.java)
@@ -98,7 +95,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_evaluations -> {
-
+                val intent = Intent(this, CommentEvaluationActivity::class.java)
+                startActivity(intent)
             }
         }
 

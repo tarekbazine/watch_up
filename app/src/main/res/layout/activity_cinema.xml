@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/app_name">
+            app:title="@string/title_toolbar_cinema">
 
         </android.support.v7.widget.Toolbar>
 

@@ -24,6 +24,10 @@
             android:label="@string/title_activity_cinema"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FilmDetailActivity" />
+        <activity
+            android:name=".CommentEvaluationActivity"
+            android:label="@string/title_activity_comment_evaluation"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -32,7 +36,7 @@
         <activity
             android:name=".PersonnesActivity"
             android:label="@string/title_activity_personnes"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -1,91 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mainFrame"
-    android:layout_width="wrap_content"
+    android:id="@+id/subMainFrame"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="17dp"
-    android:layout_marginBottom="5dp">
+    android:layout_gravity="center"
+    android:background="@color/colorAccent"
+    android:orientation="vertical"
+    android:padding="2dp"
+    android:layout_marginRight="3dp"
+    android:layout_marginLeft="3dp"
+    android:layout_marginTop="3dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/subMainFrame"
+
+    <LinearLayout
+        android:id="@+id/headerFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_height="wrap_content"
         android:background="@color/colorAccent"
-        android:orientation="vertical"
-        android:padding="1dp">
-
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/headerFrame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:orientation="vertical">
+            android:layout_height="40dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="37dp"
-                    android:layout_height="37dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="3sp"
-                    android:layout_marginStart="15dp"
-                    android:src="@drawable/person2"
-                    app:civ_border_color="@color/colorAccent"
-                    app:civ_border_width="2dp" />
-
-                <TextView
-                    android:id="@+id/nameTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="Sérgio Markina"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/dateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:text="12/03/2017"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/bodyFrame"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:minHeight="80dp"
-            android:orientation="vertical"
-            android:padding="7dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/person2"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="2dp" />
 
             <TextView
-                android:id="@+id/commentTextView"
-                android:layout_width="match_parent"
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="roboto_thin"
-                android:text="Pour le calcul des impôts, le calculateur prend 0.1% de la valeur de tous les immeubles et 0.2% de tous les comptes d’épargne VIP. Implémentez ce calculateur."
-                android:textAlignment="viewStart"
-                android:textColor="#FFF"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="Sérgio Markina"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="3dp"/>
+
+            <TextView
+                android:id="@+id/comment_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:text="12/03/2017"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorPrimary"
                 android:textSize="12sp" />
+
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bodyFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:minHeight="40dp"
+        android:orientation="vertical"
+        android:padding="7dp">
+
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="roboto_thin"
+            android:text="Pour le calcul des impôts, le calculateur prend 0.1% de la valeur de tous les immeubles et 0.2% de tous les comptes d’épargne VIP. Implémentez ce calculateur."
+            android:textAlignment="viewStart"
+            android:textColor="#FFF"
+            android:textSize="12sp" />
+    </LinearLayout>
 </LinearLayout>
+
