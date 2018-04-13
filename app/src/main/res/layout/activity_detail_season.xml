@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:orientation="vertical">
+
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="0dp"
+            android:alpha="1"
+            android:alwaysDrawnWithCache="false"
+            android:background="@drawable/serie2"
+            android:clipChildren="false"
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:scrollbarAlwaysDrawVerticalTrack="false">
+
+            <!--<ImageView-->
+            <!--android:id="@+id/backImg"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:adjustViewBounds="true"-->
+            <!--android:background="@drawable/serie2"-->
+            <!--android:scaleType="fitXY"/>-->
+
+            <LinearLayout
+                android:id="@+id/topLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/DarkFill"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="15dp">
+
+                <ImageView
+                    android:id="@+id/seasonCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@android:dimen/thumbnail_height"
+                    android:adjustViewBounds="true"
+                    android:alpha="1"
+                    android:background="@color/colorAccent"
+                    android:cropToPadding="false"
+                    android:padding="1dp"
+                    app:srcCompat="@drawable/serie2" />
+
+                <TextView
+                    android:id="@+id/serieTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Saison1"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/serieDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="(2016)"
+                    android:textAlignment="center"
+                    android:textColor="#fff" />
+
+                <TextView
+                    android:id="@+id/episodesNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="13 épesodes"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent" />
+
+                <LinearLayout
+                    android:id="@+id/evaluationFrame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/frame_yellow"
+                    android:orientation="horizontal"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:id="@+id/evaluationText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="8.8"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+
+                    <ImageView
+                        android:id="@+id/evaluationStar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:cropToPadding="false"
+                        android:padding="3dp"
+                        app:srcCompat="@drawable/star" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/descriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="4sp"
+                android:paddingBottom="20dp"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:text="A drawable resource is a general concept for a graphic that can be drawn to the screen. Drawables are used to define shapes, colors, borders, gradients, etc. which can then be applied to views within an Activity.  This is typically used for customizing the view graphics that are displayed within a particular view or context."
+                android:textAlignment="viewStart"
+                android:textColor="#FFF" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingStart="15dp">
+
+                <ImageView
+                    android:id="@+id/actorsIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:adjustViewBounds="false"
+                    android:rotation="-13"
+                    app:srcCompat="@drawable/theatre_masks" />
+
+                <TextView
+                    android:id="@+id/actorsNamesText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Emma Watson, Luke Evans"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingStart="15dp">
+
+                <ImageView
+                    android:id="@+id/producerIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:adjustViewBounds="false"
+                    android:cropToPadding="false"
+                    android:rotation="-13"
+                    app:srcCompat="@drawable/film" />
+
+                <TextView
+                    android:id="@+id/producerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Bill CONDON"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/episodesTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingStart="10dp"
+                android:text="Episodes"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorAccent"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/episodesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="7dp"
+                android:paddingStart="5dp" />
+
+            <TextView
+                android:id="@+id/commentTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingStart="10dp"
+                android:text="Commentaires"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorAccent"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/commentRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="7dp"
+                android:paddingStart="5dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

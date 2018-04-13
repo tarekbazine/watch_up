@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import java.text.DateFormat
@@ -23,7 +22,7 @@ class SalleRecyclerViewAdapter (private val mContext: Context, salle_names: List
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.film_salle_card, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.card_film_salle, parent, false)
             return ViewHolder(view)
         }
 

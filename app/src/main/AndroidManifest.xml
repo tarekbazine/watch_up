@@ -23,7 +23,16 @@
             android:name=".CinemaActivity"
             android:label="@string/title_activity_cinema"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".FilmDetailActivity"></activity>
+        <activity android:name=".FilmDetailActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".PersonnesActivity"
+            android:label="@string/title_activity_personnes"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

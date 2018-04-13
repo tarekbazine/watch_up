@@ -26,4 +26,7 @@
     <!--Home Activity-->
     <string name="title_new_films">Nouveaux Films</string>
     <string name="title_new_Series">Nouvelles Séries</string>
+    <string name="title_activity_personnes">PersonnesActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>
