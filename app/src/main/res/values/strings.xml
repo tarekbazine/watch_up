@@ -38,7 +38,8 @@
     <string name="tab_last">Derniers</string>
     <string name="tab_byFilm">Par films</string>
     <string name="tab_bySeries">Par series</string>
-
+    <string name="filmographie">Filmographie</string>
+    <string name="bibliographie">Bibliographie</string>
 
 
 </resources>

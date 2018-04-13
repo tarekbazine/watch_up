@@ -25,7 +25,10 @@ class PersonneRecyclerViewAdapter(private val mContext: Context,
 
         holder.personne_img.setImageResource(personneImages.get(position))
         holder.personne_name.setText(personneNames.get(position))
-        holder.personne_is_indecated.setIsIndicator(isIndicated.get(position))
+       if (isIndicated.get(position))
+        holder.personne_is_indecated.rating = 1F
+        else
+           holder.personne_is_indecated.rating = 0F
 
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {

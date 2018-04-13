@@ -15,8 +15,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_personnes.*
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
+
 
 class PersonnesActivity : AppCompatActivity() {
 
@@ -77,8 +81,11 @@ class PersonnesActivity : AppCompatActivity() {
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if (position == 0)
-                   return ActorsFragment.newInstance(position + 1)
+
+            if (position == 0) {
+                return ActorsFragment.newInstance(position + 1)
+
+            }
             return ProducersFragment.newInstance(position + 1)
         }
 
@@ -130,8 +137,8 @@ class PersonnesActivity : AppCompatActivity() {
              * Returns a new instance of this fragment for the given section
              * number.
              */
-            fun newInstance(sectionNumber: Int): ActorsFragment {
-                val fragment = ActorsFragment()
+            fun newInstance(sectionNumber: Int): ProducersFragment {
+                val fragment = ProducersFragment()
                 val args = Bundle()
                 args.putInt(ARG_SECTION_NUMBER, sectionNumber)
                 fragment.arguments = args
