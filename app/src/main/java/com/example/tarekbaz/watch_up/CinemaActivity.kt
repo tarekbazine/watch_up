@@ -114,10 +114,10 @@ class CinemaActivity : AppCompatActivity() {
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
-            val rootView = inflater.inflate(R.layout.fragment_film, container, false)
+            val rootView = inflater.inflate(R.layout.fragment_listing_cards, container, false)
 
             val layoutManager = LinearLayoutManager(context)
-            val filmRecycler = rootView.findViewById<RecyclerView>(R.id.film_recycler)
+            val filmRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             filmRecycler.setLayoutManager(layoutManager)
             val adapter_films = FilmCinemaRecyclerViewAdapter(context, filmNames, imageFilmsUrls, filmDirectors, filmCinema)
             filmRecycler.setAdapter(adapter_films)
@@ -171,10 +171,10 @@ class CinemaActivity : AppCompatActivity() {
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
-            val rootView = inflater.inflate(R.layout.fragment_salle, container, false)
+            val rootView = inflater.inflate(R.layout.fragment_listing_cards, container, false)
 
             val layoutManager = LinearLayoutManager(context)
-            val salleRecycler = rootView.findViewById<RecyclerView>(R.id.salle_recycler)
+            val salleRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             salleRecycler.setLayoutManager(layoutManager)
             val adapter_films = SalleCinemaRecyclerViewAdapter(context, salleNames, salleImages, salleAddress, salleOpennings)
             salleRecycler.setAdapter(adapter_films)
