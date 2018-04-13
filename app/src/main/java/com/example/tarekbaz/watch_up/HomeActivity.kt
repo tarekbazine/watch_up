@@ -89,7 +89,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
             }
             R.id.nav_personnes -> {
-
+                val intent = Intent(this, PersonnesActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_fan -> {
 

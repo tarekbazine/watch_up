@@ -7,8 +7,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -16,7 +17,6 @@ import android.view.View
 import android.view.ViewGroup
 
 import kotlinx.android.synthetic.main.activity_personnes.*
-import kotlinx.android.synthetic.main.fragment_personnes.view.*
 
 class PersonnesActivity : AppCompatActivity() {
 
@@ -44,11 +44,6 @@ class PersonnesActivity : AppCompatActivity() {
 
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
 
     }
 
@@ -82,24 +77,45 @@ class PersonnesActivity : AppCompatActivity() {
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1)
+            if (position == 0)
+                   return ActorsFragment.newInstance(position + 1)
+            return ProducersFragment.newInstance(position + 1)
         }
 
         override fun getCount(): Int {
-            // Show 3 total pages.
-            return 3
+            // Show 2 total pages.
+            return 2
         }
     }
 
     /**
-     * A placeholder fragment containing a simple view.
+     * Actors fragment containing a simple view.
      */
-    class PlaceholderFragment : Fragment() {
+    class ProducersFragment : Fragment() {
+        //TODO USE Models
+        val personneNames: List<String> = mutableListOf(
+                    "Aissa Achor", "Ilyes BATATA", "Halima Kacemi", "Maradona2"
+        )
+
+        val imagePersonneUrls: List<Int> = mutableListOf(
+                R.drawable.person1, R.drawable.person2, R.drawable.person1, R.drawable.person2
+        )
+
+        val personneIsIndicator: List<Boolean> = mutableListOf(
+                true , false , false , true
+        )
+
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
-            val rootView = inflater.inflate(R.layout.fragment_personnes, container, false)
-            rootView.section_label.text = getString(R.string.section_format, arguments.getInt(ARG_SECTION_NUMBER))
+            val rootView = inflater.inflate(R.layout.fragment_listing_cards, container, false)
+
+            val layoutManager = LinearLayoutManager(context)
+            val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
+            personneRecycler.setLayoutManager(layoutManager)
+            val adapter_films = PersonneRecyclerViewAdapter(context, personneNames, imagePersonneUrls , personneIsIndicator)
+            personneRecycler.setAdapter(adapter_films)
+
             return rootView
         }
 
@@ -114,8 +130,60 @@ class PersonnesActivity : AppCompatActivity() {
              * Returns a new instance of this fragment for the given section
              * number.
              */
-            fun newInstance(sectionNumber: Int): PlaceholderFragment {
-                val fragment = PlaceholderFragment()
+            fun newInstance(sectionNumber: Int): ActorsFragment {
+                val fragment = ActorsFragment()
+                val args = Bundle()
+                args.putInt(ARG_SECTION_NUMBER, sectionNumber)
+                fragment.arguments = args
+                return fragment
+            }
+        }
+    }
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    class ActorsFragment : Fragment() {
+        //TODO USE Models
+        val personneNames: List<String> = mutableListOf(
+                "Bakir Achor", "Ilyes Tebbakh", "Aissa Kacem", "Maradona"
+        )
+
+        val imagePersonneUrls: List<Int> = mutableListOf(
+                R.drawable.person1, R.drawable.person2, R.drawable.person1, R.drawable.person2
+        )
+
+        val personneIsIndicator: List<Boolean> = mutableListOf(
+                false , true , true , false
+        )
+
+
+        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                                  savedInstanceState: Bundle?): View? {
+            val rootView = inflater.inflate(R.layout.fragment_listing_cards, container, false)
+
+            val layoutManager = LinearLayoutManager(context)
+            val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
+            personneRecycler.setLayoutManager(layoutManager)
+            val adapter_films = PersonneRecyclerViewAdapter(context, personneNames, imagePersonneUrls , personneIsIndicator)
+            personneRecycler.setAdapter(adapter_films)
+
+            return rootView
+        }
+
+        companion object {
+            /**
+             * The fragment argument representing the section number for this
+             * fragment.
+             */
+            private val ARG_SECTION_NUMBER = "section_number"
+
+            /**
+             * Returns a new instance of this fragment for the given section
+             * number.
+             */
+            fun newInstance(sectionNumber: Int): ActorsFragment {
+                val fragment = ActorsFragment()
                 val args = Bundle()
                 args.putInt(ARG_SECTION_NUMBER, sectionNumber)
                 fragment.arguments = args
