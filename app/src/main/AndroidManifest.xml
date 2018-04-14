@@ -24,6 +24,11 @@
             android:label="@string/title_activity_cinema"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FilmDetailActivity" />
+        <activity android:name=".PersonneDetailActivity" />
+        <activity android:name=".SerieDetailActivity" />
+        <activity android:name=".SeasonDetailActivity" />
+        <activity android:name=".EpisodeDetailActivity" />
+        <activity android:name=".BaseActivity" />
         <activity
             android:name=".CommentEvaluationActivity"
             android:label="@string/title_activity_comment_evaluation"
@@ -36,6 +41,11 @@
         <activity
             android:name=".PersonnesActivity"
             android:label="@string/title_activity_personnes"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".SeriesActivity"
+            android:label="@string/title_activity_series"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

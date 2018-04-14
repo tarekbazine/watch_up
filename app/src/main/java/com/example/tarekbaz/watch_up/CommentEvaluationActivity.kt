@@ -1,8 +1,5 @@
 package com.example.tarekbaz.watch_up
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.support.design.widget.TabLayout
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -11,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -20,18 +18,25 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_comment_evaluation.*
 import kotlinx.android.synthetic.main.popup_add_comment.*
 
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.drawer_activity.*
 
-class CommentEvaluationActivity : AppCompatActivity() {
+class CommentEvaluationActivity : BaseActivity() {
 
     private var popupAddComment: Dialog? = null
 
-    var mSectionsPagerAdapter: SectionsPagerAdapter? = null
+    private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment_evaluation)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_evaluation)
+        //Add drawer button
+        val toggle = ActionBarDrawerToggle(
+                this, drawer_layout, toolbar_evaluation, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
@@ -58,6 +63,7 @@ class CommentEvaluationActivity : AppCompatActivity() {
             Snackbar.make(view, "comment", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
     }
 
 
@@ -91,7 +97,7 @@ class CommentEvaluationActivity : AppCompatActivity() {
 
         //todo Models
         val userNames: List<String> = mutableListOf(
-                "Cinema Paris Salle 0012", "Larousse Cinema", "Cinema des Rois -Marseille-"
+                "Cinema Paris Salle 0012", "Larousse Cinema",  "Cinema des Rois -Marseille-"
         )
         val userImages: List<Int> = mutableListOf(
                 R.drawable.film4, R.drawable.film5, R.drawable.serie1, R.drawable.film5
@@ -106,17 +112,17 @@ class CommentEvaluationActivity : AppCompatActivity() {
         )
 
         val commentDates: List<String> = mutableListOf(
-                "7/7 de 8:00 à 23:00", "24/24 sauf samedi de 8:00 à 23:00", "Toujours 10:00 à 23:00", "de 8:00 à 20:00 sauf lundi"
+                "7/7 de 8:00 à 23:00", "24/24 sauf samedi de 8:00 à 23:00","Toujours 10:00 à 23:00","de 8:00 à 20:00 sauf lundi"
         )
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
-            val rootView = inflater.inflate(R.layout.fragment_listing_cards, container, false)
+            val rootView = inflater.inflate(R.layout.fragment_comment_evaluation, container, false)
 
             val layoutManager = LinearLayoutManager(context)
-            val lastRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
+            val lastRecycler = rootView.findViewById<RecyclerView>(R.id.last_recycler)
             lastRecycler.setLayoutManager(layoutManager)
-            val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentFor, commentDates)
+            val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentDates, commentFor)
             lastRecycler.setAdapter(adapter_films)
 
             return rootView

@@ -15,10 +15,16 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_personnes.*
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.drawer_activity.*
 
-class PersonnesActivity : AppCompatActivity() {
+
+class PersonnesActivity : BaseActivity() {
 
     /**
      * The [android.support.v4.view.PagerAdapter] that will provide
@@ -33,8 +39,13 @@ class PersonnesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_personnes)
+        setSupportActionBar(toolbar_personnes)
+        //Add drawer button
+        val toggle = ActionBarDrawerToggle(
+                this, drawer_layout, toolbar_personnes, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
 
-        setSupportActionBar(toolbar)
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
@@ -77,8 +88,11 @@ class PersonnesActivity : AppCompatActivity() {
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if (position == 0)
-                   return ActorsFragment.newInstance(position + 1)
+
+            if (position == 0) {
+                return ActorsFragment.newInstance(position + 1)
+
+            }
             return ProducersFragment.newInstance(position + 1)
         }
 
@@ -130,8 +144,8 @@ class PersonnesActivity : AppCompatActivity() {
              * Returns a new instance of this fragment for the given section
              * number.
              */
-            fun newInstance(sectionNumber: Int): ActorsFragment {
-                val fragment = ActorsFragment()
+            fun newInstance(sectionNumber: Int): ProducersFragment {
+                val fragment = ProducersFragment()
                 val args = Bundle()
                 args.putInt(ARG_SECTION_NUMBER, sectionNumber)
                 fragment.arguments = args
@@ -167,6 +181,7 @@ class PersonnesActivity : AppCompatActivity() {
             personneRecycler.setLayoutManager(layoutManager)
             val adapter_films = PersonneRecyclerViewAdapter(context, personneNames, imagePersonneUrls , personneIsIndicator)
             personneRecycler.setAdapter(adapter_films)
+
 
             return rootView
         }

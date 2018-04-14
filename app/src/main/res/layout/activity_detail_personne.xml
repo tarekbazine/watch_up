@@ -2,6 +2,7 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -23,16 +24,15 @@
             android:padding="15dp">
 
             <ImageView
-                android:id="@+id/episodeCard"
-                android:layout_width="wrap_content"
+                android:id="@+id/personneCard"
+                android:layout_width="90dp"
                 android:layout_height="120dp"
-                android:layout_gravity="left"
-                android:adjustViewBounds="true"
+                android:layout_gravity="left|center_vertical"
                 android:alpha="1"
                 android:background="@color/colorAccent"
                 android:cropToPadding="false"
                 android:padding="1dp"
-                app:srcCompat="@drawable/serie2" />
+                app:srcCompat="@drawable/person1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,39 +45,18 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/episodeText"
+                        android:id="@+id/personne_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="10dp"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="Episode "
+                        android:autoText="false"
+                        android:fontFamily="@font/roboto_thin"
+                        android:text="Luke Evans "
                         android:textAlignment="textStart"
                         android:textColor="@color/colorAccent"
                         android:textSize="17sp" />
 
-                    <TextView
-                        android:id="@+id/episodeNumberText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="1"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="17sp" />
-
-                    <TextView
-                        android:id="@+id/serieTitleText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="Les ouvriers de la casa"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -88,56 +67,79 @@
                     android:paddingTop="5dp">
 
                     <ImageView
-                        android:id="@+id/clockIcon"
+                        android:id="@+id/calendarIcon"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="15dp"
                         android:adjustViewBounds="false"
-                        app:srcCompat="@drawable/clock_yellow" />
+                        app:srcCompat="@drawable/calendar_time_icon" />
 
                     <TextView
-                        android:id="@+id/durationText"
+                        android:id="@+id/birthdayText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
-                        android:text="45 min"
+                        android:text="15 Avril 1979 (age 38)"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="#fff" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/evaluationFrame"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="7dp"
-                    android:background="@drawable/frame_yellow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:padding="3dp">
-
-                    <TextView
-                        android:id="@+id/evaluationText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="7.9"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorAccent" />
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
 
                     <ImageView
-                        android:id="@+id/evaluationStar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_weight="1"
-                        android:adjustViewBounds="true"
-                        android:cropToPadding="false"
-                        android:padding="4dp"
-                        app:srcCompat="@drawable/star" />
+                        android:id="@+id/nationalityIcon"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="15dp"
+                        android:adjustViewBounds="false"
+                        app:srcCompat="@drawable/flag_yellow" />
+
+                    <TextView
+                        android:id="@+id/nationalityText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:text="Britanique"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="#fff" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <ImageView
+                        android:id="@+id/works_numIcon"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="15dp"
+                        android:adjustViewBounds="false"
+                        app:srcCompat="@drawable/count_down" />
+
+                    <TextView
+                        android:id="@+id/works_numText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:text="29"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="#fff" />
 
                 </LinearLayout>
 
@@ -146,22 +148,36 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:background="@color/colorAccent"
-            android:orientation="horizontal"/>
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="10dp">
 
             <TextView
-                android:id="@+id/descriptionEpisodeText"
+                android:id="@+id/bibliographieTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingStart="10dp"
+                android:text="@string/bibliographie"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorAccent"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@color/colorAccent"
+                android:orientation="horizontal" >
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/bibliographieContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="4sp"
@@ -173,42 +189,14 @@
                 android:textAlignment="viewStart"
                 android:textColor="#FFF" />
 
+
             <TextView
-                android:id="@+id/spreadTitle"
+                android:id="@+id/filmographieTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:paddingStart="10dp"
-                android:text="@string/serie_canals"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorAccent"
-                android:textSize="19sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/canalsLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="35dp"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:id="@+id/chain1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Canal+"
-                    android:textColor="#fff" />
-            </LinearLayout>
-
-
-            <TextView
-                android:id="@+id/commentsLabelTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingStart="10dp"
-                android:text="@string/title_comments"
+                android:text="@string/filmographie"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorAccent"
                 android:textSize="19sp"
@@ -224,7 +212,7 @@
                 android:orientation="horizontal" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/commentsEpisodeRecyclerView"
+                android:id="@+id/filmographieRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="7dp"

@@ -7,7 +7,6 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -176,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:paddingStart="10dp"
-                android:text="Saisons"
+                android:text="@string/seasons"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorAccent"
                 android:textSize="19sp"
@@ -195,7 +194,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:paddingStart="10dp"
-                android:text="Séries Associées"
+                android:text="@string/associated_series"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorAccent"
                 android:textSize="19sp"
@@ -209,5 +208,24 @@
                 android:paddingStart="5dp" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/commentsSeries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="10dp"
+            android:text="@string/title_comments"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorAccent"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/commentsSerieRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:paddingStart="5dp" />
     </LinearLayout>
+
 </ScrollView>

@@ -11,7 +11,7 @@ import android.widget.Toast
 
 class CommentRecyclerViewAdapter(private val mContext: Context, val userNames : List<String>,
                                  val userImages : List<Int>, val comments : List<String>,
-                                 val commentFor: List<String>,val commentDates: List<String>)
+                                 val commentDates: List<String>, val commentFor: List<String>? = null )
     : RecyclerView.Adapter<CommentRecyclerViewAdapter.ViewHolder>() {
 
 

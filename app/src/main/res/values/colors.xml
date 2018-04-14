@@ -8,4 +8,5 @@
     <color name="imdb">#212121</color>
     <color name="colorAccent2">#f3c41f</color>
     <color name="DarkFill">#ae000000</color>
+    <color name="TextColor">#fff</color>
 </resources>
