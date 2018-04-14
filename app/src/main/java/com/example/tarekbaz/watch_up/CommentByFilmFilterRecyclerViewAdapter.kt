@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 
-class FilmFilterRecyclerViewAdapter(private val mContext: Context, val filmNames: List<String>,
-                                    val imageFilmsUrls: List<Int>, val filmDirectors: List<String>,
-                                    val filmCinema: List<String>) : RecyclerView.Adapter<FilmFilterRecyclerViewAdapter.ViewHolder>() {
+class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, val filmNames: List<String>,
+                                             val imageFilmsUrls: List<Int>, val filmDirectors: List<String>,
+                                             val filmCinema: List<String>) : RecyclerView.Adapter<CommentByFilmFilterRecyclerViewAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

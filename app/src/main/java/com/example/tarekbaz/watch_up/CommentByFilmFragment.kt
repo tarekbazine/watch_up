@@ -56,11 +56,10 @@ class CommentByFilmFragment : Fragment() {
         this.view!!.findViewById<View>(R.id.search_bar).visibility = View.GONE
         this.view!!.findViewById<View>(R.id.evaluation).visibility = View.VISIBLE
         val layoutManager = LinearLayoutManager(context)
-        val filterRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
-        filterRecycler.setLayoutManager(layoutManager)
-        val adapter_filter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentFor, commentDates)
-        filterRecycler.setAdapter(adapter_filter_films)
-
+        val commentRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
+        commentRecycler.setLayoutManager(layoutManager)
+        val adapter_comments = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentFor, commentDates)
+        commentRecycler.setAdapter(adapter_comments)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +69,7 @@ class CommentByFilmFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val filterRecycler = viewSearch.findViewById<RecyclerView>(R.id.recycler)
         filterRecycler.setLayoutManager(layoutManager)
-        val adapter_filter_films = FilmFilterRecyclerViewAdapter(context, filmNames, imageFilmsUrls, filmDirectors, filmCinema)
+        val adapter_filter_films = CommentByFilmFilterRecyclerViewAdapter(context, filmNames, imageFilmsUrls, filmDirectors, filmCinema)
         filterRecycler.setAdapter(adapter_filter_films)
 
         return viewSearch

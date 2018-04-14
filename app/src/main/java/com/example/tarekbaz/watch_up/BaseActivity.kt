@@ -64,6 +64,8 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
         }
 
+        finish()
+
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }

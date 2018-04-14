@@ -1,8 +1,10 @@
 package com.example.tarekbaz.watch_up
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.support.design.widget.TabLayout
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -18,14 +20,13 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_comment_evaluation.*
 import kotlinx.android.synthetic.main.popup_add_comment.*
 
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
 
 class CommentEvaluationActivity : BaseActivity() {
 
     private var popupAddComment: Dialog? = null
 
-    private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
+    var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +91,11 @@ class CommentEvaluationActivity : BaseActivity() {
             val page = supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.container + ":1")
             (page as CommentByFilmFragment).switchToCommentView()
         }
+
+        fun switchSerieFragmentToCommentView(){
+            val page = supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.container + ":2")
+            (page as CommentBySerieFragment).switchToCommentView()
+        }
     }
 
 
@@ -117,10 +123,10 @@ class CommentEvaluationActivity : BaseActivity() {
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
-            val rootView = inflater.inflate(R.layout.fragment_comment_evaluation, container, false)
+            val rootView = inflater.inflate(R.layout.fragment_listing_cards, container, false)
 
             val layoutManager = LinearLayoutManager(context)
-            val lastRecycler = rootView.findViewById<RecyclerView>(R.id.last_recycler)
+            val lastRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             lastRecycler.setLayoutManager(layoutManager)
             val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentDates, commentFor)
             lastRecycler.setAdapter(adapter_films)
