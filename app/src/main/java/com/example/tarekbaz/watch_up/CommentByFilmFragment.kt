@@ -10,6 +10,22 @@ import android.view.ViewGroup
 
 class CommentByFilmFragment : Fragment() {
 
+    val filmNames: List<String> = mutableListOf(
+            "La Belle et La Bète", "Hunger Game", "Drone", "Hunger Game 2"
+    )
+
+    val imageFilmsUrls: List<Int> = mutableListOf(
+            R.drawable.film4, R.drawable.film5, R.drawable.serie1, R.drawable.film5
+    )
+
+    val filmDirectors: List<String> = mutableListOf(
+            "Le throne de Fer", "LaCasa de Papel", "Breaking Bad", "LaCasa de Papel"
+    )
+
+    val filmCinema: List<String> = mutableListOf(
+            "Space excelsive", "From mars", "Live from the sea", "Directly from desert"
+    )
+
     //todo Models
     val userNames: List<String> = mutableListOf(
             "Cinema Paris Salle 0012", "Larousse Cinema", "Cinema des Rois -Marseille-",
@@ -35,17 +51,29 @@ class CommentByFilmFragment : Fragment() {
             "7/7 de 8:00 à 23:00", "24/24 sauf samedi de 8:00 à 23:00", "Toujours 10:00 à 23:00", "de 8:00 à 20:00 sauf lundi"
     )
 
+
+    fun switchToCommentView(){
+        this.view!!.findViewById<View>(R.id.search_bar).visibility = View.GONE
+        this.view!!.findViewById<View>(R.id.evaluation).visibility = View.VISIBLE
+        val layoutManager = LinearLayoutManager(context)
+        val filterRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
+        filterRecycler.setLayoutManager(layoutManager)
+        val adapter_filter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentFor, commentDates)
+        filterRecycler.setAdapter(adapter_filter_films)
+
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_comment_evaluation, container, false)
+        val viewSearch = inflater.inflate(R.layout.fragment_comment_evaluation, container, false)
 
         val layoutManager = LinearLayoutManager(context)
-        val lastRecycler = rootView.findViewById<RecyclerView>(R.id.last_recycler)
-        lastRecycler.setLayoutManager(layoutManager)
-        val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentFor, commentDates)
-        lastRecycler.setAdapter(adapter_films)
+        val filterRecycler = viewSearch.findViewById<RecyclerView>(R.id.recycler)
+        filterRecycler.setLayoutManager(layoutManager)
+        val adapter_filter_films = FilmFilterRecyclerViewAdapter(context, filmNames, imageFilmsUrls, filmDirectors, filmCinema)
+        filterRecycler.setAdapter(adapter_filter_films)
 
-        return rootView
+        return viewSearch
     }
 
 

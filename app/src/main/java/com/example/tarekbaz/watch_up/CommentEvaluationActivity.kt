@@ -14,19 +14,18 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 
 import kotlinx.android.synthetic.main.activity_comment_evaluation.*
 import kotlinx.android.synthetic.main.popup_add_comment.*
 
+
 class CommentEvaluationActivity : AppCompatActivity() {
 
     private var popupAddComment: Dialog? = null
 
-    private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
+    var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +44,8 @@ class CommentEvaluationActivity : AppCompatActivity() {
 
         popupAddComment = Dialog(this)
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             showCommentPopUp()
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
         }
 
     }
@@ -63,24 +60,6 @@ class CommentEvaluationActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_comment_evaluation, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
-
-        if (id == R.id.action_settings) {
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
 
 
     inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
@@ -99,6 +78,11 @@ class CommentEvaluationActivity : AppCompatActivity() {
 
         override fun getCount(): Int {
             return 3
+        }
+
+        fun switchFilmFragmentToCommentView(){
+            val page = supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.container + ":1")
+            (page as CommentByFilmFragment).switchToCommentView()
         }
     }
 

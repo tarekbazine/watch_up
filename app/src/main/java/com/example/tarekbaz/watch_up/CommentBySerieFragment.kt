@@ -35,7 +35,7 @@ class CommentBySerieFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_comment_evaluation, container, false)
 
         val layoutManager = LinearLayoutManager(context)
-        val lastRecycler = rootView.findViewById<RecyclerView>(R.id.last_recycler)
+        val lastRecycler = rootView.findViewById<RecyclerView>(R.id.recycler)
         lastRecycler.setLayoutManager(layoutManager)
         val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentFor, commentDates)
         lastRecycler.setAdapter(adapter_films)
