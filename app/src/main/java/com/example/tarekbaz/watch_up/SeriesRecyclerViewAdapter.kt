@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 
-class SeriesRecyclerViewAdapter(private val mContext: Context, val serieNames : List<String>,
+class SeriesRecyclerViewAdapter(private val mContext: Context, var serieNames : List<String>,
                                 val imageSeriesUrls : List<Int>, val serieDirectors : List<String>) : RecyclerView.Adapter<SeriesRecyclerViewAdapter.ViewHolder>() {
 
 
@@ -50,4 +50,9 @@ class SeriesRecyclerViewAdapter(private val mContext: Context, val serieNames : 
                 serie_image = itemView.findViewById(R.id.film_image)
             }
         }
+
+     fun filter( keyWords : String){
+         serieNames = serieNames.filter { serieName -> serieName.contains(keyWords,true) }
+         notifyDataSetChanged()
+    }
 }

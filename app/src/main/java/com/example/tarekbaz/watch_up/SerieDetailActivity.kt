@@ -3,7 +3,9 @@ package com.example.tarekbaz.watch_up
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
 import kotlinx.android.synthetic.main.activity_detail_serie.*
+import kotlinx.android.synthetic.main.activity_series.*
 
 class SerieDetailActivity : AppCompatActivity() {
     //For testing detail film
@@ -41,6 +43,8 @@ class SerieDetailActivity : AppCompatActivity() {
     val comments: List<String> = mutableListOf(
             "Space excelsive", "From mars", "Live from the sea", "Directly from desert"
     )
+
+
 
     private fun initSeasonsRecyclerView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
