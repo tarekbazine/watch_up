@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -16,8 +17,10 @@ import android.view.View
 import android.view.ViewGroup
 
 import kotlinx.android.synthetic.main.activity_cinema.*
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.drawer_activity.*
 
-class CinemaActivity : AppCompatActivity() {
+class CinemaActivity : BaseActivity() {
 
     /**
      * The [android.support.v4.view.PagerAdapter] that will provide
@@ -32,8 +35,15 @@ class CinemaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cinema)
+        setSupportActionBar(toolbar_activity)
 
-        setSupportActionBar(toolbar)
+        //Add drawer button
+        val toggle = ActionBarDrawerToggle(
+                this, drawer_layout, toolbar_activity, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
+
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)

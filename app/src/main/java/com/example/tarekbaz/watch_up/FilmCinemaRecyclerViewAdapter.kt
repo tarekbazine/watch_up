@@ -25,7 +25,7 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context,val filmNames 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
             holder.film_image.setImageResource(imageFilmsUrls.get(position))
-            holder.film_name.text = filmCinema.get(position)
+            holder.film_name.text = filmNames.get(position)
             holder.film_realisator.setText(filmDirectors.get(position))
             holder.film_salle.setText(filmCinema.get(position))
 //            var formatter: DateFormat = SimpleDateFormat("HH:mm")

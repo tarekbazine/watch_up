@@ -1,6 +1,9 @@
 package com.example.tarekbaz.watch_up
 
 import android.content.Context
+import android.content.Intent
+import android.support.v4.content.ContextCompat
+import android.support.v4.content.ContextCompat.startActivity
 import android.widget.TextView
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
@@ -31,7 +34,10 @@ class HomeRecyclerViewAdapter(private val mContext: Context, names: List<String>
 
         holder.image.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
-                Toast.makeText(mContext, mNames!!.get(position), Toast.LENGTH_SHORT).show()
+         //      Toast.makeText(mContext, mNames!!.get(position), Toast.LENGTH_SHORT).show()
+//                //TODO change it
+               val intent = Intent(mContext, FilmDetailActivity::class.java)
+                startActivity(mContext, intent, null)
             }
         })
     }

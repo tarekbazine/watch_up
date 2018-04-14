@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.os.Bundle
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -18,8 +19,10 @@ import android.view.View
 import android.view.ViewGroup
 
 import kotlinx.android.synthetic.main.activity_comment_evaluation.*
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.drawer_activity.*
 
-class CommentEvaluationActivity : AppCompatActivity() {
+class CommentEvaluationActivity : BaseActivity() {
 
 
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
@@ -28,7 +31,12 @@ class CommentEvaluationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment_evaluation)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_evaluation)
+        //Add drawer button
+        val toggle = ActionBarDrawerToggle(
+                this, drawer_layout, toolbar_evaluation, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
@@ -116,7 +124,7 @@ class CommentEvaluationActivity : AppCompatActivity() {
             val layoutManager = LinearLayoutManager(context)
             val lastRecycler = rootView.findViewById<RecyclerView>(R.id.last_recycler)
             lastRecycler.setLayoutManager(layoutManager)
-            val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentFor,commentDates)
+            val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentDates, commentFor)
             lastRecycler.setAdapter(adapter_films)
 
             return rootView
@@ -166,7 +174,7 @@ class CommentEvaluationActivity : AppCompatActivity() {
             val layoutManager = LinearLayoutManager(context)
             val lastRecycler = rootView.findViewById<RecyclerView>(R.id.last_recycler)
             lastRecycler.setLayoutManager(layoutManager)
-            val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentFor,commentDates)
+            val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentDates, commentFor)
             lastRecycler.setAdapter(adapter_films)
 
             return rootView
@@ -217,7 +225,7 @@ class CommentEvaluationActivity : AppCompatActivity() {
             val layoutManager = LinearLayoutManager(context)
             val lastRecycler = rootView.findViewById<RecyclerView>(R.id.last_recycler)
             lastRecycler.setLayoutManager(layoutManager)
-            val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentFor,commentDates)
+            val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentDates, commentFor)
             lastRecycler.setAdapter(adapter_films)
 
             return rootView

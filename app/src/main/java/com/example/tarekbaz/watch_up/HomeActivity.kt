@@ -1,22 +1,14 @@
 package com.example.tarekbaz.watch_up
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.app_bar_home.*
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.content_home.*
-import android.content.Intent
+import android.util.Log
+import kotlinx.android.synthetic.main.drawer_activity.*
 
 
-class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : BaseActivity() {
 
     //TODO USE Models
     val filmNames: List<String> = mutableListOf(
@@ -54,54 +46,15 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
 
+        //Add drawer button
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-        nav_view.setNavigationItemSelectedListener(this)
 
-        //init RecyclerViews
+
+        // init RecyclerViews
         this.initRecyclerView()
     }
 
-    override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_home -> {
-            }
-            R.id.nav_cinema -> {
-                val intent = Intent(this, CinemaActivity::class.java)
-                // To pass any data to next activity
-//                intent.putExtra("keyIdentifier", value)
-                // start your next activity
-                startActivity(intent)
-            }
-            R.id.nav_series -> {
-            //TODO change it
-                val intent = Intent(this, FilmDetailActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.nav_personnes -> {
-                val intent = Intent(this, PersonnesActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.nav_fan -> {
-
-            }
-            R.id.nav_evaluations -> {
-                val intent = Intent(this, CommentEvaluationActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        drawer_layout.closeDrawer(GravityCompat.START)
-        return true
-    }
 }
