@@ -7,9 +7,12 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
+import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SearchView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -31,6 +34,9 @@ class CinemaActivity : BaseActivity() {
      * [android.support.v4.app.FragmentStatePagerAdapter].
      */
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
+
+    var tabFilm : FilmFragment? = null
+    var tabSalle : SalleFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,22 +64,30 @@ class CinemaActivity : BaseActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_cinema, menu)
-        return true
-    }
+        menuInflater.inflate(R.menu.menu_search, menu)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
+        val myActionMenuItem = menu.findItem(R.id.action_search)
+        val searchView = myActionMenuItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
 
-        if (id == R.id.action_settings) {
-            return true
-        }
+            override fun onQueryTextChange(newText: String): Boolean {
 
-        return super.onOptionsItemSelected(item)
+                if (TextUtils.isEmpty(newText)) {
+                    tabSalle!!.adapter_salle!!.filter("")
+                    tabFilm!!.adapter_films!!.filter("")
+                } else {
+                    tabSalle!!.adapter_salle!!.filter(newText)
+                    tabFilm!!.adapter_films!!.filter(newText)
+                }
+
+                return true
+            }
+        })
+
+        return super.onCreateOptionsMenu(menu)
     }
 
 
@@ -87,10 +101,13 @@ class CinemaActivity : BaseActivity() {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            if (position == 0)
-                return FilmFragment.newInstance(position + 1)
+            if (position == 0){
+                tabFilm = FilmFragment.newInstance(position + 1)
+                return tabFilm as FilmFragment
+            }
 
-            return SalleFragment.newInstance(position + 1)
+            tabSalle = SalleFragment.newInstance(position + 1)
+            return tabSalle as SalleFragment
 
         }
 
@@ -104,6 +121,8 @@ class CinemaActivity : BaseActivity() {
      * A placeholder fragment containing a simple view.
      */
     class FilmFragment : Fragment() {
+
+        var adapter_films : FilmCinemaRecyclerViewAdapter? = null
 
         //TODO USE Models
         val filmNames: List<String> = mutableListOf(
@@ -131,6 +150,8 @@ class CinemaActivity : BaseActivity() {
             filmRecycler.setLayoutManager(layoutManager)
             val adapter_films = FilmCinemaRecyclerViewAdapter(context, filmNames, imageFilmsUrls, filmDirectors, filmCinema)
             filmRecycler.setAdapter(adapter_films)
+
+            this.adapter_films = adapter_films
 
             return rootView
         }
@@ -162,6 +183,8 @@ class CinemaActivity : BaseActivity() {
      */
     class SalleFragment : Fragment() {
 
+        var adapter_salle : SalleCinemaRecyclerViewAdapter? = null
+
         //TODO USE Models
         val salleNames: List<String> = mutableListOf(
                 "Vandome","salle 2","salle 3","salle 4"
@@ -186,8 +209,10 @@ class CinemaActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val salleRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             salleRecycler.setLayoutManager(layoutManager)
-            val adapter_films = SalleCinemaRecyclerViewAdapter(context, salleNames, salleImages, salleAddress, salleOpennings)
-            salleRecycler.setAdapter(adapter_films)
+            val adapter_salle = SalleCinemaRecyclerViewAdapter(context, salleNames, salleImages, salleAddress, salleOpennings)
+            salleRecycler.setAdapter(adapter_salle)
+
+            this.adapter_salle = adapter_salle
 
             return rootView
         }

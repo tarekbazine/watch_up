@@ -12,10 +12,11 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FilmCinemaRecyclerViewAdapter(private val mContext: Context,val filmNames : List<String>,
+class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var filmNames : List<String>,
                                     val imageFilmsUrls : List<Int>, val filmDirectors : List<String>,
                                     val filmCinema: List<String>) : RecyclerView.Adapter<FilmCinemaRecyclerViewAdapter.ViewHolder>() {
 
+    var fullFilms = filmNames
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.card_film, parent, false)
@@ -59,4 +60,9 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context,val filmNames 
                 film_image = itemView.findViewById(R.id.film_image)
             }
         }
+
+    fun filter(keyWords: String) {
+        filmNames = fullFilms.filter { filmName -> filmName.contains(keyWords, true) }
+        notifyDataSetChanged()
+    }
 }

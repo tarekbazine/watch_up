@@ -11,10 +11,12 @@ import android.widget.TextView
 import android.widget.Toast
 
 class PersonneRecyclerViewAdapter(private val mContext: Context,
-                                  val personneNames: List<String>,
+                                  var personneNames: List<String>,
                                   val personneImages: List<Int>,
                                   val isIndicated: List<Boolean>)
     : RecyclerView.Adapter<PersonneRecyclerViewAdapter.ViewHolder>() {
+
+    val fullPersonne = personneNames
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_personne, parent, false)
@@ -54,6 +56,11 @@ class PersonneRecyclerViewAdapter(private val mContext: Context,
             personne_name = itemView.findViewById(R.id.personne_nameText)
             personne_is_indecated = itemView.findViewById(R.id.personne_ratingBar)
         }
+    }
+
+    fun filter(keyWords: String) {
+        personneNames = fullPersonne.filter { personName -> personName.contains(keyWords, true) }
+        notifyDataSetChanged()
     }
 
 }

@@ -20,11 +20,16 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_personnes.*
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
+import android.text.TextUtils
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
+import android.support.v7.widget.SearchView
 
 
 class PersonnesActivity : BaseActivity() {
+
+    var tabActeur: ActorsFragment? = null
+    var tabRealisateur: ProducersFragment? = null
 
     /**
      * The [android.support.v4.view.PagerAdapter] that will provide
@@ -60,22 +65,30 @@ class PersonnesActivity : BaseActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_personnes, menu)
-        return true
-    }
+        menuInflater.inflate(R.menu.menu_search, menu)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
+        val myActionMenuItem = menu.findItem(R.id.action_search)
+        val searchView = myActionMenuItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
 
-        if (id == R.id.action_settings) {
-            return true
-        }
+            override fun onQueryTextChange(newText: String): Boolean {
 
-        return super.onOptionsItemSelected(item)
+                if (TextUtils.isEmpty(newText)) {
+                    tabRealisateur!!.adapter_producers!!.filter("")
+                    tabActeur!!.adapter_person!!.filter("")
+                } else {
+                    tabRealisateur!!.adapter_producers!!.filter(newText)
+                    tabActeur!!.adapter_person!!.filter(newText)
+                }
+
+                return true
+            }
+        })
+
+        return super.onCreateOptionsMenu(menu)
     }
 
 
@@ -90,10 +103,12 @@ class PersonnesActivity : BaseActivity() {
             // Return a PlaceholderFragment (defined as a static inner class below).
 
             if (position == 0) {
-                return ActorsFragment.newInstance(position + 1)
-
+                tabActeur = ActorsFragment.newInstance(position + 1)
+                return tabActeur as ActorsFragment
             }
-            return ProducersFragment.newInstance(position + 1)
+
+            tabRealisateur = ProducersFragment.newInstance(position + 1)
+            return tabRealisateur as ProducersFragment
         }
 
         override fun getCount(): Int {
@@ -106,9 +121,12 @@ class PersonnesActivity : BaseActivity() {
      * Actors fragment containing a simple view.
      */
     class ProducersFragment : Fragment() {
+
+        var adapter_producers: PersonneRecyclerViewAdapter? = null
+
         //TODO USE Models
         val personneNames: List<String> = mutableListOf(
-                    "Aissa Achor", "Ilyes BATATA", "Halima Kacemi", "Maradona2"
+                "Aissa Achor", "Ilyes BATATA", "Halima Kacemi", "Maradona2"
         )
 
         val imagePersonneUrls: List<Int> = mutableListOf(
@@ -116,7 +134,7 @@ class PersonnesActivity : BaseActivity() {
         )
 
         val personneIsIndicator: List<Boolean> = mutableListOf(
-                true , false , false , true
+                true, false, false, true
         )
 
 
@@ -127,8 +145,10 @@ class PersonnesActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             personneRecycler.setLayoutManager(layoutManager)
-            val adapter_films = PersonneRecyclerViewAdapter(context, personneNames, imagePersonneUrls , personneIsIndicator)
-            personneRecycler.setAdapter(adapter_films)
+            val adapter_producers = PersonneRecyclerViewAdapter(context, personneNames, imagePersonneUrls, personneIsIndicator)
+            personneRecycler.setAdapter(adapter_producers)
+
+            this.adapter_producers = adapter_producers
 
             return rootView
         }
@@ -158,6 +178,9 @@ class PersonnesActivity : BaseActivity() {
      * A placeholder fragment containing a simple view.
      */
     class ActorsFragment : Fragment() {
+
+        var adapter_person: PersonneRecyclerViewAdapter? = null
+
         //TODO USE Models
         val personneNames: List<String> = mutableListOf(
                 "Bakir Achor", "Ilyes Tebbakh", "Aissa Kacem", "Maradona"
@@ -168,7 +191,7 @@ class PersonnesActivity : BaseActivity() {
         )
 
         val personneIsIndicator: List<Boolean> = mutableListOf(
-                false , true , true , false
+                false, true, true, false
         )
 
 
@@ -179,9 +202,10 @@ class PersonnesActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             personneRecycler.setLayoutManager(layoutManager)
-            val adapter_films = PersonneRecyclerViewAdapter(context, personneNames, imagePersonneUrls , personneIsIndicator)
-            personneRecycler.setAdapter(adapter_films)
+            val adapter_person = PersonneRecyclerViewAdapter(context, personneNames, imagePersonneUrls, personneIsIndicator)
+            personneRecycler.setAdapter(adapter_person)
 
+            this.adapter_person = adapter_person
 
             return rootView
         }

@@ -10,11 +10,13 @@ import android.widget.TextView
 import android.widget.Toast
 
 class SalleCinemaRecyclerViewAdapter(private val mContext: Context,
-                                     val salleNames: List<String>,
+                                     var salleNames: List<String>,
                                      val salleImages: List<Int>,
                                      val salleAddress: List<String>,
                                      val salleOpennings: List<String>)
     : RecyclerView.Adapter<SalleCinemaRecyclerViewAdapter.ViewHolder>() {
+
+    var fullSalles = salleNames
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_salle, parent, false)
@@ -56,5 +58,10 @@ class SalleCinemaRecyclerViewAdapter(private val mContext: Context,
             salle_name = itemView.findViewById(R.id.salle_name)
             salle_image = itemView.findViewById(R.id.salle_image)
         }
+    }
+
+    fun filter(keyWords: String) {
+        salleNames = fullSalles.filter { salleName -> salleName.contains(keyWords, true) }
+        notifyDataSetChanged()
     }
 }
