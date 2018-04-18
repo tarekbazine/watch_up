@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 
-class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, val filmNames: List<String>,
+class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, var filmNames: List<String>,
                                              val imageFilmsUrls: List<Int>, val filmDirectors: List<String>,
                                              val filmCinema: List<String>) : RecyclerView.Adapter<CommentByFilmFilterRecyclerViewAdapter.ViewHolder>() {
 
+
+    val fullMovies = filmNames
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_film, parent, false)
@@ -21,7 +24,7 @@ class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, val 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.film_image.setImageResource(imageFilmsUrls.get(position))
-        holder.film_name.text = filmCinema.get(position)
+        holder.film_name.text = filmNames.get(position)
         holder.film_realisator.setText(filmDirectors.get(position))
         holder.film_salle.setText(filmCinema.get(position))
 //            var formatter: DateFormat = SimpleDateFormat("HH:mm")
@@ -56,5 +59,10 @@ class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, val 
             film_date = itemView.findViewById(R.id.film_date)
             film_image = itemView.findViewById(R.id.film_image)
         }
+    }
+
+    fun filter(keyWords: String) {
+        filmNames = fullMovies.filter { filmName -> filmName.contains(keyWords, true) }
+        notifyDataSetChanged()
     }
 }

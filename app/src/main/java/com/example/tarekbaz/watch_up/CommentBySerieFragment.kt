@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 
 class CommentBySerieFragment : Fragment() {
 
+    var serieAdapter : CommentBySeriesFilterRecyclerViewAdapter? = null
     //todo Models
     val userNames: List<String> = mutableListOf(
             "Cinema Paris Salle 0012", "Larousse Cinema", "Cinema des Rois -Marseille-"
@@ -74,6 +77,22 @@ class CommentBySerieFragment : Fragment() {
         lastRecycler.setLayoutManager(layoutManager)
         val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context, filmNames , imageFilmsUrls, filmDirectors)
         lastRecycler.setAdapter(adapter_series)
+
+        this.serieAdapter = adapter_series
+        rootView.findViewById<SearchView>(R.id.search_bar).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (TextUtils.isEmpty(newText)) {
+                    serieAdapter!!.filter("")
+                } else {
+                    serieAdapter!!.filter(newText)
+                }
+
+                return true
+            }
+        })
 
         return rootView
     }

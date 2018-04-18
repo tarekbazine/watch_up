@@ -4,11 +4,16 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import android.widget.Toast
 
 class CommentByFilmFragment : Fragment() {
+
+    var filmAdapter : CommentByFilmFilterRecyclerViewAdapter? = null
 
     val filmNames: List<String> = mutableListOf(
             "La Belle et La Bète", "Hunger Game", "Drone", "Hunger Game 2"
@@ -83,6 +88,22 @@ class CommentByFilmFragment : Fragment() {
         filterRecycler.setLayoutManager(layoutManager)
         val adapter_filter_films = CommentByFilmFilterRecyclerViewAdapter(context, filmNames, imageFilmsUrls, filmDirectors, filmCinema)
         filterRecycler.setAdapter(adapter_filter_films)
+
+        this.filmAdapter = adapter_filter_films
+        viewSearch.findViewById<SearchView>(R.id.search_bar).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (TextUtils.isEmpty(newText)) {
+                    filmAdapter!!.filter("")
+                } else {
+                    filmAdapter!!.filter(newText)
+                }
+
+                return true
+            }
+        })
 
         return viewSearch
     }
