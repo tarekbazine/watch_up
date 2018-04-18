@@ -54,6 +54,17 @@ class CommentBySerieFragment : Fragment() {
 
     }
 
+    fun switchToFilterView(){
+        this.view!!.findViewById<View>(R.id.search_bar).visibility = View.VISIBLE
+        this.view!!.findViewById<View>(R.id.evaluation).visibility = View.GONE
+
+        val layoutManager = LinearLayoutManager(context)
+        val lastRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
+        lastRecycler.setLayoutManager(layoutManager)
+        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context, filmNames , imageFilmsUrls, filmDirectors)
+        lastRecycler.setAdapter(adapter_series)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_comment_evaluation, container, false)

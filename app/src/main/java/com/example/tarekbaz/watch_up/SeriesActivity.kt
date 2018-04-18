@@ -1,26 +1,20 @@
 package com.example.tarekbaz.watch_up
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
-import android.util.Log
 import android.view.Menu
-import kotlinx.android.synthetic.main.activity_cinema.*
-import kotlinx.android.synthetic.main.activity_detail_film.*
 
 import kotlinx.android.synthetic.main.activity_series.*
 import kotlinx.android.synthetic.main.drawer_activity.*
 import android.text.TextUtils
-import android.support.v4.view.MenuItemCompat.getActionView
 
 
 
 class SeriesActivity  : BaseActivity()  {
 
-    val adapter_series = null
+    var adapter_series : SeriesRecyclerViewAdapter? = null
 
     //TODO USE Models
     val filmNames: List<String> = mutableListOf(
@@ -47,9 +41,9 @@ class SeriesActivity  : BaseActivity()  {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (TextUtils.isEmpty(newText)) {
-                    initSerieCardsRecyclerView().filter("")
+                    adapter_series!!.filter("")
                 } else {
-                    initSerieCardsRecyclerView().filter(newText)
+                    adapter_series!!.filter(newText)
                 }
                 return true
             }
@@ -59,12 +53,12 @@ class SeriesActivity  : BaseActivity()  {
     }
 
 
-    private fun initSerieCardsRecyclerView(): SeriesRecyclerViewAdapter {
+    private fun initSerieCardsRecyclerView() {
         val layoutManager = LinearLayoutManager(this)
         seriesRecyclerView.setLayoutManager(layoutManager)
         val adapter_series = SeriesRecyclerViewAdapter(this, filmNames , imageFilmsUrls, filmDirectors)
         seriesRecyclerView.setAdapter(adapter_series)
-        return adapter_series
+        this.adapter_series = adapter_series
     }
 
 
