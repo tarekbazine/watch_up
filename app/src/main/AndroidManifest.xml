@@ -42,10 +42,13 @@
             android:name=".PersonnesActivity"
             android:label="@string/title_activity_personnes"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".SeriesActivity"
             android:label="@string/title_activity_series"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FanActivity"
+            android:label="@string/title_fan"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

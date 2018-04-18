@@ -55,7 +55,7 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 startActivity(intent)
             }
             R.id.nav_fan -> {
-                val intent = Intent(this, SeasonDetailActivity::class.java)
+                val intent = Intent(this, FanActivity::class.java)
                 startActivity(intent, null)
             }
             R.id.nav_evaluations -> {

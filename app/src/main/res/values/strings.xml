@@ -42,7 +42,8 @@
     <string name="episodes">Episodes</string>
 
     <!--Serie Detail-->
-    <string name="seasons">Saisons</string>   Séries Associées
+    <string name="seasons">Saisons</string>
+    Séries Associées
     <string name="associated_series">Séries Associées</string>
     <!--Cinema Activity-->
     <string name="title_toolbar_cinema">Cinema</string>
@@ -56,6 +57,12 @@
     <string name="filmographie">Filmographie</string>
     <string name="bibliographie">Bibliographie</string>
     <string name="title_activity_series">SeriesActivity</string>
+
+    <!--fan activity-->
+    <string name="title_toolbar_fan">Fan</string>
+    <string name="my_fav_films">Mes Films</string>
+    <string name="my_fav_series">Mes Feuilletons</string>
+    <string name="my_fav_salles">Mes Salles</string>
 
 
 </resources>
