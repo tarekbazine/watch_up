@@ -2,9 +2,8 @@ package com.example.tarekbaz.watch_up
 
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
-import kotlinx.android.synthetic.main.activity_home.*
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
 
 
