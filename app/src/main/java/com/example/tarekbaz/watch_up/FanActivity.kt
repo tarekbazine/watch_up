@@ -41,7 +41,7 @@ class FanActivity : BaseActivity() {
 
         val layoutManager3 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         fan_salle_slider.setLayoutManager(layoutManager3)
-        val adapter_salles = HomeRecyclerViewAdapter(this, filmNames , imageFilmsUrls)
+        val adapter_salles = HomeRecyclerViewAdapter(this, filmNames , imageFilmsUrls, isSalle = true)
         fan_salle_slider.setAdapter(adapter_salles)
     }
 

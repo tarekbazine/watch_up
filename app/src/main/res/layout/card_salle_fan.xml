@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="7dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/salle_image"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:src="@drawable/film4"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="La Belle et la Bète jhbj jhjbjh jhbj jb hjjgjhg"
+                android:layout_below="@+id/salle_image"
+                android:id="@+id/salle_name"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_marginTop="7dp"
+                android:textColor="#FFF"
+                android:layout_marginBottom="5dp"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
