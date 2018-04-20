@@ -11,6 +11,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.drawer_activity.*
+import android.media.MediaPlayer
+import android.media.MediaPlayer.OnPreparedListener
+
+
 
 
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {

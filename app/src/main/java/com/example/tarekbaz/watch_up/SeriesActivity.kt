@@ -29,6 +29,7 @@ class SeriesActivity  : BaseActivity()  {
             "Le throne de Fer", "La Casa de Papel", "Breaking Bad", "LaCasa de Papel"
     )
 
+    //Add search view
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
 
@@ -60,8 +61,6 @@ class SeriesActivity  : BaseActivity()  {
         seriesRecyclerView.setAdapter(adapter_series)
         this.adapter_series = adapter_series
     }
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

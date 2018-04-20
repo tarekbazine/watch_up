@@ -63,7 +63,7 @@ class CommentByFilmFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val commentRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
         commentRecycler.setLayoutManager(layoutManager)
-        val adapter_comments = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentFor, commentDates)
+        val adapter_comments = CommentRecyclerViewAdapter(context, userNames, comments, commentFor, commentDates)
         commentRecycler.setAdapter(adapter_comments)
     }
 

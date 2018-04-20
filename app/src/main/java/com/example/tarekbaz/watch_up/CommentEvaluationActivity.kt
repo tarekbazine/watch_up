@@ -153,7 +153,7 @@ class CommentEvaluationActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val lastRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             lastRecycler.setLayoutManager(layoutManager)
-            val adapter_films = CommentRecyclerViewAdapter(context, userNames, userImages, comments, commentDates, commentFor)
+            val adapter_films = CommentRecyclerViewAdapter(context, userNames , comments, commentDates, commentFor)
             lastRecycler.setAdapter(adapter_films)
 
             return rootView

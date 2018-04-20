@@ -2,11 +2,9 @@ package com.example.tarekbaz.watch_up
 
 import android.content.Context
 import android.content.Intent
-import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
 import android.widget.TextView
 import android.support.v7.widget.RecyclerView
-import android.widget.Toast
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +27,7 @@ class HomeRecyclerViewAdapter(private val mContext: Context, names: List<String>
         if (isSalle) {
             view = LayoutInflater.from(parent.context).inflate(R.layout.card_salle_fan , parent, false)
         } else {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.home_film_card, parent, false)
+            view = LayoutInflater.from(parent.context).inflate(R.layout.card_home_film, parent, false)
         }
 
         return ViewHolder(view)

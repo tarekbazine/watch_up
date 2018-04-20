@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.MenuItem
 import android.widget.TextView
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.activity_detail_episode.*
+import kotlinx.android.synthetic.main.activity_detail_personne.*
 
 
 class EpisodeDetailActivity : AppCompatActivity() {
@@ -37,13 +39,23 @@ class EpisodeDetailActivity : AppCompatActivity() {
     private fun initCommentsRecyclerView() {
         val layoutManager = LinearLayoutManager(this)
         commentsEpisodeRecyclerView.setLayoutManager(layoutManager)
-        val adapter_comments = CommentRecyclerViewAdapter(this, userNames , userImages,comments ,commentDates)
+        val adapter_comments = CommentRecyclerViewAdapter(this, userNames ,comments ,commentDates)
         commentsEpisodeRecyclerView.setAdapter(adapter_comments)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_episode)
+
+        setSupportActionBar(toolbar_detail_episode)
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null){
+            getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
+            getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
+        }
+
+        //Set title
+        toolbar_detail_episode.title = title
 
         //hide existing canal
         canalsLayout.removeView(chain1)
@@ -65,4 +77,13 @@ class EpisodeDetailActivity : AppCompatActivity() {
 
         this.initCommentsRecyclerView()
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // handle arrow click here
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }

@@ -1,223 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context="com.example.tarekbaz.watch_up.PersonneDetailActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/mainLayout"
-        android:layout_width="match_parent"
+ <android.support.design.widget.AppBarLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBackground"
-        android:orientation="vertical">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+     <android.support.v7.widget.Toolbar
+         android:id="@+id/toolbar_detail_personne"
+         android:layout_width="match_parent"
+         android:layout_height="?attr/actionBarSize"
+         android:background="?attr/colorPrimary"
+         app:popupTheme="@style/AppTheme.PopupOverlay"
+         app:title="@string/title_personnes" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
         <LinearLayout
-            android:id="@+id/topLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:padding="15dp">
-
-            <ImageView
-                android:id="@+id/personneCard"
-                android:layout_width="90dp"
-                android:layout_height="120dp"
-                android:layout_gravity="left|center_vertical"
-                android:alpha="1"
-                android:background="@color/colorAccent"
-                android:cropToPadding="false"
-                android:padding="1dp"
-                app:srcCompat="@drawable/person1" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/personne_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:autoText="false"
-                        android:fontFamily="@font/roboto_thin"
-                        android:text="Luke Evans "
-                        android:textAlignment="textStart"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="17sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp">
-
-                    <ImageView
-                        android:id="@+id/calendarIcon"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:adjustViewBounds="false"
-                        app:srcCompat="@drawable/calendar_time_icon" />
-
-                    <TextView
-                        android:id="@+id/birthdayText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:text="15 Avril 1979 (age 38)"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:textColor="#fff" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp">
-
-                    <ImageView
-                        android:id="@+id/nationalityIcon"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:adjustViewBounds="false"
-                        app:srcCompat="@drawable/flag_yellow" />
-
-                    <TextView
-                        android:id="@+id/nationalityText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:text="Britanique"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:textColor="#fff" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp">
-
-                    <ImageView
-                        android:id="@+id/works_numIcon"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:adjustViewBounds="false"
-                        app:srcCompat="@drawable/count_down" />
-
-                    <TextView
-                        android:id="@+id/works_numText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:text="29"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:textColor="#fff" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="10dp">
+            android:background="@color/colorBackground"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/bibliographieTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingStart="10dp"
-                android:text="@string/bibliographie"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorAccent"
-                android:textSize="19sp"
-                android:textStyle="bold" />
 
             <LinearLayout
-                android:id="@+id/line"
+                android:id="@+id/topLayout"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@color/colorAccent"
-                android:orientation="horizontal" >
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <ImageView
+                    android:id="@+id/personneCard"
+                    android:layout_width="90dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="left|center_vertical"
+                    android:alpha="1"
+                    android:background="@color/colorAccent"
+                    android:cropToPadding="false"
+                    android:padding="1dp"
+                    app:srcCompat="@drawable/person1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/personne_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="10dp"
+                            android:autoText="false"
+                            android:fontFamily="@font/roboto_thin"
+                            android:text="Luke Evans "
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp">
+
+                        <ImageView
+                            android:id="@+id/calendarIcon"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:adjustViewBounds="false"
+                            app:srcCompat="@drawable/calendar_time_icon" />
+
+                        <TextView
+                            android:id="@+id/birthdayText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:text="15 Avril 1979 (age 38)"
+                            android:textAppearance="@style/TextAppearance.AppCompat"
+                            android:textColor="#fff" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp">
+
+                        <ImageView
+                            android:id="@+id/nationalityIcon"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:adjustViewBounds="false"
+                            app:srcCompat="@drawable/flag_yellow" />
+
+                        <TextView
+                            android:id="@+id/nationalityText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:text="Britanique"
+                            android:textAppearance="@style/TextAppearance.AppCompat"
+                            android:textColor="#fff" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp">
+
+                        <ImageView
+                            android:id="@+id/works_numIcon"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:adjustViewBounds="false"
+                            app:srcCompat="@drawable/count_down" />
+
+                        <TextView
+                            android:id="@+id/works_numText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:text="29"
+                            android:textAppearance="@style/TextAppearance.AppCompat"
+                            android:textColor="#fff" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/bibliographieContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="4sp"
-                android:paddingBottom="10dp"
-                android:paddingEnd="20dp"
-                android:paddingStart="20dp"
-                android:paddingTop="10dp"
-                android:text="A drawable resource is a general concept for a graphic that can be drawn to the screen. Drawables are used to define shapes, colors, borders, gradients, etc. which can then be applied to views within an Activity.  This is typically used for customizing the view graphics that are displayed within a particular view or context."
-                android:textAlignment="viewStart"
-                android:textColor="#FFF" />
-
-
-            <TextView
-                android:id="@+id/filmographieTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingStart="10dp"
-                android:text="@string/filmographie"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorAccent"
-                android:textSize="19sp"
-                android:textStyle="bold" />
-
             <LinearLayout
-                android:id="@+id/line2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@color/colorAccent"
-                android:orientation="horizontal" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/filmographieRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="7dp"
-                android:paddingStart="5dp" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:paddingTop="10dp">
 
-    </LinearLayout>
-</ScrollView>
+                <TextView
+                    android:id="@+id/bibliographieTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingStart="10dp"
+                    android:text="@string/bibliographie"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/colorAccent"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/bibliographieContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="4sp"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="10dp"
+                    android:text="A drawable resource is a general concept for a graphic that can be drawn to the screen. Drawables are used to define shapes, colors, borders, gradients, etc. which can then be applied to views within an Activity.  This is typically used for customizing the view graphics that are displayed within a particular view or context."
+                    android:textAlignment="viewStart"
+                    android:textColor="#FFF" />
+
+
+                <TextView
+                    android:id="@+id/filmographieTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingStart="10dp"
+                    android:text="@string/filmographie"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/colorAccent"
+                    android:orientation="horizontal" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/filmographieRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    android:paddingStart="5dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.design.widget.CoordinatorLayout>

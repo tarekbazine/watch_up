@@ -23,7 +23,6 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="@string/title_personnes">
-
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout

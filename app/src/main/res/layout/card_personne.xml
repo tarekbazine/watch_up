@@ -39,16 +39,14 @@
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:textColor="#fff" />
 
-        <RatingBar
-            android:id="@+id/personne_ratingBar"
-            style="@style/Widget.AppCompat.RatingBar.Indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/starButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_gravity="center_vertical"
-            android:isIndicator="false"
-            android:numStars="1"
-            android:rating="0"
-            android:stepSize="1"/>
+            android:adjustViewBounds="false"
+            android:background="@drawable/inactive_star"
+            android:cropToPadding="false" />
 
     </LinearLayout>
 </LinearLayout>

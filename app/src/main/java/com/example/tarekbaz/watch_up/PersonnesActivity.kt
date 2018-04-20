@@ -1,9 +1,6 @@
 package com.example.tarekbaz.watch_up
 
 import android.support.design.widget.TabLayout
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
-
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
@@ -15,13 +12,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-
 import kotlinx.android.synthetic.main.activity_personnes.*
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.text.TextUtils
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
 import android.support.v7.widget.SearchView
 
