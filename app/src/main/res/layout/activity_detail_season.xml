@@ -27,7 +27,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:descendantFocusability="blocksDescendants">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -36,7 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackground"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:descendantFocusability="blocksDescendants">
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -48,7 +50,8 @@
             android:background="@drawable/serie2"
             android:clipChildren="false"
             android:scrollbarAlwaysDrawHorizontalTrack="false"
-            android:scrollbarAlwaysDrawVerticalTrack="false">
+            android:scrollbarAlwaysDrawVerticalTrack="false"
+            android:descendantFocusability="blocksDescendants">
 
             <LinearLayout
                 android:id="@+id/topLayout"
@@ -57,7 +60,8 @@
                 android:background="@color/DarkFill"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:paddingTop="15dp">
+                android:paddingTop="15dp"
+                android:descendantFocusability="blocksDescendants">
 
                 <ImageView
                     android:id="@+id/seasonCard"
@@ -208,13 +212,15 @@
                 android:id="@+id/trailerFrameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/activity_horizontal_margin">
+                android:padding="@dimen/activity_horizontal_margin"
+                android:descendantFocusability="blocksDescendants">
 
                 <com.example.tarekbaz.watch_up.CustomVideoView
                     android:id="@+id/trailerVideoSeason"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:descendantFocusability="blocksDescendants"/>
 
                 <ImageView
                     android:id="@+id/trailerImageSeason"
@@ -222,7 +228,8 @@
                     android:layout_height="fill_parent"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/video_preview" />
+                    android:src="@drawable/video_preview"
+                    android:descendantFocusability="blocksDescendants"/>
 
             </FrameLayout>
 

@@ -27,7 +27,8 @@
         android:id="@+id/scrollContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:descendantFocusability="blocksDescendants">
 
         <LinearLayout
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -36,7 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorBackground"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:descendantFocusability="blocksDescendants"
+            >
 
 
             <FrameLayout
@@ -54,7 +57,8 @@
                     android:background="@color/DarkFill"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:paddingTop="15dp">
+                    android:paddingTop="15dp"
+                    >
 
                     <ImageView
                         android:id="@+id/filmCard"
@@ -173,7 +177,7 @@
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
-                </LinearLayout>
+            </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -206,13 +210,15 @@
                     android:id="@+id/trailerFrameLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/activity_horizontal_margin">
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:descendantFocusability="blocksDescendants">
 
                     <com.example.tarekbaz.watch_up.CustomVideoView
                         android:id="@+id/trailerVideo"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:descendantFocusability="blocksDescendants"/>
 
                     <ImageView
                         android:id="@+id/trailerImage"
@@ -220,7 +226,8 @@
                         android:layout_height="fill_parent"
                         android:layout_gravity="center"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/video_preview" />
+                        android:src="@drawable/video_preview"
+                        android:descendantFocusability="blocksDescendants"/>
 
                 </FrameLayout>
 
@@ -283,6 +290,6 @@
                     android:paddingStart="5dp" />
             </LinearLayout>
 
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+</ScrollView>
 </android.support.design.widget.CoordinatorLayout>

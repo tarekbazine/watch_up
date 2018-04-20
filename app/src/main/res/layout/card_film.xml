@@ -79,16 +79,17 @@ tools:context="com.example.tarekbaz.watch_up.CinemaActivity$FilmFragment">
             <RatingBar
                 android:id="@+id/film_rating"
                 style="@style/Widget.AppCompat.RatingBar.Small"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
 
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="5dp"
                 android:isIndicator="true"
-                android:numStars="7"
-                android:rating="3"
+                android:numStars="10"
 
+                android:rating="8"
                 android:stepSize="1" />
 
         </LinearLayout>
