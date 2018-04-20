@@ -1,19 +1,20 @@
 package com.example.tarekbaz.watch_up
 
 import android.content.Context
+import android.content.Intent
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.tarekbaz.watch_up.Models.Person
 
-class PersonneRecyclerViewAdapter(private val mContext: Context,
-                                  var personneNames: List<String>,
-                                  val personneImages: List<Int>,
-                                  val isIndicated: List<Boolean>)
+class PersonneRecyclerViewAdapter(private val mContext: Context, var persons : List<Person>,val isActor : Boolean)
     : RecyclerView.Adapter<PersonneRecyclerViewAdapter.ViewHolder>() {
 
-    val fullPersonne = personneNames
+    val fullPersonne = persons
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_personne, parent, false)
         return ViewHolder(view)
@@ -21,37 +22,28 @@ class PersonneRecyclerViewAdapter(private val mContext: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.personne_img.setImageResource(personneImages.get(position))
-        holder.personne_name.setText(personneNames.get(position))
-       if (isIndicated.get(position))
-        holder.personne_is_indecated.setBackgroundResource(R.drawable.active_star)
-        else
-           holder.personne_is_indecated.setBackgroundResource(R.drawable.inactive_star)
-
-        // Change favour button
-        holder.personne_is_indecated.setOnClickListener(View.OnClickListener { view ->
-            //TODO personnes favour
-            if ( isIndicated.get(position)){
-                // Remove from favour
-                holder.personne_is_indecated.setBackgroundResource(R.drawable.inactive_star)
-            }else{
-                // add to favour
-                holder.personne_is_indecated.setBackgroundResource(R.drawable.active_star)
-            }
-        })
+        holder.personne_img.setImageResource(persons.get(position).picture)
+        holder.personne_name.setText(persons.get(position).name)
+//       if (isIndicated.get(position))
+//        holder.personne_is_indecated.rating = 1F
+//        else
+//           holder.personne_is_indecated.rating = 0F
 
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
-                    Toast.makeText(mContext,
-                            personneImages.get(position),
-                            Toast.LENGTH_SHORT).show()
+//                Toast.makeText(mContext,
+//                        position,
+//                        Toast.LENGTH_SHORT).show()
+                val intent = Intent(mContext, PersonneDetailActivity::class.java)
+                intent.putExtra("index", position)
+                intent.putExtra("isActor", isActor)
+                ContextCompat.startActivity(mContext, intent, null)
             }
         })
-
     }
 
     override fun getItemCount(): Int {
-        return personneNames.size
+        return persons.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -68,7 +60,7 @@ class PersonneRecyclerViewAdapter(private val mContext: Context,
     }
 
     fun filter(keyWords: String) {
-        personneNames = fullPersonne.filter { personName -> personName.contains(keyWords, true) }
+        persons = fullPersonne.filter { person -> person.name.contains(keyWords, true) }
         notifyDataSetChanged()
     }
 

@@ -9,7 +9,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.MediaController
-import kotlinx.android.synthetic.main.activity_detail_film.*
+import com.example.tarekbaz.watch_up.Models.Comment
+import com.example.tarekbaz.watch_up.Models.Episode
+import com.example.tarekbaz.watch_up.Models.Mocker
 import kotlinx.android.synthetic.main.activity_detail_season.*
 
 class SeasonDetailActivity : AppCompatActivity() {
@@ -21,43 +23,18 @@ class SeasonDetailActivity : AppCompatActivity() {
     private var positionVideo: Int = 0
 
 
-    val serieName = "La Casa De Papel"
-    val namesEpisode: List<String> = mutableListOf(
-            "episode1", "episode2", "episode3"
-    )
 
-    val imagesEpisodenUrls: List<Int> = mutableListOf(
-            R.drawable.film4, R.drawable.film5, R.drawable.film2
-    )
-
-    //Comments
-    val userNames: List<String> = mutableListOf(
-            "Cinema Paris Salle 0012", "Larousse Cinema", "Cinema des Rois -Marseille-"
-    )
-
-    val commentDates: List<String> = mutableListOf(
-            "7/7 de 8:00 à 23:00", "24/24 sauf samedi de 8:00 à 23:00", "Toujours 10:00 à 23:00", "de 8:00 à 20:00 sauf lundi"
-    )
-
-    val userImages: List<Int> = mutableListOf(
-            R.drawable.film4, R.drawable.film5, R.drawable.serie1, R.drawable.film5
-    )
-
-    val comments: List<String> = mutableListOf(
-            "Space excelsive", "From mars", "Live from the sea", "Directly from desert"
-    )
-
-    private fun initEpisodesRecyclerView() {
+    private fun initEpisodesRecyclerView(episodes : List<Episode>, index:Int , indexSerie :Int) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         episodesRecyclerView.setLayoutManager(layoutManager)
-        val adapter_films = HomeRecyclerViewAdapter(this, namesEpisode, imagesEpisodenUrls)
+        val adapter_films = EpisodeRecyclerViewAdapter(this, episodes , index , indexSerie)
         episodesRecyclerView.setAdapter(adapter_films)
     }
 
-    private fun initCommentsSeasonRecyclerView() {
+    private fun initCommentsSeasonRecyclerView(comments : List<Comment>) {
         val layoutManager = LinearLayoutManager(this)
         commentsSeasonRecyclerView.setLayoutManager(layoutManager)
-        val adapter_comments = CommentRecyclerViewAdapter(this, userNames, comments, commentDates)
+        val adapter_comments = CommentRecyclerViewAdapter(this, comments)
         commentsSeasonRecyclerView.setAdapter(adapter_comments)
     }
 
@@ -70,8 +47,21 @@ class SeasonDetailActivity : AppCompatActivity() {
             getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
             getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
         }
+
+        val index = intent.extras.getInt("index",0)
+        val indexSerie = intent.extras.getInt("indexSerie",0)
+        val comments = Mocker.serieList[indexSerie].seasons[index].comments
+        val episodes = Mocker.serieList[indexSerie].seasons[index].epesods
+        val season = Mocker.serieList[indexSerie].seasons[index]
+
+        frameLayout.setBackgroundResource(season.image)
+        seasonCard.setImageResource(season.image)
+        serieTitle.text = "Saison "+index+1
+        descriptionText.text = season.discription
+        actorsNamesText.text = season.linkedActors.get(0).name
+
         //Set title
-        toolbar_detail_season.title = serieName
+        toolbar_detail_season.title = serieTitle.text
 
         //Init trailer video
         initTrailer(trailer_video)
@@ -82,8 +72,10 @@ class SeasonDetailActivity : AppCompatActivity() {
                     mediaController!!.hide()
                 })
 
-        this.initEpisodesRecyclerView()
-        this.initCommentsSeasonRecyclerView()
+
+
+        this.initEpisodesRecyclerView(episodes,index,indexSerie)
+        this.initCommentsSeasonRecyclerView(comments)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

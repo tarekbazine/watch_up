@@ -9,25 +9,14 @@ import android.view.Menu
 import kotlinx.android.synthetic.main.activity_series.*
 import kotlinx.android.synthetic.main.drawer_activity.*
 import android.text.TextUtils
-
+import com.example.tarekbaz.watch_up.Models.Mocker
 
 
 class SeriesActivity  : BaseActivity()  {
 
     var adapter_series : SeriesRecyclerViewAdapter? = null
 
-    //TODO USE Models
-    val filmNames: List<String> = mutableListOf(
-            "La Belle et La Bète", "Hunger Game", "Drone", "Hunger Game 2"
-    )
-
-    val imageFilmsUrls: List<Int> = mutableListOf(
-            R.drawable.film4, R.drawable.film5, R.drawable.serie1, R.drawable.film5
-    )
-
-    val filmDirectors: List<String> = mutableListOf(
-            "Le throne de Fer", "La Casa de Papel", "Breaking Bad", "LaCasa de Papel"
-    )
+    val series = Mocker.serieList
 
     //Add search view
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -57,7 +46,7 @@ class SeriesActivity  : BaseActivity()  {
     private fun initSerieCardsRecyclerView() {
         val layoutManager = LinearLayoutManager(this)
         seriesRecyclerView.setLayoutManager(layoutManager)
-        val adapter_series = SeriesRecyclerViewAdapter(this, filmNames , imageFilmsUrls, filmDirectors)
+        val adapter_series = SeriesRecyclerViewAdapter(this, series)
         seriesRecyclerView.setAdapter(adapter_series)
         this.adapter_series = adapter_series
     }

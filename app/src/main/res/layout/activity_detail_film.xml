@@ -168,7 +168,7 @@
                         app:srcCompat="@drawable/theatre_masks" />
 
                     <TextView
-                        android:id="@+id/textView67"
+                        android:id="@+id/actors_names"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

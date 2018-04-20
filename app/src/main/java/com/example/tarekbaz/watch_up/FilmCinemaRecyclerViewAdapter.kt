@@ -1,6 +1,8 @@
 package com.example.tarekbaz.watch_up
 
 import android.content.Context
+import android.content.Intent
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +10,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.tarekbaz.watch_up.Models.Movie
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var filmNames : List<String>,
-                                    val imageFilmsUrls : List<Int>, val filmDirectors : List<String>,
-                                    val filmCinema: List<String>) : RecyclerView.Adapter<FilmCinemaRecyclerViewAdapter.ViewHolder>() {
+class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films : List<Movie>) : RecyclerView.Adapter<FilmCinemaRecyclerViewAdapter.ViewHolder>() {
 
-    var fullFilms = filmNames
+    var fullFilms = films
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.card_film, parent, false)
@@ -25,24 +26,26 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var filmNames
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-            holder.film_image.setImageResource(imageFilmsUrls.get(position))
-            holder.film_name.text = filmNames.get(position)
-            holder.film_realisator.setText(filmDirectors.get(position))
-            holder.film_salle.setText(filmCinema.get(position))
+            holder.film_image.setImageResource(films.get(position).image)
+            holder.film_name.text = films.get(position).title
+//            holder.film_realisator.setText(films.get(position))//todo
+//            holder.film_salle.setText(films.get(position))//todo
 //            var formatter: DateFormat = SimpleDateFormat("HH:mm")
 //            holder.film_date.setText(formatter.format(times!!.get(position)))
 
             holder.itemView.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(view: View) {
-                    Toast.makeText(mContext,
-                            filmNames.get(position),
-                            Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent(mContext, FilmDetailActivity::class.java)
+                    intent.putExtra("index", position)
+                    ContextCompat.startActivity(mContext, intent, null)
+
                 }
             })
         }
 
         override fun getItemCount(): Int {
-            return this.filmNames.size
+            return this.films.size
         }
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -62,7 +65,7 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var filmNames
         }
 
     fun filter(keyWords: String) {
-        filmNames = fullFilms.filter { filmName -> filmName.contains(keyWords, true) }
+        films = fullFilms.filter { film -> film.title.contains(keyWords, true) }
         notifyDataSetChanged()
     }
 }

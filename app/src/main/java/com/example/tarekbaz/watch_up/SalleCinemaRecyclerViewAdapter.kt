@@ -8,15 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.tarekbaz.watch_up.Models.Cinema
 
 class SalleCinemaRecyclerViewAdapter(private val mContext: Context,
-                                     var salleNames: List<String>,
-                                     val salleImages: List<Int>,
-                                     val salleAddress: List<String>,
-                                     val salleOpennings: List<String>)
+                                     var salles : List<Cinema>)
     : RecyclerView.Adapter<SalleCinemaRecyclerViewAdapter.ViewHolder>() {
 
-    var fullSalles = salleNames
+    var fullSalles = salles
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_salle, parent, false)
@@ -25,24 +23,25 @@ class SalleCinemaRecyclerViewAdapter(private val mContext: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.salle_image.setImageResource(salleImages.get(position))
-        holder.salle_name.setText(salleNames.get(position))
-        holder.salle_address.setText(salleAddress.get(position))
-        holder.salle_opening.setText(salleOpennings.get(position))
+        holder.salle_image.setImageResource(salles.get(position).image)
+        holder.salle_name.setText(salles.get(position).name)
+        holder.salle_address.setText(salles.get(position).address)
+        holder.salle_opening.setText(salles.get(position).openningTime)
 //            var formatter: DateFormat = SimpleDateFormat("HH:mm")
 //            holder.time.setText(formatter.format(times!!.get(position)))
 
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
-                Toast.makeText(mContext,
-                        salleNames.get(position),
-                        Toast.LENGTH_SHORT).show()
+//                Toast.makeText(mContext,
+//                        salleNames.get(position),
+//                        Toast.LENGTH_SHORT).show()
+                //todo
             }
         })
     }
 
     override fun getItemCount(): Int {
-        return salleNames.size
+        return salles.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -61,7 +60,7 @@ class SalleCinemaRecyclerViewAdapter(private val mContext: Context,
     }
 
     fun filter(keyWords: String) {
-        salleNames = fullSalles.filter { salleName -> salleName.contains(keyWords, true) }
+        salles = fullSalles.filter { salle -> salle.name.contains(keyWords, true) }
         notifyDataSetChanged()
     }
 }

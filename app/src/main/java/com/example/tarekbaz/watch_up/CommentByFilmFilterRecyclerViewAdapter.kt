@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.tarekbaz.watch_up.Models.Movie
 
-class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, var filmNames: List<String>,
-                                             val imageFilmsUrls: List<Int>, val filmDirectors: List<String>,
-                                             val filmCinema: List<String>) : RecyclerView.Adapter<CommentByFilmFilterRecyclerViewAdapter.ViewHolder>() {
+class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, var films : List<Movie>) : RecyclerView.Adapter<CommentByFilmFilterRecyclerViewAdapter.ViewHolder>() {
 
 
-    val fullMovies = filmNames
+    val fullMovies = films
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_film, parent, false)
@@ -23,10 +22,10 @@ class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, var 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.film_image.setImageResource(imageFilmsUrls.get(position))
-        holder.film_name.text = filmNames.get(position)
-        holder.film_realisator.setText(filmDirectors.get(position))
-        holder.film_salle.setText(filmCinema.get(position))
+        holder.film_image.setImageResource(films.get(position).image)
+        holder.film_name.text = films.get(position).title
+//        holder.film_realisator.setText(films.get(position).directors.toString())//todo
+//        holder.film_salle.setText(films.get(position).cinemas.toString())//todo
 //            var formatter: DateFormat = SimpleDateFormat("HH:mm")
 //            holder.film_date.setText(formatter.format(times!!.get(position)))
 
@@ -42,7 +41,7 @@ class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, var 
     }
 
     override fun getItemCount(): Int {
-        return this.filmNames.size
+        return films.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -62,7 +61,7 @@ class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, var 
     }
 
     fun filter(keyWords: String) {
-        filmNames = fullMovies.filter { filmName -> filmName.contains(keyWords, true) }
+        films = fullMovies.filter { film -> film.title.contains(keyWords, true) }
         notifyDataSetChanged()
     }
 }

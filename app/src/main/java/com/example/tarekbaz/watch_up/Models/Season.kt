@@ -5,6 +5,6 @@ data class Season(val discription: String,
                   val epesods : List<Episode>,
                   val evaluation : Double,
                   val trailer : Int,
-                  val comments : List<Comment>,
-                  val linkedActors : List<Person>){
+                  var comments : List<Comment>,
+                  var linkedActors : List<Person>){
 }

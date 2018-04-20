@@ -9,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.tarekbaz.watch_up.Models.Serie
 
-class CommentBySeriesFilterRecyclerViewAdapter(private val mContext: Context, var serieNames: List<String>,
-                                               val imageSeriesUrls: List<Int>, val serieDirectors: List<String>) : RecyclerView.Adapter<CommentBySeriesFilterRecyclerViewAdapter.ViewHolder>() {
+class CommentBySeriesFilterRecyclerViewAdapter(private val mContext: Context, var series: List<Serie>) : RecyclerView.Adapter<CommentBySeriesFilterRecyclerViewAdapter.ViewHolder>() {
 
-    val fullSerie = serieNames
+    val fullSeries = series
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_film, parent, false)
@@ -22,9 +22,9 @@ class CommentBySeriesFilterRecyclerViewAdapter(private val mContext: Context, va
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.serie_image.setImageResource(imageSeriesUrls.get(position))
-        holder.serie_name.text = serieNames.get(position)
-        holder.serie_realisator.setText(serieDirectors.get(position))
+        holder.serie_image.setImageResource(series.get(position).image)
+        holder.serie_name.text = series.get(position).title
+        holder.serie_realisator.setText("")
 
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
@@ -36,7 +36,7 @@ class CommentBySeriesFilterRecyclerViewAdapter(private val mContext: Context, va
     }
 
     override fun getItemCount(): Int {
-        return this.serieNames.size
+        return series.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -52,7 +52,7 @@ class CommentBySeriesFilterRecyclerViewAdapter(private val mContext: Context, va
     }
 
     fun filter(keyWords: String) {
-        serieNames = fullSerie.filter { serieName -> serieName.contains(keyWords, true) }
+        series = fullSeries.filter { serie -> serie.title.contains(keyWords, true) }
         notifyDataSetChanged()
     }
 }

@@ -3,6 +3,7 @@ package com.example.tarekbaz.watch_up
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
+import com.example.tarekbaz.watch_up.Models.Mocker
 import kotlinx.android.synthetic.main.activity_fan.*
 import kotlinx.android.synthetic.main.drawer_activity.*
 
@@ -26,22 +27,25 @@ class FanActivity : BaseActivity() {
             R.drawable.film1,R.drawable.serie2,R.drawable.film3,R.drawable.serie2
     )
 
+    val fanFilms = Mocker.favMovieList
+    val fanSeries = Mocker.favSerieList
+    val fanSalles = Mocker.favCinemaList
 
 
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         fan_film_slider.setLayoutManager(layoutManager)
-        val adapter_films = HomeRecyclerViewAdapter(this, filmNames , imageFilmsUrls)
+        val adapter_films = HomeMovieRecyclerViewAdapter(this, fanFilms)
         fan_film_slider.setAdapter(adapter_films)
 
         val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         fan_serie_slider.setLayoutManager(layoutManager2)
-        val adapter_series = HomeRecyclerViewAdapter(this, serieNames , imageSerieUrls)
+        val adapter_series = SeriesRecyclerViewAdapter(this, fanSeries)
         fan_serie_slider.setAdapter(adapter_series)
 
         val layoutManager3 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         fan_salle_slider.setLayoutManager(layoutManager3)
-        val adapter_salles = HomeRecyclerViewAdapter(this, filmNames , imageFilmsUrls, isSalle = true)
+        val adapter_salles = SalleFanRecyclerViewAdapter(this, fanSalles)
         fan_salle_slider.setAdapter(adapter_salles)
     }
 

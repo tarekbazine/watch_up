@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.tarekbaz.watch_up.Models.Mocker
 
 import kotlinx.android.synthetic.main.activity_comment_evaluation.*
 import kotlinx.android.synthetic.main.popup_add_comment.*
@@ -126,26 +127,6 @@ class CommentEvaluationActivity : BaseActivity() {
 
     class LastFragment : Fragment() {
 
-        //todo Models
-        val userNames: List<String> = mutableListOf(
-                "Cinema Paris Salle 0012", "Larousse Cinema", "Cinema des Rois -Marseille-"
-        )
-        val userImages: List<Int> = mutableListOf(
-                R.drawable.film4, R.drawable.film5, R.drawable.serie1, R.drawable.film5
-        )
-
-        val commentFor: List<String> = mutableListOf(
-                "Le throne de Fer", "LaCasa de Papel", "Breaking Bad", "LaCasa de Papel"
-        )
-
-        val comments: List<String> = mutableListOf(
-                "Space excelsive", "From mars", "Live from the sea", "Directly from desert"
-        )
-
-        val commentDates: List<String> = mutableListOf(
-                "7/7 de 8:00 à 23:00", "24/24 sauf samedi de 8:00 à 23:00", "Toujours 10:00 à 23:00", "de 8:00 à 20:00 sauf lundi"
-        )
-
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
             val rootView = inflater.inflate(R.layout.fragment_listing_cards, container, false)
@@ -153,13 +134,15 @@ class CommentEvaluationActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val lastRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             lastRecycler.setLayoutManager(layoutManager)
-            val adapter_films = CommentRecyclerViewAdapter(context, userNames , comments, commentDates, commentFor)
+            val adapter_films = CommentRecyclerViewAdapter(context, comments)
             lastRecycler.setAdapter(adapter_films)
 
             return rootView
         }
 
         companion object {
+
+            val comments = Mocker.commentList
 
             private val ARG_SECTION_NUMBER = "section_number"
 

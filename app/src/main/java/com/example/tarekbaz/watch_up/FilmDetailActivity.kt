@@ -4,6 +4,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.MediaController
 import android.support.v7.widget.LinearLayoutManager
+import com.example.tarekbaz.watch_up.Models.Cinema
+import com.example.tarekbaz.watch_up.Models.Comment
+import com.example.tarekbaz.watch_up.Models.Mocker
+import com.example.tarekbaz.watch_up.Models.Movie
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -18,11 +22,7 @@ import android.view.ViewTreeObserver
 
 
 class FilmDetailActivity : AppCompatActivity() {
-    //For testing detail film
-    val film_title = "La Belle et La Bète"
-    val salleNames: List<String> = mutableListOf(
-            "Cinema Paris Salle 0012", "Larousse Cinema", "Cinema des Rois -Marseille-"
-    )
+
 
     var str1 = "22:03"
     var str2 = "22:30"
@@ -40,61 +40,46 @@ class FilmDetailActivity : AppCompatActivity() {
             date1, date2, date1
     )
 
-    //Associated Films
-    val filmNames: List<String> = mutableListOf(
-            "La Belle et La Bète", "Hunger Game", "Drone"
-    )
-
-    val imageFilmsUrls: List<Int> = mutableListOf(
-            R.drawable.film4, R.drawable.film5, R.drawable.serie1
-    )
-
-    //Comments
-    val userNames: List<String> = mutableListOf(
-            "Cinema Paris Salle 0012", "Larousse Cinema", "Cinema des Rois -Marseille-"
-    )
-
-    val commentDates: List<String> = mutableListOf(
-            "7/7 de 8:00 à 23:00", "24/24 sauf samedi de 8:00 à 23:00", "Toujours 10:00 à 23:00", "de 8:00 à 20:00 sauf lundi"
-    )
-
-
-
-    val comments: List<String> = mutableListOf(
-            "Le nombre de points de fonction non ajusté, ou brut :" +
-                    "le nombre de fonctionnalités fournies à l'utilisateur par" +
-                    "l'application. ",
-            "Peut représenter le résultat d’un traitement (créer, modifier et supprimer) autre qu’un\n" +
-                    "simple traitement d’extraction de données.",
-            "Live from the sea", "Directly from desert"
-    )
-
 
     //Init adapters
-    private fun initSallesRecyclerView() {
+    private fun initSallesRecyclerView(salles : List<Cinema>) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        sallesRecyclerView.setLayoutManager(layoutManager)
-        val adapter_salles = SalleRecyclerViewAdapter(this, salleNames, filmsTimes)
+        sallesRecyclerView.setLayoutManager(layoutManager)//todo
+        val adapter_salles = SalleRecyclerViewAdapter(this, salles)
         sallesRecyclerView.setAdapter(adapter_salles)
     }
 
-    private fun initAssociatedFilmsRecyclerView() {
+    private fun initAssociatedFilmsRecyclerView(assFilms : List<Movie>) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         associatedFilmsRecyclerView.setLayoutManager(layoutManager)
-        val adapter_films = HomeRecyclerViewAdapter(this, filmNames, imageFilmsUrls)
+        val adapter_films = HomeMovieRecyclerViewAdapter(this,assFilms)
         associatedFilmsRecyclerView.setAdapter(adapter_films)
     }
 
-    private fun initCommentsRecyclerView() {
+    private fun initCommentsRecyclerView(comments : List<Comment>) {
         val layoutManager = LinearLayoutManager(this)
         commentsFilmRecyclerView.setLayoutManager(layoutManager)
-        val adapter_comments = CommentRecyclerViewAdapter(this, userNames , comments, commentDates)
+        val adapter_comments = CommentRecyclerViewAdapter(this, comments)
         commentsFilmRecyclerView.setAdapter(adapter_comments)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_film)
+
+
+        val index = intent.extras.getInt("index",0)
+        val film = Mocker.movieList[index]
+        val salles = Mocker.movieList[index].cinemas
+        val assFilms = Mocker.movieList[index].linkedMovies
+        val comments = Mocker.movieList[index].comments
+
+        filmCard.setImageResource(film.image)
+        filmTitle.text = film.title
+        frameLayout.setBackgroundResource(film.image)
+        descriptionText.text = film.description
+        actors_names.text = film.actors.get(0).name
+        producertext.text = film.directors.get(0).name
 
         setSupportActionBar(toolbar_detail_film)
         // add back arrow to toolbar
@@ -103,7 +88,7 @@ class FilmDetailActivity : AppCompatActivity() {
             getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
         }
         //Set activity title
-        toolbar_detail_film.title = this.film_title
+        toolbar_detail_film.title = film.title
 
         //Init trailer video
         initTrailer(trailer_video)
@@ -113,9 +98,9 @@ class FilmDetailActivity : AppCompatActivity() {
                 ViewTreeObserver.OnScrollChangedListener { mediaController!!.hide()
                 })
 
-        this.initSallesRecyclerView()
-        this.initAssociatedFilmsRecyclerView()
-        initCommentsRecyclerView()
+        initSallesRecyclerView(salles)
+        initAssociatedFilmsRecyclerView(assFilms)
+        initCommentsRecyclerView(comments)
     }
 
     //Add search view

@@ -4,9 +4,9 @@ data class Movie(val title: String,
                  val description: String,
                  val image : Int,
                  val trailer : Int,
-                 val cinemas : List<Cinema>,
-                 val actors : List<Person>,
-                 val directors : List<Person>,
-                 val comments : List<Comment>,
-                 val linkedMovies : List<Movie>) {
+                 var cinemas : List<Cinema>,
+                 var actors : List<Person>,
+                 var directors : List<Person>,
+                 var comments : List<Comment>,
+                 var linkedMovies : List<Movie>) {
 }

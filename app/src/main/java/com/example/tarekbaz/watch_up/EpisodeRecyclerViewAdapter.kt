@@ -9,46 +9,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.example.tarekbaz.watch_up.Models.Episode
+import com.example.tarekbaz.watch_up.Models.Serie
 
 
-class HomeRecyclerViewAdapter(private val mContext: Context, names: List<String>, imageUrls: List<Int>, val isSalle: Boolean = false) : RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder>() {
+class EpisodeRecyclerViewAdapter(private val mContext: Context, val episodes: List<Episode>, val seasonId : Int,val serieId: Int) : RecyclerView.Adapter<EpisodeRecyclerViewAdapter.ViewHolder>() {
 
-    var mNames: List<String>? = null
-    var mImageUrls: List<Int>? = null
-
-    init {
-        mNames = names
-        mImageUrls = imageUrls
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View
-
-        if (isSalle) {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.card_salle_fan , parent, false)
-        } else {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.card_home_film, parent, false)
-        }
-
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_home_film, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.image.setImageResource(mImageUrls!!.get(position))
-        holder.name.setText(mNames!!.get(position))
+//        holder.image.setImageResource(episodes.get(position).) todo
+        holder.name.setText("Episode "+position)
 
         holder.image.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
                 //      Toast.makeText(mContext, mNames!!.get(position), Toast.LENGTH_SHORT).show()
 //                //TODO change it
-                val intent = Intent(mContext, FilmDetailActivity::class.java)
+                val intent = Intent(mContext, EpisodeDetailActivity::class.java)
+                intent.putExtra("indexSerie",serieId)
+                intent.putExtra("indexSeason",seasonId)
+                intent.putExtra("index",position)
                 startActivity(mContext, intent, null)
             }
         })
     }
 
     override fun getItemCount(): Int {
-        return mImageUrls!!.size
+        return episodes.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -57,14 +48,8 @@ class HomeRecyclerViewAdapter(private val mContext: Context, names: List<String>
         internal var name: TextView
 
         init {
-            if (isSalle) {
-                image = itemView.findViewById(R.id.salle_image)
-                name = itemView.findViewById(R.id.salle_name)
-            }else{
                 image = itemView.findViewById(R.id.image_card_film)
                 name = itemView.findViewById(R.id.name_card_film)
-            }
-
         }
     }
 

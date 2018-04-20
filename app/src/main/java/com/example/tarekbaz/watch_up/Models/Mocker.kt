@@ -1,12 +1,52 @@
 package com.example.tarekbaz.watch_up.Models
 
 import com.example.tarekbaz.watch_up.R
+import java.util.*
 
 
 object Mocker {
+
+    fun <E> List<E>.getRandomElements(numberOfElements: Int): List<E> {
+
+        val rand = Random()
+//
+//        var randomElement : List<E> = listOf()
+//
+//        for (i in 0 until numberOfElements) {
+//            val randomIndex = rand.nextInt(this.size)
+//            randomElement.// = this[randomIndex]
+//            this[randomIndex]
+//        }
+
+        val randomIndex0 = rand.nextInt(this.size)
+        val randomIndex1 = rand.nextInt(this.size)
+        val randomIndex2 = rand.nextInt(this.size)
+        val randomIndex3 = rand.nextInt(this.size)
+
+        return listOf(this[randomIndex0], this[randomIndex1], this[randomIndex2], this[randomIndex3])
+
+
+//        if (numberOfElements > this.size) {
+//            return this.shuffled().take(this.size)
+//        }
+//        return this.shuffled().take(numberOfElements)
+    }
+
+    val salleList: List<Cinema>
+    val commentList: List<Comment>
+    val actorList: List<Person>
+    val directorList: List<Person>
+    val movieList: List<Movie>
+    val serieList: List<Serie>
+
+    var favMovieList: List<Movie> = listOf()
+    var favSerieList: List<Serie> = listOf()
+    var favCinemaList: List<Cinema> = listOf()
+
+
     init {
 
-        val salleList = listOf(
+        salleList = listOf(
                 Cinema("Vandome", R.drawable.cinema1, "7/7 de 8:00 à 23:00", "102 Hamilton St, New Haven, CT 06511, USA", "41.3058551,-72.9152297", "clubvandome.com", "+1 203-789-2066"),
                 Cinema("5Cenimas", R.drawable.cinema2, "24/24 sauf samedi de 8:00 à 23:00", "1653 Tappahannock Blvd, Tappahannock, VA 22560, USA", "37.9030117,-76.8712715", "http://www.pandgtheatres.com/essex", "+1 804-445-1166"),
                 Cinema("Louxor - Palais Du Cinéma", R.drawable.cinema4, "24/24 sauf samedi de 8:00 à 23:00", "170 Boulevard de Magenta, 75010 Paris, France", "46.9620324,2.0669404", "cinemalouxor.fr", "+33 1 44 63 96 98"),
@@ -16,7 +56,7 @@ object Mocker {
                 Cinema("Ciné 17", R.drawable.cinema8, "24/24 sauf samedi de 8:00 à 23:00", "Rue de la Corraterie 17, 1204 Genève, Switzerland", "46.2022492,3.9025632", "cine17.ch", "+41 22 312 17 17")
         )
 
-        val commentList: List<Comment> = listOf(//todo film name
+        commentList = listOf(//todo film name
                 Comment("Leanne Graham", "2018-04-08", "", "laudantium enim quasi est quidem magnam voluptate ipsam eos ntempora quo necessitatibus"),
                 Comment("Romaguera-Crona", "2018-04-09", "", "ndolor quam autem quasi nreiciendis et nam sapiente accusantium"),
                 Comment("Ervin Howell", "2018-04-10", "", "ia molestiae reprehenderit quasi aspt expedita occaecati aliquam evenis quibusdam delectus "),
@@ -39,28 +79,29 @@ object Mocker {
                 Comment("Hoeger LLC", "2018-04-20", "", "Midst air form after earth itself divided created under god Set him.")
         )
 
-        val actorList: List<Person> = listOf(
-                Person("Aissa Achor", R.drawable.person1, "1980-02-19", "bib1", listOf(), 0.3, listOf()),
-                Person("Halima BATATA", R.drawable.person2, "1970-03-01", "bib2", listOf(), 0.8, listOf()),
+        actorList = listOf(
                 Person("Aaron Eckhart", R.drawable.person3, "1944-03-07", "Aaron Eckhart was born on March 12, 1968 in Cupertino, California, USA as Aaron Edward Eckhart. He is an actor and producer, known for The Dark Knight (2008), Thank You for Smoking (2005) and In the Company of Men (1997).", listOf(), 0.8, listOf()),
                 Person("Aaron Paul", R.drawable.person4, "1944-05-03", "Aaron Paul was born Aaron Paul Sturtevant in Emmett, Idaho, to Darla (Haynes) and Robert Sturtevant, a retired Baptist minister. While growing up, Paul took part in church programs, and performed in plays.", listOf(), 0.8, listOf()),
                 Person("Adam Sandler", R.drawable.person6, "1946-10-25", "Adam Richard Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Alan Sandler, an electrical engineer. He is of Russian Jewish descent", listOf(), 0.8, listOf()),
+//                Person("Salsa Bilato", R.drawable.person2, "1970-03-01", "Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Ala", listOf(), 0.8, listOf()),
                 Person("Adrien Brody", R.drawable.person7, "1950-01-16", "Adrien Nicholas Brody was born in Woodhaven, Queens, New York, the only child of retired history professor Elliot Brody and Hungarian-born photographer Sylvia Plachy. ", listOf(), 0.8, listOf()),
-                Person("Aidan Gillen", R.drawable.person8, "1951-07-31", "Aidan Gillen is an Irish actor. He is best known for portraying Petyr \"Littlefinger\" Baelish in the HBO series Game of Thrones (2011), CIA operative Bill Wilson in The Dark Knight Rises (2012), Stuart Alan Jones in the Channel 4 series Queer as Folk (1999).", listOf(), 0.8, listOf()),
+                Person("Aidan Gillen", R.drawable.person8, "1951-07-31", "Aidan Gillen is an Irish actor. He is best known for portraying Petyr \"Littlefinger\" Baelish in the HBO episodes Game of Thrones (2011), CIA operative Bill Wilson in The Dark Knight Rises (2012), Stuart Alan Jones in the Channel 4 episodes Queer as Folk (1999).", listOf(), 0.8, listOf()),
                 Person("Al Pacino", R.drawable.person9, "1953-09-11", "One of the greatest actors in all of film history, Al Pacino established himself during one of film's greatest decades, the 1970s, and has become an enduring and iconic figure in the world of American movies.", listOf(), 0.8, listOf()),
                 Person("Alan Arkin", R.drawable.person10, "1955-07-06", "Alan Arkin is an Academy Award-winning American actor who is also an acclaimed director, producer, author, singer and composer.", listOf(), 0.8, listOf()),
+                Person("Mike bill", R.drawable.person1, "1980-02-19", "Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Ala", listOf(), 0.3, listOf()),
                 Person("Alan Rickman", R.drawable.person11, "1955-09-22", "Alan Rickman was born on a council estate in Acton, West London, to Margaret Doreen Rose (Bartlett) and Bernard Rickman, who worked at a factory. He had English, Irish, and Welsh ancestry. Alan had an older brother David.", listOf(), 0.8, listOf()),
                 Person("Alan Tudyk", R.drawable.person12, "1955-10-14", "Alan Tudyk was born in El Paso, Texas, and grew up in Plano, where he attended Plano Sr. High. In 1990, he went on to study drama at Lon Morris Jr. College. While there, he was awarded the Academic Excellence Award for Drama.", listOf(), 0.8, listOf()),
                 Person("Alec Baldwin", R.drawable.person13, "1956-03-26", "Raven-haired, suavely handsome and prolific actor Alec Baldwin was born on April 3, 1958 in Massapequa, New York, and is the oldest, and easily the best-known, of the four Baldwin brothers in the acting business (the others are Stephen Baldwin, William Baldwin and Daniel Baldwin).", listOf(), 0.8, listOf())
         )
 
-        val producerList: List<Person> = listOf(
+
+        directorList = listOf(
                 Person("Aaron Taylor-Johnson", R.drawable.person5r, "1944-03-07", "He was born Aaron Perry Johnson in High Wycombe, Buckinghamshire, to Sarah and Robert Johnson, a civil engineer. He has a sister, Gemma Johnson, who had a small role in his movie Tom & Thomas (2002)", listOf(), 0.8, listOf()),
                 Person("Steven Spielberg", R.drawable.person14r, "1944-05-03", "One of the most influential personalities in the history of cinema, Steven Spielberg is Hollywood's best known director and one of the wealthiest filmmakers in the world. He has an extraordinary number of commercially successful and critically acclaimed credits to his name, either as a director, ...", listOf(), 0.8, listOf()),
-                Person("Aidan Gillen", R.drawable.person8, "1946-10-25", "Aidan Gillen is an Irish actor. He is best known for portraying Petyr \"Littlefinger\" Baelish in the HBO series Game of Thrones (2011), CIA operative Bill Wilson in The Dark Knight Rises (2012), Stuart Alan Jones in the Channel 4 series Queer as Folk (1999).", listOf(), 0.8, listOf()),
+                Person("Aidan Gillen", R.drawable.person8, "1946-10-25", "Aidan Gillen is an Irish actor. He is best known for portraying Petyr \"Littlefinger\" Baelish in the HBO episodes Game of Thrones (2011), CIA operative Bill Wilson in The Dark Knight Rises (2012), Stuart Alan Jones in the Channel 4 episodes Queer as Folk (1999).", listOf(), 0.8, listOf()),
                 Person("Martin Scorsese", R.drawable.person15r, "1950-01-16", "Martin Charles Scorsese was born on November 17, 1942 in Queens, New York City, to Catherine Scorsese (née Cappa) and Charles Scorsese, who both worked in Manhattan's garment district, and whose families both came from Palermo, Sicily. He was raised in the neighborhood of Little Italy, which later ...", listOf(), 0.8, listOf()),
                 Person("Ridley Scott", R.drawable.person16r, "1951-07-31", "Described by film producer Michael Deeley as \"the very best eye in the business\", director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham). His father was an officer in the Royal Engineers and the family followed him as his career posted him ...", listOf(), 0.8, listOf()),
-                Person("John Woo", R.drawable.person17r, "1953-09-11", "Best known for his cerebral, often nonlinear storytelling, acclaimed writer-director Christopher Nolan was born on July 30, 1970 in London, England. Over the course of 15 years of filmmaking, Nolan has gone from low-budget independent films to working on some of the biggest blockbusters ever made.", listOf(), 0.8, listOf()),
+                Person("John Woo", R.drawable.person17r, "1953-09-11", "Best known for his cerebral, often nonlinear storytelling, acclaimed writer-director Christopher Nolan was born on July 30, 1970 in London, England. Over the course of 15 years of filmmaking, Nolan has gone from low-budget independent seasons to working on some of the biggest blockbusters ever made.", listOf(), 0.8, listOf()),
                 Person("Adrien Brody", R.drawable.person7, "1955-07-06", "Adrien Nicholas Brody was born in Woodhaven, Queens, New York, the only child of retired history professor Elliot Brody and Hungarian-born photographer Sylvia Plachy. ", listOf(), 0.8, listOf()),
                 Person("Tim Burton", R.drawable.person18r, "1955-09-22", "Timothy Walter Burton was born in Burbank, California, to Jean Rae (Erickson), who owned a cat-themed gift shop, and William Reed Burton, who worked for the Burbank Park and Recreation Department. He spent most of his childhood as a recluse, drawing cartoons, and watching old movies (he was ...", listOf(), 0.8, listOf()),
                 Person("Clint Eastwood", R.drawable.person19r, "1955-10-14", "Clint Eastwood was born May 31, 1930 in San Francisco, the son of Clinton Eastwood Sr., a manufacturing executive for Georgia-Pacific Corporation, and Ruth Wood, a housewife turned IBM operator. He had a comfortable, middle-class upbringing in nearby Piedmont. At school Clint took interest in music...", listOf(), 0.8, listOf()),
@@ -68,14 +109,13 @@ object Mocker {
         )
 
 
-        val movieList: List<Movie> = listOf(
-                Movie("La Belle et La Bète", "A live-action adaptation of Disney's version of the classic tale of a cursed prince and a beautiful young woman who helps him break the spell.", R.drawable.film1, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Life", "desc", R.drawable.film2, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("The beauty and the beast", "desc", R.drawable.film4, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Hunger Game", "desc", R.drawable.film5, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+        movieList = listOf(
+                Movie("La Belle et La Bète", "A live-action adaptation of Disney's version of the classic tale of a cursed prince and a beautiful young woman who helps him break the spell.", R.drawable.film4, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+//                Movie("Life", "desc", R.drawable.film2, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie("Hunger Game", "Genius Belgian detective Hercule Poirot investigates the murder of an American tycoon aboard the Orient Express train.", R.drawable.film5, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
                 Movie("Star Wars: The Last Jedi", "Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares to do battle with the First Order.", R.drawable.film6, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
                 Movie("Coco", "Despite his family’s baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning…", R.drawable.film7, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Geostorm", "After an unprecedented series of natural disasters threatened the planet, the world's leaders came together to create an intricate network of satellites to control the global climate and keep everyone safe. But…", R.drawable.film8, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie("Geostorm", "After an unprecedented episodes of natural disasters threatened the planet, the world's leaders came together to create an intricate network of satellites to control the global climate and keep everyone safe. But…", R.drawable.film8, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
                 Movie("The Shape of Water", "An other-worldly story, set against the backdrop of Cold War era America circa 1962, where a mute janitor working at a lab falls in love with an amphibious man being held captive there and devises a plan to help…", R.drawable.film9, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
                 Movie("Thor: Ragnarok", "Thor is imprisoned on the other side of the universe and finds himself in a race against time to get back to Asgard to stop Ragnarok, the prophecy of destruction to his homeworld and the end of Asgardian civilization…", R.drawable.film10, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
                 Movie("Blade Runner 2049", "Thirty years after the events of the first film, a new blade runner, LAPD Officer K, unearths a long-buried secret that has the potential to plunge what's left of society into chaos. K's discovery leads him on a…", R.drawable.film11, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
@@ -88,7 +128,7 @@ object Mocker {
                 Movie("Murder on the Orient Express", "Genius Belgian detective Hercule Poirot investigates the murder of an American tycoon aboard the Orient Express train.", R.drawable.film18, 0, listOf(), listOf(), listOf(), listOf(), listOf())
         )
 
-        val serieList: List<Serie> = listOf(
+        serieList = listOf(
 
                 Serie("La Casa de Papel", "Un homme mystérieux, surnommé le Professeur (El Profesor), planifie le meilleur braquage jamais organ", R.drawable.serie2, listOf(
                         Season("Season 1", R.drawable.serie3,
@@ -159,9 +199,43 @@ object Mocker {
 
         )
 
-        var favMovieList : List<Movie>
-        var favSerieList : List<Serie>
-        var favCinemaList : List<Cinema>
+        actorList.forEach {
+            it.comments = commentList.getRandomElements(5)
+            it.movies = movieList.getRandomElements(5)
+        }
+        directorList.forEach {
+            it.comments = commentList.getRandomElements(5)
+            it.movies = movieList.getRandomElements(5)
+        }
+
+        movieList.forEach {
+            it.cinemas = salleList.getRandomElements(4)
+            it.actors = actorList.getRandomElements(4)
+            it.directors = directorList.getRandomElements(4)
+            it.comments = commentList.getRandomElements(4)
+            it.linkedMovies = movieList.getRandomElements(4)
+        }
+
+        serieList.forEach {
+            it.comments = commentList.getRandomElements(4)
+            it.linkedSeries = serieList.getRandomElements(4)
+            it.seasons.forEach {
+                it.linkedActors = actorList.getRandomElements(4)
+                it.comments = commentList.getRandomElements(4)
+                it.epesods.forEach {
+                    it.comments = commentList.getRandomElements(4)
+                    it.diffusion = mutableListOf("BeIN Movies", "Antena 3", "Netflix", "Fox Movies", "HBO", "CBN", "MBC", "TOP", "Canal+").getRandomElements(3)
+                }
+            }
+        }
+
+//        favMovieList = movieList.getRandomElements(5)
+//        favSerieList = serieList.getRandomElements(5)
+//        favCinemaList = favCinemaList.getRandomElements(5)
+
+        favMovieList = this.movieList.subList(0, 5)
+        favSerieList = this.serieList.subList(0, 4)
+        favCinemaList = this.salleList.subList(0, 4)
 
     }
 }

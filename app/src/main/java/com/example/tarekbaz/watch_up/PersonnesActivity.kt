@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.text.TextUtils
 import kotlinx.android.synthetic.main.drawer_activity.*
 import android.support.v7.widget.SearchView
+import com.example.tarekbaz.watch_up.Models.Mocker
 
 
 class PersonnesActivity : BaseActivity() {
@@ -117,19 +118,7 @@ class PersonnesActivity : BaseActivity() {
 
         var adapter_producers: PersonneRecyclerViewAdapter? = null
 
-        //TODO USE Models
-        val personneNames: List<String> = mutableListOf(
-                "Aissa Achor", "Ilyes BATATA", "Halima Kacemi", "Maradona2"
-        )
-
-        val imagePersonneUrls: List<Int> = mutableListOf(
-                R.drawable.person1, R.drawable.person2, R.drawable.person1, R.drawable.person2
-        )
-
-        val personneIsIndicator: List<Boolean> = mutableListOf(
-                true, false, false, true
-        )
-
+        val directors = Mocker.directorList
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
@@ -138,7 +127,7 @@ class PersonnesActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             personneRecycler.setLayoutManager(layoutManager)
-            val adapter_producers = PersonneRecyclerViewAdapter(context, personneNames, imagePersonneUrls, personneIsIndicator)
+            val adapter_producers = PersonneRecyclerViewAdapter(context, directors,isActor = false)
             personneRecycler.setAdapter(adapter_producers)
 
             this.adapter_producers = adapter_producers
@@ -174,18 +163,7 @@ class PersonnesActivity : BaseActivity() {
 
         var adapter_person: PersonneRecyclerViewAdapter? = null
 
-        //TODO USE Models
-        val personneNames: List<String> = mutableListOf(
-                "Bakir Achor", "Ilyes Tebbakh", "Aissa Kacem", "Maradona"
-        )
-
-        val imagePersonneUrls: List<Int> = mutableListOf(
-                R.drawable.person1, R.drawable.person2, R.drawable.person1, R.drawable.person2
-        )
-
-        val personneIsIndicator: List<Boolean> = mutableListOf(
-                false, true, true, false
-        )
+        val actors = Mocker.actorList
 
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -195,7 +173,7 @@ class PersonnesActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             personneRecycler.setLayoutManager(layoutManager)
-            val adapter_person = PersonneRecyclerViewAdapter(context, personneNames, imagePersonneUrls, personneIsIndicator)
+            val adapter_person = PersonneRecyclerViewAdapter(context, actors,isActor = true)
             personneRecycler.setAdapter(adapter_person)
 
             this.adapter_person = adapter_person

@@ -3,40 +3,26 @@ package com.example.tarekbaz.watch_up
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
+import com.example.tarekbaz.watch_up.Models.Mocker
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
 
 
 class HomeActivity : BaseActivity() {
 
-    //TODO USE Models
-    val filmNames: List<String> = mutableListOf(
-            "La Belle et La Bète", "Hunger Game", "Drone" , "Hunger Game 2"
-    )
+    val films = Mocker.movieList
 
-    val imageFilmsUrls: List<Int> = mutableListOf(
-            R.drawable.film4,R.drawable.film5,R.drawable.serie1,R.drawable.film5
-    )
-
-    val serieNames: List<String> = mutableListOf(
-            "Le throne de Fer", "LaCasa de Papel", "Breaking Bad" , "LaCasa de Papel"
-    )
-
-    val imageSerieUrls: List<Int> = mutableListOf(
-            R.drawable.film1,R.drawable.serie2,R.drawable.film3,R.drawable.serie2
-    )
-
-
+    val series = Mocker.serieList
 
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         home_film_slider.setLayoutManager(layoutManager)
-        val adapter_films = HomeRecyclerViewAdapter(this, filmNames , imageFilmsUrls)
+        val adapter_films = HomeMovieRecyclerViewAdapter(this, films)
         home_film_slider.setAdapter(adapter_films)
 
         val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         home_serie_slider.setLayoutManager(layoutManager2)
-        val adapter_series = HomeRecyclerViewAdapter(this, serieNames , imageSerieUrls)
+        val adapter_series = HomeSerieRecyclerViewAdapter(this, series)
         home_serie_slider.setAdapter(adapter_series)
     }
 

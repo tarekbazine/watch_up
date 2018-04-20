@@ -9,42 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import com.example.tarekbaz.watch_up.Models.Mocker
 
 class CommentBySerieFragment : Fragment() {
 
     var serieAdapter : CommentBySeriesFilterRecyclerViewAdapter? = null
-    //todo Models
-    val userNames: List<String> = mutableListOf(
-            "Cinema Paris Salle 0012", "Larousse Cinema", "Cinema des Rois -Marseille-"
-    )
-    val userImages: List<Int> = mutableListOf(
-            R.drawable.film4, R.drawable.film5, R.drawable.serie1, R.drawable.film5
-    )
-
-    val commentFor: List<String> = mutableListOf(
-            "Le throne de Fer", "LaCasa de Papel", "Breaking Bad", "LaCasa de Papel"
-    )
-
-    val comments: List<String> = mutableListOf(
-            "Space excelsive", "From mars", "Live from the sea", "Directly from desert"
-    )
-
-    val commentDates: List<String> = mutableListOf(
-            "7/7 de 8:00 à 23:00", "24/24 sauf samedi de 8:00 à 23:00", "Toujours 10:00 à 23:00", "de 8:00 à 20:00 sauf lundi"
-    )
-
-    //TODO USE Models
-    val filmNames: List<String> = mutableListOf(
-            "La Belle et La Bète", "Hunger Game", "Drone", "Hunger Game 2"
-    )
-
-    val imageFilmsUrls: List<Int> = mutableListOf(
-             R.drawable.serie1, R.drawable.film4, R.drawable.film5, R.drawable.film5
-    )
-
-    val filmDirectors: List<String> = mutableListOf(
-            "Le throne de Fer", "LaCasa de Papel", "Breaking Bad", "LaCasa de Papel"
-    )
 
     fun switchToCommentView(){
         this.view!!.findViewById<View>(R.id.search_bar).visibility = View.GONE
@@ -52,7 +21,7 @@ class CommentBySerieFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val commentRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
         commentRecycler.setLayoutManager(layoutManager)
-        val adapter_comments = CommentRecyclerViewAdapter(context, userNames , comments, commentFor, commentDates)
+        val adapter_comments = CommentRecyclerViewAdapter(context, Mocker.commentList)
         commentRecycler.setAdapter(adapter_comments)
 
     }
@@ -64,7 +33,7 @@ class CommentBySerieFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val lastRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
         lastRecycler.setLayoutManager(layoutManager)
-        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context, filmNames , imageFilmsUrls, filmDirectors)
+        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context, Mocker.serieList)
         lastRecycler.setAdapter(adapter_series)
     }
 
@@ -75,7 +44,7 @@ class CommentBySerieFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val lastRecycler = rootView.findViewById<RecyclerView>(R.id.recycler)
         lastRecycler.setLayoutManager(layoutManager)
-        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context, filmNames , imageFilmsUrls, filmDirectors)
+        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context, Mocker.serieList)
         lastRecycler.setAdapter(adapter_series)
 
         this.serieAdapter = adapter_series

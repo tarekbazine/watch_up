@@ -45,7 +45,7 @@
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
             android:adjustViewBounds="false"
-            android:background="@drawable/inactive_star"
+            android:background="@drawable/active_star"
             android:cropToPadding="false" />
 
     </LinearLayout>

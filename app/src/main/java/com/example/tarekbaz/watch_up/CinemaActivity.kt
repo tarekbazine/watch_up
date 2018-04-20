@@ -18,6 +18,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import com.example.tarekbaz.watch_up.Models.Mocker
 
 import kotlinx.android.synthetic.main.activity_cinema.*
 import kotlinx.android.synthetic.main.activity_home.*
@@ -124,22 +125,7 @@ class CinemaActivity : BaseActivity() {
 
         var adapter_films : FilmCinemaRecyclerViewAdapter? = null
 
-        //TODO USE Models
-        val filmNames: List<String> = mutableListOf(
-                "La Belle et La Bète", "Hunger Game", "Drone", "Hunger Game 2"
-        )
-
-        val imageFilmsUrls: List<Int> = mutableListOf(
-                R.drawable.film4, R.drawable.film5, R.drawable.serie1, R.drawable.film5
-        )
-
-        val filmDirectors: List<String> = mutableListOf(
-                "Le throne de Fer", "LaCasa de Papel", "Breaking Bad", "LaCasa de Papel"
-        )
-
-        val filmCinema: List<String> = mutableListOf(
-                "Space excelsive", "From mars", "Live from the sea", "Directly from desert"
-        )
+        val films = Mocker.movieList
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
@@ -148,7 +134,7 @@ class CinemaActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val filmRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             filmRecycler.setLayoutManager(layoutManager)
-            val adapter_films = FilmCinemaRecyclerViewAdapter(context, filmNames, imageFilmsUrls, filmDirectors, filmCinema)
+            val adapter_films = FilmCinemaRecyclerViewAdapter(context, films)
             filmRecycler.setAdapter(adapter_films)
 
             this.adapter_films = adapter_films
@@ -185,22 +171,7 @@ class CinemaActivity : BaseActivity() {
 
         var adapter_salle : SalleCinemaRecyclerViewAdapter? = null
 
-        //TODO USE Models
-        val salleNames: List<String> = mutableListOf(
-                "Vandome","salle 2","salle 3","salle 4"
-        )
-
-        val salleImages: List<Int> = mutableListOf(
-                R.drawable.cinema1, R.drawable.cinema2, R.drawable.cinema3, R.drawable.cinema1
-        )
-
-        val salleAddress: List<String> = mutableListOf(
-                "Paris, oued elsemar !", "Alger !LaCasa de Papel", "Oran !Breaking Bad", "Ghardaia !LaCasa de Papel"
-        )
-
-        val salleOpennings: List<String> = mutableListOf(
-                "7/7 de 8:00 à 23:00", "24/24 sauf samedi de 8:00 à 23:00","Toujours 10:00 à 23:00","de 8:00 à 20:00 sauf lundi"
-        )
+        val salles = Mocker.salleList
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
@@ -209,7 +180,7 @@ class CinemaActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val salleRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             salleRecycler.setLayoutManager(layoutManager)
-            val adapter_salle = SalleCinemaRecyclerViewAdapter(context, salleNames, salleImages, salleAddress, salleOpennings)
+            val adapter_salle = SalleCinemaRecyclerViewAdapter(context, salles)
             salleRecycler.setAdapter(adapter_salle)
 
             this.adapter_salle = adapter_salle
