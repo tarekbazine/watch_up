@@ -41,7 +41,7 @@
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:alpha="1"
             android:background="@drawable/serie2">
