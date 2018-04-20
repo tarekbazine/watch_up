@@ -26,7 +26,7 @@ class SeriesActivity  : BaseActivity()  {
     )
 
     val filmDirectors: List<String> = mutableListOf(
-            "Le throne de Fer", "LaCasa de Papel", "Breaking Bad", "LaCasa de Papel"
+            "Le throne de Fer", "La Casa de Papel", "Breaking Bad", "LaCasa de Papel"
     )
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
