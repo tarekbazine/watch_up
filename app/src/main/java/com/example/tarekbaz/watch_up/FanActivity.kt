@@ -40,7 +40,7 @@ class FanActivity : BaseActivity() {
 
         val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         fan_serie_slider.setLayoutManager(layoutManager2)
-        val adapter_series = SeriesRecyclerViewAdapter(this, fanSeries)
+        val adapter_series = HomeSerieRecyclerViewAdapter(this, fanSeries)
         fan_serie_slider.setAdapter(adapter_series)
 
         val layoutManager3 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)

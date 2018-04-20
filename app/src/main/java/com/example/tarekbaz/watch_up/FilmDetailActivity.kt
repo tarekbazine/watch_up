@@ -32,7 +32,7 @@ class FilmDetailActivity : AppCompatActivity() {
     var is_fan = true
 
     //Video attributes
-    var trailer_video = R.raw.trailer1
+    var trailer_video = R.raw.trailer2
     private var mediaController: MediaController? = null
     private var positionVideo:Int = 0
 

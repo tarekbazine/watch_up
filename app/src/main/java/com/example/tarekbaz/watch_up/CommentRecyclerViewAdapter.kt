@@ -21,11 +21,12 @@ class CommentRecyclerViewAdapter(private val mContext: Context, val comments :Li
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-            holder.userName.text = comments.get(position).filmName
+            holder.userName.text = comments.get(position).personName
 //            holder.userImage.setImageResource(userImages.get(position))
             holder.comment.setText(comments.get(position).body)
-//            holder.commentFor.setText(commentFor.get(position))
+//            holder.profile_name.setText(commentFor.get(position))
             holder.commentDate.setText(comments.get(position).date)
+
 //            var formatter: DateFormat = SimpleDateFormat("HH:mm")
 //            holder.film_date.setText(formatter.format(times!!.get(position)))
 
