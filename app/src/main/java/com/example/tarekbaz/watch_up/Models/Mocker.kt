@@ -2,6 +2,7 @@ package com.example.tarekbaz.watch_up.Models
 
 import com.example.tarekbaz.watch_up.R
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 object Mocker {
@@ -33,30 +34,32 @@ object Mocker {
     }
 
     val salleList: List<Cinema>
-    val commentList: List<Comment>
+    var commentList: ArrayList<Comment>
     val actorList: List<Person>
     val directorList: List<Person>
     val movieList: List<Movie>
     val serieList: List<Serie>
 
-    var favMovieList: List<Movie> = listOf()
-    var favSerieList: List<Serie> = listOf()
-    var favCinemaList: List<Cinema> = listOf()
+    var favMovieList: ArrayList<Movie> = ArrayList()
+    var favSerieList: ArrayList<Serie> = ArrayList()
+    var favCinemaList:ArrayList<Cinema> = ArrayList()
+//    var favSerieList: List<Serie> = listOf()
+//    var favCinemaList: List<Cinema> = listOf()
 
 
     init {
 
         salleList = listOf(
-                Cinema("Vandome", R.drawable.cinema1, "7/7 de 8:00 à 23:00", "102 Hamilton St, New Haven, CT 06511, USA", "41.3058551,-72.9152297", "clubvandome.com", "+1 203-789-2066"),
-                Cinema("5Cenimas", R.drawable.cinema2, "24/24 sauf samedi de 8:00 à 23:00", "1653 Tappahannock Blvd, Tappahannock, VA 22560, USA", "37.9030117,-76.8712715", "http://www.pandgtheatres.com/essex", "+1 804-445-1166"),
-                Cinema("Louxor - Palais Du Cinéma", R.drawable.cinema4, "24/24 sauf samedi de 8:00 à 23:00", "170 Boulevard de Magenta, 75010 Paris, France", "46.9620324,2.0669404", "cinemalouxor.fr", "+33 1 44 63 96 98"),
-                Cinema("Cinema Balzac Champs Elysees Festival", R.drawable.cinema5, "24/24 sauf samedi de 8:00 à 23:00", "1 Rue Balzac, 75008 Paris, France", "48.8729489,2.2976619", "cinemabalzac.com", "+33 1 45 61 02 53"),
-                Cinema("Festival International des Cinémas d'Asie", R.drawable.cinema6, "24/24 sauf samedi de 8:00 à 23:00", "25 Rue du Dr Doillon, 70000 Vesoul, France", "47.621287,6.1596533", "cinemas-asie.com", "+33 3 84 76 55 82"),
-                Cinema("EuropaCorp CINEMAS Aéroville", R.drawable.cinema7, "24/24 sauf samedi de 8:00 à 23:00", "30 Rue des Buissons, 95700 Tremblay-en-France, France", "48.9907066,2.5204504", "cinemasgaumontpathe.com", "+33 3 80 96 05 02"),
-                Cinema("Ciné 17", R.drawable.cinema8, "24/24 sauf samedi de 8:00 à 23:00", "Rue de la Corraterie 17, 1204 Genève, Switzerland", "46.2022492,3.9025632", "cine17.ch", "+41 22 312 17 17")
+                Cinema(1, "Vandome", R.drawable.cinema1, "7/7 de 8:00 à 23:00", "102 Hamilton St, New Haven, CT 06511, USA", "41.3058551,-72.9152297", "clubvandome.com", "+1 203-789-2066"),
+                Cinema(2, "5Cenimas", R.drawable.cinema2, "24/24 sauf samedi de 8:00 à 23:00", "1653 Tappahannock Blvd, Tappahannock, VA 22560, USA", "37.9030117,-76.8712715", "http://www.pandgtheatres.com/essex", "+1 804-445-1166"),
+                Cinema(3, "Louxor - Palais Du Cinéma", R.drawable.cinema4, "24/24 sauf samedi de 8:00 à 23:00", "170 Boulevard de Magenta, 75010 Paris, France", "46.9620324,2.0669404", "cinemalouxor.fr", "+33 1 44 63 96 98"),
+                Cinema(4, "Cinema Balzac Champs Elysees Festival", R.drawable.cinema5, "24/24 sauf samedi de 8:00 à 23:00", "1 Rue Balzac, 75008 Paris, France", "48.8729489,2.2976619", "cinemabalzac.com", "+33 1 45 61 02 53"),
+                Cinema(5, "Festival International des Cinémas d'Asie", R.drawable.cinema6, "24/24 sauf samedi de 8:00 à 23:00", "25 Rue du Dr Doillon, 70000 Vesoul, France", "47.621287,6.1596533", "cinemas-asie.com", "+33 3 84 76 55 82"),
+                Cinema(6, "EuropaCorp CINEMAS Aéroville", R.drawable.cinema7, "24/24 sauf samedi de 8:00 à 23:00", "30 Rue des Buissons, 95700 Tremblay-en-France, France", "48.9907066,2.5204504", "cinemasgaumontpathe.com", "+33 3 80 96 05 02"),
+                Cinema(7, "Ciné 17", R.drawable.cinema8, "24/24 sauf samedi de 8:00 à 23:00", "Rue de la Corraterie 17, 1204 Genève, Switzerland", "46.2022492,3.9025632", "cine17.ch", "+41 22 312 17 17")
         )
 
-        commentList = listOf(//todo film name
+        val commentss = listOf(//todo film name
                 Comment("Leanne Graham", "2018-04-08", "", "laudantium enim quasi est quidem magnam voluptate ipsam eos ntempora quo necessitatibus"),
                 Comment("Romaguera-Crona", "2018-04-09", "", "ndolor quam autem quasi nreiciendis et nam sapiente accusantium"),
                 Comment("Ervin Howell", "2018-04-10", "", "ia molestiae reprehenderit quasi aspt expedita occaecati aliquam evenis quibusdam delectus "),
@@ -78,6 +81,8 @@ object Mocker {
                 Comment("Clementina DuBuque", "2018-04-19", "", "Gathering face hath unto fourth fill behold under creature, great. You'll have which first man tree, his."),
                 Comment("Hoeger LLC", "2018-04-20", "", "Midst air form after earth itself divided created under god Set him.")
         )
+
+        commentList = ArrayList(commentss)
 
         actorList = listOf(
                 Person("Aaron Eckhart", R.drawable.person3, "1944-03-07", "Aaron Eckhart was born on March 12, 1968 in Cupertino, California, USA as Aaron Edward Eckhart. He is an actor and producer, known for The Dark Knight (2008), Thank You for Smoking (2005) and In the Company of Men (1997).", listOf(), 0.8, listOf()),
@@ -233,9 +238,9 @@ object Mocker {
 //        favSerieList = serieList.getRandomElements(5)
 //        favCinemaList = favCinemaList.getRandomElements(5)
 
-        favMovieList = this.movieList.subList(0, 5)
-        favSerieList = this.serieList.subList(0, 4)
-        favCinemaList = this.salleList.subList(0, 4)
+        favMovieList = ArrayList(this.movieList.subList(0, 1))
+        favSerieList = ArrayList(this.serieList.subList(0, 1))
+        favCinemaList = ArrayList(this.salleList.subList(0, 4))
 
     }
 }

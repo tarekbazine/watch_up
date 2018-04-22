@@ -30,7 +30,7 @@ class SeriesRecyclerViewAdapter(private val mContext: Context, var series : List
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
                 val intent = Intent(mContext, SerieDetailActivity::class.java)
-                intent.putExtra("index",position)
+                intent.putExtra("index",position+1)
                 startActivity(mContext, intent, null)
             }
         })

@@ -12,6 +12,7 @@ import android.widget.MediaController
 import com.example.tarekbaz.watch_up.Models.Comment
 import com.example.tarekbaz.watch_up.Models.Episode
 import com.example.tarekbaz.watch_up.Models.Mocker
+import com.example.tarekbaz.watch_up.Models.Serie
 import kotlinx.android.synthetic.main.activity_detail_season.*
 
 class SeasonDetailActivity : AppCompatActivity() {
@@ -50,13 +51,20 @@ class SeasonDetailActivity : AppCompatActivity() {
 
         val index = intent.extras.getInt("index",0)
         val indexSerie = intent.extras.getInt("indexSerie",0)
-        val comments = Mocker.serieList[indexSerie].seasons[index].comments
-        val episodes = Mocker.serieList[indexSerie].seasons[index].epesods
-        val season = Mocker.serieList[indexSerie].seasons[index]
+
+        var serie: Serie = Mocker.serieList[0]
+        Mocker.serieList.forEach { it ->
+            if (it.id == indexSerie)
+                serie = it
+        }
+
+        val comments =serie.seasons[index].comments
+        val episodes =serie.seasons[index].epesods
+        val season = serie.seasons[index]
 
         frameLayout.setBackgroundResource(season.image)
         seasonCard.setImageResource(season.image)
-        serieTitle.text = "Saison "+index+1
+        serieTitle.text = "Saison "+ (index+1)
         descriptionText.text = season.discription
         actorsNamesText.text = season.linkedActors.get(0).name
 

@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.LinearLayout
 import com.example.tarekbaz.watch_up.Models.Comment
 import com.example.tarekbaz.watch_up.Models.Mocker
+import com.example.tarekbaz.watch_up.Models.Serie
 import kotlinx.android.synthetic.main.activity_detail_episode.*
 import kotlinx.android.synthetic.main.activity_detail_personne.*
 
@@ -45,8 +46,16 @@ class EpisodeDetailActivity : AppCompatActivity() {
         val index = intent.extras.getInt("index",0)
         val indexSeason = intent.extras.getInt("indexSeason",0)
         val indexSerie = intent.extras.getInt("indexSerie",0)
-        val comments = Mocker.serieList[indexSerie].seasons[indexSeason].epesods[index].comments
-        val episode = Mocker.serieList[indexSerie].seasons[indexSeason].epesods[index]
+
+
+        var serie: Serie = Mocker.serieList[0]
+        Mocker.serieList.forEach { it ->
+            if (it.id == indexSerie)
+                serie = it
+        }
+
+        val comments = serie.seasons[indexSeason].epesods[index].comments
+        val episode = serie.seasons[indexSeason].epesods[index]
 
 
         //hide existing canal
@@ -60,7 +69,7 @@ class EpisodeDetailActivity : AppCompatActivity() {
         }
 
         episodeCard.setImageResource(R.drawable.film3)
-        serieTitleText.text = "Episode "+index
+        serieTitleText.text = "Episode "+ (index+1)
         descriptionEpisodeText.text = episode.discription
         durationText.text = length
 

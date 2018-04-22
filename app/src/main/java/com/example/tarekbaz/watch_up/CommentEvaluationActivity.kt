@@ -18,12 +18,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.tarekbaz.watch_up.Models.Comment
 import com.example.tarekbaz.watch_up.Models.Mocker
 
 import kotlinx.android.synthetic.main.activity_comment_evaluation.*
 import kotlinx.android.synthetic.main.popup_add_comment.*
 
 import kotlinx.android.synthetic.main.drawer_activity.*
+import kotlinx.android.synthetic.main.popup_add_comment.view.*
 
 class CommentEvaluationActivity : BaseActivity() {
 
@@ -31,7 +33,7 @@ class CommentEvaluationActivity : BaseActivity() {
 
     var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
-    var currentPosition :Int =0
+    var currentPosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,8 +77,18 @@ class CommentEvaluationActivity : BaseActivity() {
         popupAddComment!!.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         popupAddComment!!.show()
         popupAddComment!!.btn_comment.setOnClickListener { view ->
-            Snackbar.make(view, "comment", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            Mocker.commentList.add(
+                    Comment(
+                            popupAddComment!!.username.text.toString(), "2018-04-09", "",
+                            popupAddComment!!.comment.text.toString()
+                    )
+            )
+
+//            Snackbar.make(view, "comment", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show()
+            Toast.makeText(this, "Votre commentaire a été ajouté", Toast.LENGTH_SHORT).show()
+
+            popupAddComment!!.hide()
         }
 
     }

@@ -23,7 +23,7 @@ class EpisodeRecyclerViewAdapter(private val mContext: Context, val episodes: Li
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 //        holder.image.setImageResource(episodes.get(position).) todo
-        holder.name.setText("Episode "+position)
+        holder.name.setText("Episode "+(position+1))
 
         holder.image.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {

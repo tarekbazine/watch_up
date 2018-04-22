@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_detail_serie.*
 
 class SerieDetailActivity : AppCompatActivity() {
 
-    var is_fan = true
+    var is_fan = false
 
     private fun initSeasonsRecyclerView(seasons : List<Season>,index : Int) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -53,13 +53,14 @@ class SerieDetailActivity : AppCompatActivity() {
         return true
     }
 
+    var serie:Serie  = Mocker.serieList[0]
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_serie)
 
         val index = intent.extras.getInt("index",0)
 
-        var serie:Serie  = Mocker.serieList[0]
         Mocker.serieList.forEach { it ->
             if (it.id == index)
                 serie = it
@@ -67,6 +68,11 @@ class SerieDetailActivity : AppCompatActivity() {
         val comments = serie.comments
         val assSeries = serie.linkedSeries
         val seasons = serie.seasons
+
+        Mocker.favSerieList.forEach { it ->
+            if(it.id == serie.id)
+                is_fan = true
+        }
 
         frameLayout.setBackgroundResource(serie.image)
         filmCard.setImageResource(serie.image)
@@ -97,10 +103,12 @@ class SerieDetailActivity : AppCompatActivity() {
             if (this.is_fan) {
                 this.is_fan = false
                 item.setIcon(R.drawable.heart2)
+                Mocker.favSerieList.add(serie)
                 Toast.makeText(this, "Série ajoutée à Mes Fans", Toast.LENGTH_SHORT).show()
             } else {
                 this.is_fan = true
                 item.setIcon(R.drawable.heart_inactive)
+                Mocker.favSerieList.remove(serie)
                 Toast.makeText(this, "Série enlevée de Mes Fans", Toast.LENGTH_SHORT).show()
             }
         }

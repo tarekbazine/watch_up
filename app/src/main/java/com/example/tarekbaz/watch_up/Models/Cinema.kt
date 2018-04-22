@@ -1,6 +1,7 @@
 package com.example.tarekbaz.watch_up.Models
 
-data class Cinema(val name: String,
+data class Cinema(val id: Int,
+                  val name: String,
                   val image: Int,
                   val openningTime: String,
                   val address: String,

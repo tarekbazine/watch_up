@@ -30,7 +30,7 @@ class FilmDetailActivity : AppCompatActivity() {
     var formatter: DateFormat = SimpleDateFormat("HH:mm")
     var date1 = formatter.parse(str1)
     var date2 = formatter.parse(str2)
-    var is_fan = true
+    var is_fan = false
 
     //Video attributes
     var trailer_video = R.raw.trailer2
@@ -64,21 +64,26 @@ class FilmDetailActivity : AppCompatActivity() {
         commentsFilmRecyclerView.setAdapter(adapter_comments)
     }
 
+    var film = Mocker.movieList[0]
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_film)
 
-
         val index = intent.extras.getInt("index", 0)
-        var film:Movie  = Mocker.movieList[0]
+
         Mocker.movieList.forEach { it ->
             if (it.id == index)
-             film = it
+                film = it
         }
 
         val salles = film.cinemas
         val assFilms = film.linkedMovies
         val comments = film.comments
+
+        Mocker.favMovieList.forEach { it ->
+            if(it.id == film.id)
+                is_fan = true
+        }
 
         filmCard.setImageResource(film.image)
         filmTitle.text = film.title
@@ -133,10 +138,12 @@ class FilmDetailActivity : AppCompatActivity() {
             if (this.is_fan) {
                 this.is_fan = false
                 item.setIcon(R.drawable.heart2)
+                Mocker.favMovieList.add(film)
                 Toast.makeText(this, "Film ajouté à Mes Fans", LENGTH_SHORT).show()
             } else {
                 this.is_fan = true
                 item.setIcon(R.drawable.heart_inactive)
+                Mocker.favMovieList.remove(film)
                 Toast.makeText(this, "Film enlevé de Mes Fans", LENGTH_SHORT).show()
             }
         }

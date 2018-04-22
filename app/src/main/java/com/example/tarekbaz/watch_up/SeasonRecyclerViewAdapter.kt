@@ -21,7 +21,7 @@ class SeasonRecyclerViewAdapter(private val mContext: Context, val seasons: List
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.image.setImageResource(seasons.get(position).image)
-        holder.name.setText("Saison "+1)
+        holder.name.setText("Saison " + (position + 1) )
 
         holder.image.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
