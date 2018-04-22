@@ -26,7 +26,7 @@ class HomeMovieRecyclerViewAdapter(private val mContext: Context, val films: Lis
         holder.image.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
                 val intent = Intent(mContext, FilmDetailActivity::class.java)
-                intent.putExtra("index", position)
+                intent.putExtra("index", films.get(position).id)
                 startActivity(mContext, intent, null)
             }
         })

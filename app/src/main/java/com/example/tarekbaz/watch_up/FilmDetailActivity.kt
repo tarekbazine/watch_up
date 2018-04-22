@@ -1,4 +1,5 @@
 package com.example.tarekbaz.watch_up
+
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -34,7 +35,7 @@ class FilmDetailActivity : AppCompatActivity() {
     //Video attributes
     var trailer_video = R.raw.trailer2
     private var mediaController: MediaController? = null
-    private var positionVideo:Int = 0
+    private var positionVideo: Int = 0
 
     val filmsTimes: List<Date> = mutableListOf(
             date1, date2, date1
@@ -42,21 +43,21 @@ class FilmDetailActivity : AppCompatActivity() {
 
 
     //Init adapters
-    private fun initSallesRecyclerView(salles : List<Cinema>) {
+    private fun initSallesRecyclerView(salles: List<Cinema>) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         sallesRecyclerView.setLayoutManager(layoutManager)//todo
         val adapter_salles = SalleRecyclerViewAdapter(this, salles)
         sallesRecyclerView.setAdapter(adapter_salles)
     }
 
-    private fun initAssociatedFilmsRecyclerView(assFilms : List<Movie>) {
+    private fun initAssociatedFilmsRecyclerView(assFilms: List<Movie>) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         associatedFilmsRecyclerView.setLayoutManager(layoutManager)
-        val adapter_films = HomeMovieRecyclerViewAdapter(this,assFilms)
+        val adapter_films = HomeMovieRecyclerViewAdapter(this, assFilms)
         associatedFilmsRecyclerView.setAdapter(adapter_films)
     }
 
-    private fun initCommentsRecyclerView(comments : List<Comment>) {
+    private fun initCommentsRecyclerView(comments: List<Comment>) {
         val layoutManager = LinearLayoutManager(this)
         commentsFilmRecyclerView.setLayoutManager(layoutManager)
         val adapter_comments = CommentRecyclerViewAdapter(this, comments)
@@ -68,11 +69,16 @@ class FilmDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_film)
 
 
-        val index = intent.extras.getInt("index",0)
-        val film = Mocker.movieList[index]
-        val salles = Mocker.movieList[index].cinemas
-        val assFilms = Mocker.movieList[index].linkedMovies
-        val comments = Mocker.movieList[index].comments
+        val index = intent.extras.getInt("index", 0)
+        var film:Movie  = Mocker.movieList[0]
+        Mocker.movieList.forEach { it ->
+            if (it.id == index)
+             film = it
+        }
+
+        val salles = film.cinemas
+        val assFilms = film.linkedMovies
+        val comments = film.comments
 
         filmCard.setImageResource(film.image)
         filmTitle.text = film.title
@@ -95,7 +101,8 @@ class FilmDetailActivity : AppCompatActivity() {
 
         //Hide Media controller when scrolling
         scrollContainer.getViewTreeObserver().addOnScrollChangedListener(
-                ViewTreeObserver.OnScrollChangedListener { mediaController!!.hide()
+                ViewTreeObserver.OnScrollChangedListener {
+                    mediaController!!.hide()
                 })
 
         initSallesRecyclerView(salles)
@@ -146,40 +153,42 @@ class FilmDetailActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
-            // Set the media controller buttons
-            if (mediaController == null) {
-                mediaController = MediaController(this@FilmDetailActivity)
-            }
-            trailerVideo.setMediaController(mediaController)
+        // Set the media controller buttons
+        if (mediaController == null) {
+            mediaController = MediaController(this@FilmDetailActivity)
+        }
+        trailerVideo.setMediaController(mediaController)
 
 
         trailerVideo.setOnPreparedListener { mediaPlayer ->
-            if(this.positionVideo == 0){
+            if (this.positionVideo == 0) {
                 trailerVideo.seekTo(10000)
-            }else{
+            } else {
                 trailerVideo.seekTo(positionVideo)
             }
+            mediaController!!.setAnchorView(trailerVideo)
+
+            // When video Screen change size.
+            mediaPlayer.setOnVideoSizeChangedListener { mp, width, height ->
+                // Re-Set the videoView that acts as the anchor for the MediaController
                 mediaController!!.setAnchorView(trailerVideo)
-
-                // When video Screen change size.
-                mediaPlayer.setOnVideoSizeChangedListener { mp, width, height ->
-                    // Re-Set the videoView that acts as the anchor for the MediaController
-                    mediaController!!.setAnchorView(trailerVideo)
-                }
-
             }
 
+        }
+
         // Change image preview
-        trailerVideo.setPlayPauseListener (object : CustomVideoView.PlayPauseListener {
+        trailerVideo.setPlayPauseListener(object : CustomVideoView.PlayPauseListener {
             override fun onPlay() {
                 trailerImage.visibility = View.GONE
             }
+
             override fun onPause() {
                 trailerImage.visibility = View.VISIBLE
                 positionVideo = trailerVideo.getCurrentPosition()
             }
+
             override fun onTouch() {
-                if (! trailerVideo.isPlaying){
+                if (!trailerVideo.isPlaying) {
                     trailerVideo.start()
                 }
             }
@@ -191,10 +200,10 @@ class FilmDetailActivity : AppCompatActivity() {
     // It store the state of video (Current position)
     public override fun onSaveInstanceState(savedInstanceState: Bundle?) {
         super.onSaveInstanceState(savedInstanceState)
-        if (trailerVideo.isPlaying){
+        if (trailerVideo.isPlaying) {
             savedInstanceState!!.putBoolean("VideoIsPlaying", true)
             trailerVideo.pause()
-        }else{
+        } else {
             savedInstanceState!!.putBoolean("VideoIsPlaying", false)
         }
         // Store current video position.
@@ -207,7 +216,7 @@ class FilmDetailActivity : AppCompatActivity() {
         // Get saved video position.
         this.positionVideo = savedInstanceState.getInt("CurrentPosition")
         val isPlaying = savedInstanceState.getBoolean("VideoIsPlaying")
-        if (isPlaying){
+        if (isPlaying) {
             trailerVideo.start()
         }
     }

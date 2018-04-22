@@ -29,7 +29,7 @@ class HomeSerieRecyclerViewAdapter(private val mContext: Context, val series: Li
                 //      Toast.makeText(mContext, mNames!!.get(position), Toast.LENGTH_SHORT).show()
 //                //TODO change it
                 val intent = Intent(mContext, SerieDetailActivity::class.java)
-                intent.putExtra("index",position)
+                intent.putExtra("index", series.get(position).id)
                 startActivity(mContext, intent, null)
             }
         })

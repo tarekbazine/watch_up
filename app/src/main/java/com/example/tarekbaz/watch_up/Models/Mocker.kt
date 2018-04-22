@@ -110,27 +110,27 @@ object Mocker {
 
 
         movieList = listOf(
-                Movie("La Belle et La Bète", "A live-action adaptation of Disney's version of the classic tale of a cursed prince and a beautiful young woman who helps him break the spell.", R.drawable.film4, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-//                Movie("Life", "desc", R.drawable.film2, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Hunger Game", "Genius Belgian detective Hercule Poirot investigates the murder of an American tycoon aboard the Orient Express train.", R.drawable.film5, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Star Wars: The Last Jedi", "Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares to do battle with the First Order.", R.drawable.film6, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Coco", "Despite his family’s baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning…", R.drawable.film7, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Geostorm", "After an unprecedented episodes of natural disasters threatened the planet, the world's leaders came together to create an intricate network of satellites to control the global climate and keep everyone safe. But…", R.drawable.film8, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("The Shape of Water", "An other-worldly story, set against the backdrop of Cold War era America circa 1962, where a mute janitor working at a lab falls in love with an amphibious man being held captive there and devises a plan to help…", R.drawable.film9, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Thor: Ragnarok", "Thor is imprisoned on the other side of the universe and finds himself in a race against time to get back to Asgard to stop Ragnarok, the prophecy of destruction to his homeworld and the end of Asgardian civilization…", R.drawable.film10, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Blade Runner 2049", "Thirty years after the events of the first film, a new blade runner, LAPD Officer K, unearths a long-buried secret that has the potential to plunge what's left of society into chaos. K's discovery leads him on a…", R.drawable.film11, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Justice League", "Fuelled by his restored faith in humanity and inspired by Superman's selfless act, Bruce Wayne and Diana Prince assemble a team of metahumans consisting of Barry Allen, Arthur Curry and Victor Stone to face the…", R.drawable.film12, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Jumanji: Welcome to the Jungle", "The tables are turned as four teenagers are sucked into Jumanji's world - pitted against rhinos, black mambas and an endless variety of jungle traps and puzzles. To survive, they'll play as characters from the game.", R.drawable.film13, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("War for the Planet of the Apes", "Caesar and his apes are forced into a deadly conflict with an army of humans led by a ruthless Colonel. After the apes suffer unimaginable losses, Caesar wrestles with his darker instincts and begins his own mythic…", R.drawable.film14, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Logan", "In the near future, a weary Logan cares for an ailing Professor X in a hideout on the Mexican border. But Logan's attempts to hide from the world and his legacy are upended when a young mutant arrives, pursued by…", R.drawable.film15, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Kingsman: The Golden Circle", "When an attack on the Kingsman headquarters takes place and a new villain rises, Eggsy and Merlin are forced to work together with the American agency known as the Statesman to save the world.", R.drawable.film16, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Pirates of the Caribbean: Dead Men Tell No Tales", "Thrust into an all-new adventure, a down-on-his-luck Capt. Jack Sparrow feels the winds of ill-fortune blowing even more strongly when deadly ghost sailors led by his old nemesis, the evil Capt. Salazar, escape…", R.drawable.film17, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
-                Movie("Murder on the Orient Express", "Genius Belgian detective Hercule Poirot investigates the murder of an American tycoon aboard the Orient Express train.", R.drawable.film18, 0, listOf(), listOf(), listOf(), listOf(), listOf())
+                Movie(1,"La Belle et La Bète", "A live-action adaptation of Disney's version of the classic tale of a cursed prince and a beautiful young woman who helps him break the spell.", R.drawable.film4, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+//                Movie(2,"Life", "desc", R.drawable.film2, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(3,"Hunger Game", "Genius Belgian detective Hercule Poirot investigates the murder of an American tycoon aboard the Orient Express train.", R.drawable.film5, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(4,"Star Wars: The Last Jedi", "Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares to do battle with the First Order.", R.drawable.film6, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(5,"Coco", "Despite his family’s baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning…", R.drawable.film7, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(6,"Geostorm", "After an unprecedented episodes of natural disasters threatened the planet, the world's leaders came together to create an intricate network of satellites to control the global climate and keep everyone safe. But…", R.drawable.film8, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(7,"The Shape of Water", "An other-worldly story, set against the backdrop of Cold War era America circa 1962, where a mute janitor working at a lab falls in love with an amphibious man being held captive there and devises a plan to help…", R.drawable.film9, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(8,"Thor: Ragnarok", "Thor is imprisoned on the other side of the universe and finds himself in a race against time to get back to Asgard to stop Ragnarok, the prophecy of destruction to his homeworld and the end of Asgardian civilization…", R.drawable.film10, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(9,"Blade Runner 2049", "Thirty years after the events of the first film, a new blade runner, LAPD Officer K, unearths a long-buried secret that has the potential to plunge what's left of society into chaos. K's discovery leads him on a…", R.drawable.film11, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(10,"Justice League", "Fuelled by his restored faith in humanity and inspired by Superman's selfless act, Bruce Wayne and Diana Prince assemble a team of metahumans consisting of Barry Allen, Arthur Curry and Victor Stone to face the…", R.drawable.film12, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(11,"Jumanji: Welcome to the Jungle", "The tables are turned as four teenagers are sucked into Jumanji's world - pitted against rhinos, black mambas and an endless variety of jungle traps and puzzles. To survive, they'll play as characters from the game.", R.drawable.film13, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(12,"War for the Planet of the Apes", "Caesar and his apes are forced into a deadly conflict with an army of humans led by a ruthless Colonel. After the apes suffer unimaginable losses, Caesar wrestles with his darker instincts and begins his own mythic…", R.drawable.film14, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(13,"Logan", "In the near future, a weary Logan cares for an ailing Professor X in a hideout on the Mexican border. But Logan's attempts to hide from the world and his legacy are upended when a young mutant arrives, pursued by…", R.drawable.film15, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(14,"Kingsman: The Golden Circle", "When an attack on the Kingsman headquarters takes place and a new villain rises, Eggsy and Merlin are forced to work together with the American agency known as the Statesman to save the world.", R.drawable.film16, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(15,"Pirates of the Caribbean: Dead Men Tell No Tales", "Thrust into an all-new adventure, a down-on-his-luck Capt. Jack Sparrow feels the winds of ill-fortune blowing even more strongly when deadly ghost sailors led by his old nemesis, the evil Capt. Salazar, escape…", R.drawable.film17, 0, listOf(), listOf(), listOf(), listOf(), listOf()),
+                Movie(16,"Murder on the Orient Express", "Genius Belgian detective Hercule Poirot investigates the murder of an American tycoon aboard the Orient Express train.", R.drawable.film18, 0, listOf(), listOf(), listOf(), listOf(), listOf())
         )
 
         serieList = listOf(
 
-                Serie("La Casa de Papel", "Un homme mystérieux, surnommé le Professeur (El Profesor), planifie le meilleur braquage jamais organ", R.drawable.serie2, listOf(
+                Serie(1, "La Casa de Papel", "Un homme mystérieux, surnommé le Professeur (El Profesor), planifie le meilleur braquage jamais organ", R.drawable.serie2, listOf(
                         Season("Season 1", R.drawable.serie3,
                                 listOf(
                                         Episode("Le professeur recrute une jeune braqueuse et sept autres criminels en vue d’un cambriolage grandiose ciblant la Maison royale de la Monnaie d’Espagne.", 0, listOf(), 7.9, listOf("Antena 3", "Netflix")),
@@ -149,7 +149,7 @@ object Mocker {
                         , listOf(), 8.8, listOf()
                 ),
 
-                Serie("Game of Thrones", "L'histoire de la série, située sur les continents fictifs de Westeros et Essos à la fin d'un été d'une dizaine d'années, entrelace plusieurs intrigues. La première intrigue suit l'histoire des membres de plusieurs familles nobles, dans une guerre civile pour conquérir le Trône de Fer du Royaume des Sept Couronnes.", R.drawable.serie5,
+                Serie(2, "Game of Thrones", "L'histoire de la série, située sur les continents fictifs de Westeros et Essos à la fin d'un été d'une dizaine d'années, entrelace plusieurs intrigues. La première intrigue suit l'histoire des membres de plusieurs familles nobles, dans une guerre civile pour conquérir le Trône de Fer du Royaume des Sept Couronnes.", R.drawable.serie5,
                         listOf(
                                 Season("Sur le continent de Westeros, le roi Robert Baratheon règne sur le Royaume des Sept Couronnes depuis qu'il a mené à la victoire la rébellion contre le roi fou, Aerys II Targaryen, dix-sept ans plus tôt.", R.drawable.serie5,
                                         listOf(
@@ -175,7 +175,7 @@ object Mocker {
                         , listOf(), 8.8, listOf()
                 ),
 
-                Serie("Lost in Space", "Perdus dans l'espace (Lost in Space) est une série télévisée de science-fiction américaine en dix épisodes de 60 minutes créée par Matt Sazama et Burk Sharpless, basée sur la série du même titre des années 1960.", R.drawable.serie8,
+                Serie(3, "Lost in Space", "Perdus dans l'espace (Lost in Space) est une série télévisée de science-fiction américaine en dix épisodes de 60 minutes créée par Matt Sazama et Burk Sharpless, basée sur la série du même titre des années 1960.", R.drawable.serie8,
                         listOf(
                                 Season("En 2046, la famille Robinson est sélectionnée pour reconstruire leur vie dans un monde meilleur. John et Maureen Robinson et leurs trois enfants, Judy, Penny et Will, embarquent à bord du Jupiter 2", R.drawable.serie8,
                                         listOf(
@@ -186,7 +186,7 @@ object Mocker {
                         , listOf(), 8.8, listOf()
                 ),
 
-                Serie("The Walking Dead", "L'histoire suit le personnage de Rick Grimes (interprété par Andrew Lincoln), adjoint du shérif du comté de Kings (en Géorgie) qui se réveille d'un coma de plusieurs semaines pour découvrir que la population a été ravagée par une épidémie post-apocalyptique inconnue qui transforme les êtres humains en morts-vivants", R.drawable.serie4,
+                Serie(4, "The Walking Dead", "L'histoire suit le personnage de Rick Grimes (interprété par Andrew Lincoln), adjoint du shérif du comté de Kings (en Géorgie) qui se réveille d'un coma de plusieurs semaines pour découvrir que la population a été ravagée par une épidémie post-apocalyptique inconnue qui transforme les êtres humains en morts-vivants", R.drawable.serie4,
                         listOf(
                                 Season("La première saison introduit le personnage Rick Grimes, qui se réveille à l'hôpital après un long coma de plusieurs mois. Il découvre avec effarement que la population entière, ravagée par une épidémie d'origine inconnue", R.drawable.serie4,
                                         listOf(

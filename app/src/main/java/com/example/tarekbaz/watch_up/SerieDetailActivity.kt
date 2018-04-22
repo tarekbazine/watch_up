@@ -58,10 +58,15 @@ class SerieDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_serie)
 
         val index = intent.extras.getInt("index",0)
-        val comments = Mocker.serieList[index].comments
-        val assSeries = Mocker.serieList[index].linkedSeries
-        val seasons = Mocker.serieList[index].seasons
-        val serie = Mocker.serieList[index]
+
+        var serie:Serie  = Mocker.serieList[0]
+        Mocker.serieList.forEach { it ->
+            if (it.id == index)
+                serie = it
+        }
+        val comments = serie.comments
+        val assSeries = serie.linkedSeries
+        val seasons = serie.seasons
 
         frameLayout.setBackgroundResource(serie.image)
         filmCard.setImageResource(serie.image)

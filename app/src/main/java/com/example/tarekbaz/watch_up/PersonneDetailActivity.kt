@@ -49,6 +49,7 @@ class PersonneDetailActivity : AppCompatActivity() {
         toolbar_detail_personne.title = person.name
 
         personneCard.setImageResource(person.picture)
+        personne_name.text = person.name
         birthdayText.text = person.birthDay
         nationalityText.text = nationality
         works_numText.text = works.toString()
