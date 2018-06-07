@@ -68,7 +68,7 @@ class EpisodeDetailActivity : AppCompatActivity() {
             canalsLayout.addView(canal)
         }
 
-        episodeCard.setImageResource(R.drawable.film3)
+//        episodeCard.setImageResource(R.drawable.film3)
         serieTitleText.text = "Episode "+ (index+1)
         descriptionEpisodeText.text = episode.discription
         durationText.text = length

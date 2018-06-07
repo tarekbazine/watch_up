@@ -49,6 +49,8 @@ class SeriesActivity  : BaseActivity()  {
         val adapter_series = SeriesRecyclerViewAdapter(this, series)
         seriesRecyclerView.setAdapter(adapter_series)
         this.adapter_series = adapter_series
+
+
     }
 
 
