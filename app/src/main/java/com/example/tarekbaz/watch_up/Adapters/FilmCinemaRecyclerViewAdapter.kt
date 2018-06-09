@@ -1,4 +1,4 @@
-package com.example.tarekbaz.watch_up
+package com.example.tarekbaz.watch_up.Adapters
 
 import android.content.Context
 import android.content.Intent
@@ -9,11 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import com.example.tarekbaz.watch_up.FilmDetailActivity
 import com.example.tarekbaz.watch_up.Models.Movie
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.tarekbaz.watch_up.R
 
 class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films : List<Movie>) : RecyclerView.Adapter<FilmCinemaRecyclerViewAdapter.ViewHolder>() {
 

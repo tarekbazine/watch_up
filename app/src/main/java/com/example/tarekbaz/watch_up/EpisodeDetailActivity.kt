@@ -1,19 +1,16 @@
 package com.example.tarekbaz.watch_up
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.LinearLayout
+import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Comment
 import com.example.tarekbaz.watch_up.Models.Mocker
 import com.example.tarekbaz.watch_up.Models.Serie
 import kotlinx.android.synthetic.main.activity_detail_episode.*
-import kotlinx.android.synthetic.main.activity_detail_personne.*
 
 
 class EpisodeDetailActivity : AppCompatActivity() {

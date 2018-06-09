@@ -9,6 +9,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.MediaController
+import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Adapters.EpisodeRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Comment
 import com.example.tarekbaz.watch_up.Models.Episode
 import com.example.tarekbaz.watch_up.Models.Mocker
@@ -28,7 +30,7 @@ class SeasonDetailActivity : AppCompatActivity() {
     private fun initEpisodesRecyclerView(episodes : List<Episode>, index:Int , indexSerie :Int) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         episodesRecyclerView.setLayoutManager(layoutManager)
-        val adapter_films = EpisodeRecyclerViewAdapter(this, episodes , index , indexSerie)
+        val adapter_films = EpisodeRecyclerViewAdapter(this, episodes, index, indexSerie)
         episodesRecyclerView.setAdapter(adapter_films)
     }
 

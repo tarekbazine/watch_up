@@ -1,4 +1,4 @@
-package com.example.tarekbaz.watch_up
+package com.example.tarekbaz.watch_up.Adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.example.tarekbaz.watch_up.Models.Cinema
+import com.example.tarekbaz.watch_up.R
 
 class SalleCinemaRecyclerViewAdapter(private val mContext: Context,
                                      var salles : List<Cinema>)

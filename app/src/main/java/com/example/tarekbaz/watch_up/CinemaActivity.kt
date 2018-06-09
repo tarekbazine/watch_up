@@ -1,13 +1,11 @@
 package com.example.tarekbaz.watch_up
 
 import android.support.design.widget.TabLayout
-import android.support.v7.app.AppCompatActivity
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
-import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -15,13 +13,13 @@ import android.support.v7.widget.SearchView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import com.example.tarekbaz.watch_up.Adapters.FilmCinemaRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Adapters.SalleCinemaRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
 
 import kotlinx.android.synthetic.main.activity_cinema.*
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
 
 class CinemaActivity : BaseActivity() {

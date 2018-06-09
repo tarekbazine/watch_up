@@ -1,6 +1,13 @@
 package com.example.tarekbaz.watch_up.Models
 
+import android.util.Log
+import android.widget.Toast
 import com.example.tarekbaz.watch_up.R
+import com.google.gson.GsonBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -45,6 +52,8 @@ object Mocker {
     var favCinemaList:ArrayList<Cinema> = ArrayList()
 //    var favSerieList: List<Serie> = listOf()
 //    var favCinemaList: List<Cinema> = listOf()
+
+
 
 
     init {

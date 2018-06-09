@@ -1,4 +1,4 @@
-package com.example.tarekbaz.watch_up
+package com.example.tarekbaz.watch_up.Adapters
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.example.tarekbaz.watch_up.Models.Serie
+import com.example.tarekbaz.watch_up.R
+import com.example.tarekbaz.watch_up.SerieDetailActivity
 
 
 class HomeSerieRecyclerViewAdapter(private val mContext: Context, val series: List<Serie>) : RecyclerView.Adapter<HomeSerieRecyclerViewAdapter.ViewHolder>() {

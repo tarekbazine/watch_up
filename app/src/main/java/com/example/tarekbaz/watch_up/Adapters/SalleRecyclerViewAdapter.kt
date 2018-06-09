@@ -1,4 +1,4 @@
-package com.example.tarekbaz.watch_up
+package com.example.tarekbaz.watch_up.Adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import com.example.tarekbaz.watch_up.Models.Cinema
+import com.example.tarekbaz.watch_up.R
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.*
 
-class SalleRecyclerViewAdapter (private val mContext: Context, val salles : List<Cinema>) : RecyclerView.Adapter<com.example.tarekbaz.watch_up.SalleRecyclerViewAdapter.ViewHolder>() {
+class SalleRecyclerViewAdapter (private val mContext: Context, val salles : List<Cinema>) : RecyclerView.Adapter<SalleRecyclerViewAdapter.ViewHolder>() {
 
 
 

@@ -10,6 +10,9 @@ import com.example.tarekbaz.watch_up.Models.Serie
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Adapters.SeasonRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_detail_serie.*
 
 class SerieDetailActivity : AppCompatActivity() {
@@ -19,7 +22,7 @@ class SerieDetailActivity : AppCompatActivity() {
     private fun initSeasonsRecyclerView(seasons : List<Season>,index : Int) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         seasonsRecyclerView.setLayoutManager(layoutManager)
-        val adapter_seasons= SeasonRecyclerViewAdapter(this,seasons , index)
+        val adapter_seasons= SeasonRecyclerViewAdapter(this, seasons, index)
         seasonsRecyclerView.setAdapter(adapter_seasons)
     }
 

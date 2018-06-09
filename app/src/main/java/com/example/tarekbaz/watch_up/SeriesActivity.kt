@@ -9,6 +9,7 @@ import android.view.Menu
 import kotlinx.android.synthetic.main.activity_series.*
 import kotlinx.android.synthetic.main.drawer_activity.*
 import android.text.TextUtils
+import com.example.tarekbaz.watch_up.Adapters.SeriesRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
 
 

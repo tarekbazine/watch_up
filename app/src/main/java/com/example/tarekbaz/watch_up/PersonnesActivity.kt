@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_personnes.*
@@ -17,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.text.TextUtils
 import kotlinx.android.synthetic.main.drawer_activity.*
 import android.support.v7.widget.SearchView
+import com.example.tarekbaz.watch_up.Adapters.PersonneRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
 
 
@@ -127,7 +127,7 @@ class PersonnesActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             personneRecycler.setLayoutManager(layoutManager)
-            val adapter_producers = PersonneRecyclerViewAdapter(context, directors,isActor = false)
+            val adapter_producers = PersonneRecyclerViewAdapter(context, directors, isActor = false)
             personneRecycler.setAdapter(adapter_producers)
 
             this.adapter_producers = adapter_producers
@@ -173,7 +173,7 @@ class PersonnesActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             personneRecycler.setLayoutManager(layoutManager)
-            val adapter_person = PersonneRecyclerViewAdapter(context, actors,isActor = true)
+            val adapter_person = PersonneRecyclerViewAdapter(context, actors, isActor = true)
             personneRecycler.setAdapter(adapter_person)
 
             this.adapter_person = adapter_person

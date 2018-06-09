@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import com.example.tarekbaz.watch_up.Adapters.CommentBySeriesFilterRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
 
 class CommentBySerieFragment : Fragment() {

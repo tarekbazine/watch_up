@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.support.design.widget.TabLayout
-import android.support.design.widget.Snackbar
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -18,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Comment
 import com.example.tarekbaz.watch_up.Models.Mocker
 
@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.activity_comment_evaluation.*
 import kotlinx.android.synthetic.main.popup_add_comment.*
 
 import kotlinx.android.synthetic.main.drawer_activity.*
-import kotlinx.android.synthetic.main.popup_add_comment.view.*
 
 class CommentEvaluationActivity : BaseActivity() {
 

@@ -8,6 +8,7 @@ import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Models.Person
 import kotlinx.android.synthetic.main.activity_detail_personne.*
 import android.view.MenuItem
+import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
 
 
 class PersonneDetailActivity : AppCompatActivity() {

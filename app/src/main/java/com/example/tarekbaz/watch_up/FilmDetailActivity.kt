@@ -20,6 +20,9 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import android.view.ViewTreeObserver
+import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Adapters.SalleRecyclerViewAdapter
 
 
 class FilmDetailActivity : AppCompatActivity() {

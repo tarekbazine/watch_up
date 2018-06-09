@@ -1,20 +1,19 @@
-package com.example.tarekbaz.watch_up
+package com.example.tarekbaz.watch_up.Adapters
 
 import android.content.Context
-import android.content.Intent
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.tarekbaz.watch_up.CommentEvaluationActivity
 import com.example.tarekbaz.watch_up.Models.Serie
+import com.example.tarekbaz.watch_up.R
 
-class SeriesRecyclerViewAdapter(private val mContext: Context, var series : List<Serie>) : RecyclerView.Adapter<SeriesRecyclerViewAdapter.ViewHolder>() {
+class CommentBySeriesFilterRecyclerViewAdapter(private val mContext: Context, var series: List<Serie>) : RecyclerView.Adapter<CommentBySeriesFilterRecyclerViewAdapter.ViewHolder>() {
 
-    val fullSerie = series
-
+    val fullSeries = series
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_film, parent, false)
@@ -25,13 +24,13 @@ class SeriesRecyclerViewAdapter(private val mContext: Context, var series : List
 
         holder.serie_image.setImageResource(series.get(position).image)
         holder.serie_name.text = series.get(position).title
-        holder.serie_realisator.text = ""//todo
+        holder.serie_realisator.setText("")
 
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
-                val intent = Intent(mContext, SerieDetailActivity::class.java)
-                intent.putExtra("index",position+1)
-                startActivity(mContext, intent, null)
+                if (mContext is CommentEvaluationActivity) {
+                    mContext.mSectionsPagerAdapter!!.switchSerieFragmentToCommentView()
+                }
             }
         })
     }
@@ -53,7 +52,7 @@ class SeriesRecyclerViewAdapter(private val mContext: Context, var series : List
     }
 
     fun filter(keyWords: String) {
-        series = fullSerie.filter { serie -> serie.title.contains(keyWords, true) }
+        series = fullSeries.filter { serie -> serie.title.contains(keyWords, true) }
         notifyDataSetChanged()
     }
 }

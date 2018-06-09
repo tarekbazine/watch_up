@@ -3,6 +3,9 @@ package com.example.tarekbaz.watch_up
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
+import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Adapters.SalleFanRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
 import kotlinx.android.synthetic.main.activity_fan.*
 import kotlinx.android.synthetic.main.drawer_activity.*

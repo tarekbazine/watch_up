@@ -1,4 +1,4 @@
-package com.example.tarekbaz.watch_up
+package com.example.tarekbaz.watch_up.Adapters
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.tarekbaz.watch_up.Models.Person
+import com.example.tarekbaz.watch_up.PersonneDetailActivity
+import com.example.tarekbaz.watch_up.R
 
 class PersonneRecyclerViewAdapter(private val mContext: Context, var persons : List<Person>,val isActor : Boolean)
     : RecyclerView.Adapter<PersonneRecyclerViewAdapter.ViewHolder>() {
