@@ -132,7 +132,7 @@ class CinemaActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val filmRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             filmRecycler.setLayoutManager(layoutManager)
-            val adapter_films = FilmCinemaRecyclerViewAdapter(context, films)
+            val adapter_films = FilmCinemaRecyclerViewAdapter(context!!, films)
             filmRecycler.setAdapter(adapter_films)
 
             this.adapter_films = adapter_films
@@ -178,7 +178,7 @@ class CinemaActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val salleRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             salleRecycler.setLayoutManager(layoutManager)
-            val adapter_salle = SalleCinemaRecyclerViewAdapter(context, salles)
+            val adapter_salle = SalleCinemaRecyclerViewAdapter(context!!, salles)
             salleRecycler.setAdapter(adapter_salle)
 
             this.adapter_salle = adapter_salle

@@ -55,7 +55,7 @@ class HomeActivity : BaseActivity() {
 
         val gson = GsonBuilder().create()
         val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
+                .baseUrl(Config.API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         Log.i("watchuplog", "cool" )
@@ -94,7 +94,7 @@ class HomeActivity : BaseActivity() {
 
             override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?){
 //                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
-                Log.i("watchuplog", "pars")
+                Log.i("watchuplog", "error")
             }
         })
 

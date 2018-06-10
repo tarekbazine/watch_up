@@ -23,7 +23,7 @@ class CommentByFilmFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val commentRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
         commentRecycler.setLayoutManager(layoutManager)
-        val adapter_comments = CommentRecyclerViewAdapter(context, Mocker.commentList)
+        val adapter_comments = CommentRecyclerViewAdapter(context!!, Mocker.commentList)
         commentRecycler.setAdapter(adapter_comments)
     }
 
@@ -34,7 +34,7 @@ class CommentByFilmFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val filterRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
         filterRecycler.setLayoutManager(layoutManager)
-        val adapter_filter_films = CommentByFilmFilterRecyclerViewAdapter(context, Mocker.movieList)
+        val adapter_filter_films = CommentByFilmFilterRecyclerViewAdapter(context!!, Mocker.movieList)
         filterRecycler.setAdapter(adapter_filter_films)
 
     }
@@ -46,7 +46,7 @@ class CommentByFilmFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val filterRecycler = viewSearch.findViewById<RecyclerView>(R.id.recycler)
         filterRecycler.setLayoutManager(layoutManager)
-        val adapter_filter_films = CommentByFilmFilterRecyclerViewAdapter(context, Mocker.movieList)
+        val adapter_filter_films = CommentByFilmFilterRecyclerViewAdapter(context!!, Mocker.movieList)
         filterRecycler.setAdapter(adapter_filter_films)
 
         this.filmAdapter = adapter_filter_films

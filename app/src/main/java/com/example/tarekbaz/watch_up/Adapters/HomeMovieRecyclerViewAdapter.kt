@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.FilmDetailActivity
 import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.R
@@ -22,7 +24,13 @@ class HomeMovieRecyclerViewAdapter(private val mContext: Context, val films: Lis
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.image.setImageResource(films.get(position).image)
+
+//        holder.image.setImageResource(films.get(position).image)
+
+        Glide.with(mContext)
+                .load(Config.IMG_BASE_URL + films.get(position).backdrop_path)
+                .into(holder.image)
+
         holder.name.setText(films.get(position).title)
 
         holder.image.setOnClickListener(object : View.OnClickListener {

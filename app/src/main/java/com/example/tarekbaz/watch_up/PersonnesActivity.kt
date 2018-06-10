@@ -127,7 +127,7 @@ class PersonnesActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             personneRecycler.setLayoutManager(layoutManager)
-            val adapter_producers = PersonneRecyclerViewAdapter(context, directors, isActor = false)
+            val adapter_producers = PersonneRecyclerViewAdapter(context!!, directors, isActor = false)
             personneRecycler.setAdapter(adapter_producers)
 
             this.adapter_producers = adapter_producers
@@ -173,7 +173,7 @@ class PersonnesActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             personneRecycler.setLayoutManager(layoutManager)
-            val adapter_person = PersonneRecyclerViewAdapter(context, actors, isActor = true)
+            val adapter_person = PersonneRecyclerViewAdapter(context!!, actors, isActor = true)
             personneRecycler.setAdapter(adapter_person)
 
             this.adapter_person = adapter_person
