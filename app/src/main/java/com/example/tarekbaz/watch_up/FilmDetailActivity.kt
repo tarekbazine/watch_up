@@ -114,7 +114,13 @@ class FilmDetailActivity : AppCompatActivity() {
                         frameLayout.setBackground(resource)
                     }
                 })
+
+        evaluationText.text = film.vote_average.toString()
+
         descriptionText.text = film.description
+
+        filmDate.text = SimpleDateFormat("yyyy").format(film.release_date)
+
 
         //todo
 //        actors_names.text = film.actors.get(0).name
@@ -138,8 +144,6 @@ class FilmDetailActivity : AppCompatActivity() {
                     mediaController!!.hide()
                 })
 
-        //todo
-        Log.i("wathupLog",""+salles.size )
         initSallesRecyclerView(salles)
         initCommentsRecyclerView(comments)
     }

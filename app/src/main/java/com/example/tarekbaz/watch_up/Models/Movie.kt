@@ -3,6 +3,7 @@ package com.example.tarekbaz.watch_up.Models
 import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements
 import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
+import java.util.*
 
 
 data class Movie(val id: Int,
@@ -17,7 +18,9 @@ data class Movie(val id: Int,
                  var directors : List<Person>,
                  var comments : List<Comment>,
                  var linkedMovies : List<Movie>,
-                 var poster_path : String = ""
+                 var poster_path : String = "",
+                 var vote_average: Double = 6.6,
+                 var release_date: Date = Date()
                  ) {
 
 //    override fun hashCode(): Int {
