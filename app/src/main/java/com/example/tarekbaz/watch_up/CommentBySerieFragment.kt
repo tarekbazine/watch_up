@@ -23,7 +23,7 @@ class CommentBySerieFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val commentRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
         commentRecycler.setLayoutManager(layoutManager)
-        val adapter_comments = CommentRecyclerViewAdapter(context, Mocker.commentList)
+        val adapter_comments = CommentRecyclerViewAdapter(context!!, Mocker.commentList)
         commentRecycler.setAdapter(adapter_comments)
 
     }
@@ -35,7 +35,7 @@ class CommentBySerieFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val lastRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
         lastRecycler.setLayoutManager(layoutManager)
-        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context, Mocker.serieList)
+        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context!!, Mocker.serieList)
         lastRecycler.setAdapter(adapter_series)
     }
 
@@ -46,7 +46,7 @@ class CommentBySerieFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val lastRecycler = rootView.findViewById<RecyclerView>(R.id.recycler)
         lastRecycler.setLayoutManager(layoutManager)
-        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context, Mocker.serieList)
+        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context!!, Mocker.serieList)
         lastRecycler.setAdapter(adapter_series)
 
         this.serieAdapter = adapter_series

@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.Models.Serie
 import com.example.tarekbaz.watch_up.R
 import com.example.tarekbaz.watch_up.SerieDetailActivity
@@ -23,7 +25,11 @@ class HomeSerieRecyclerViewAdapter(private val mContext: Context, val series: Li
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.image.setImageResource(series.get(position).image)
+
+        Glide.with(mContext)
+                .load(Config.IMG_BASE_URL + series.get(position).poster_path)
+                .into(holder.image)
+
         holder.name.setText(series.get(position).title)
 
         holder.image.setOnClickListener(object : View.OnClickListener {

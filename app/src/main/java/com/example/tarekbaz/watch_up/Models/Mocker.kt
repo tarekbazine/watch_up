@@ -41,7 +41,7 @@ object Mocker {
     }
 
     val salleList: List<Cinema>
-    var commentList: ArrayList<Comment>
+    val commentList: ArrayList<Comment>
     val actorList: List<Person>
     val directorList: List<Person>
     val movieList: List<Movie>

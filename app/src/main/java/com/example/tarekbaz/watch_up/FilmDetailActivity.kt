@@ -5,10 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.MediaController
 import android.support.v7.widget.LinearLayoutManager
-import com.example.tarekbaz.watch_up.Models.Cinema
-import com.example.tarekbaz.watch_up.Models.Comment
-import com.example.tarekbaz.watch_up.Models.Mocker
-import com.example.tarekbaz.watch_up.Models.Movie
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -20,13 +16,26 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import android.view.ViewTreeObserver
+import com.bumptech.glide.Glide
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SalleRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Models.*
+import android.os.Build
+import android.graphics.drawable.Drawable
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
+import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SerieResponse
+import com.google.gson.GsonBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class FilmDetailActivity : AppCompatActivity() {
-
 
     var str1 = "22:03"
     var str2 = "22:30"
@@ -67,33 +76,49 @@ class FilmDetailActivity : AppCompatActivity() {
         commentsFilmRecyclerView.setAdapter(adapter_comments)
     }
 
-    var film = Mocker.movieList[0]
+    var film = Store.homeFilms[0]
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_film)
 
         val index = intent.extras.getInt("index", 0)
 
-        Mocker.movieList.forEach { it ->
+        Store.homeFilms.forEach { it ->
             if (it.id == index)
                 film = it
         }
 
-        val salles = film.cinemas
-        val assFilms = film.linkedMovies
-        val comments = film.comments
+        initDetailFilmDataAPI(film.id)
+
+        val salles = Mocker.salleList.getRandomElements(4)
+        film.cinemas = salles
+
+        val comments = Mocker.commentList.getRandomElements(4)
+        film.comments = comments
 
         Mocker.favMovieList.forEach { it ->
-            if(it.id == film.id)
+            if (it.id == film.id)
                 is_fan = true
         }
 
-        filmCard.setImageResource(film.image)
+        val glide = Glide.with(this)
+
+        glide.load(Config.IMG_BASE_URL + film.poster_path)
+                .into(filmCard)
         filmTitle.text = film.title
-        frameLayout.setBackgroundResource(film.image)
+        glide.load(Config.IMG_BASE_URL + film.poster_path)
+                .into(object : SimpleTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable,
+                                                 transition: Transition<in Drawable>?) {
+                        frameLayout.setBackground(resource)
+                    }
+                })
         descriptionText.text = film.description
-        actors_names.text = film.actors.get(0).name
-        producertext.text = film.directors.get(0).name
+
+        //todo
+//        actors_names.text = film.actors.get(0).name
+//        producertext.text = film.directors.get(0).name
 
         setSupportActionBar(toolbar_detail_film)
         // add back arrow to toolbar
@@ -113,8 +138,9 @@ class FilmDetailActivity : AppCompatActivity() {
                     mediaController!!.hide()
                 })
 
+        //todo
+        Log.i("wathupLog",""+salles.size )
         initSallesRecyclerView(salles)
-        initAssociatedFilmsRecyclerView(assFilms)
         initCommentsRecyclerView(comments)
     }
 
@@ -230,4 +256,46 @@ class FilmDetailActivity : AppCompatActivity() {
             trailerVideo.start()
         }
     }
+
+    fun initDetailFilmDataAPI(movieId : Int){
+
+        val gson = GsonBuilder().create()
+        val retrofit = Retrofit.Builder()
+                .baseUrl(Config.API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+
+        val service = retrofit.create<Service>(Service::class.java!!)
+
+        service.relatedMovies(movieId).enqueue(object: Callback<MoviesResponse> {
+
+            override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
+                if ((response != null) && (response.code() == 200)) {
+                    val relatedMovies = response.body()!!.results
+                    film.linkedMovies = relatedMovies
+                    initAssociatedFilmsRecyclerView(relatedMovies)
+                }
+
+            }
+
+            override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?){
+                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+            }
+        })
+
+//        service.getTodayAiringSeries().enqueue(object: Callback<SerieResponse> {
+//            override fun onResponse(call: Call<SerieResponse>, response: retrofit2.Response<SerieResponse>?) {
+//                if ((response != null) && (response.code() == 200)) {
+//                    val series = response.body()!!.results
+//                    Store.homeSeries = series
+//                    initSerieRecyclerView(series)
+//                }
+//            }
+//            override fun onFailure(call: Call<SerieResponse>?, t: Throwable?){
+//                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+//            }
+//        })
+
+    }
+
 }
