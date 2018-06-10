@@ -67,4 +67,6 @@ class PersonneDetailActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+
+
 }

@@ -187,7 +187,7 @@ class PersonnesActivity : BaseActivity() {
                                   savedInstanceState: Bundle?): View? {
             rootView = inflater.inflate(R.layout.fragment_listing_cards, container, false)
 
-            getActorsAPI(1)
+            getActorsAPI()
 
             return rootView
         }
@@ -212,7 +212,7 @@ class PersonnesActivity : BaseActivity() {
             }
         }
 
-        fun getActorsAPI(page: Int) {
+        fun getActorsAPI() {
             val gson = GsonBuilder().create()
             val retrofit = Retrofit.Builder()
                     .baseUrl("https://api.themoviedb.org/3/")
@@ -227,7 +227,6 @@ class PersonnesActivity : BaseActivity() {
                         // init actors
                         actors = response.body()!!.results
 
-
                         val layoutManager = LinearLayoutManager(activity)
                         val personneRecycler = rootView?.findViewById<RecyclerView>(R.id.recyclerView) as RecyclerView
                         personneRecycler.setLayoutManager(layoutManager)
@@ -236,11 +235,10 @@ class PersonnesActivity : BaseActivity() {
 
                         Log.i("reponse", " "+actors[0] )
                     }
-
                 }
 
                 override fun onFailure(call: Call<PersonsResponse>?, t: Throwable?){
-                    Toast.makeText(activity, "Erreur", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "Erreur de connexion", Toast.LENGTH_LONG).show()
                 }
             })
         }

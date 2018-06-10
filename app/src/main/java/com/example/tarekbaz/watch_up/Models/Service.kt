@@ -28,6 +28,5 @@ interface Service {
     fun reviewsMovies(@Path("movie_id") id : Int): Call<MoviesResponse>
     // TODO specify page
     @GET("person/popular?api_key=${Config.API_KEY}&language=en-US&page=1")
-//    fun getPersons (@Path(value = "page", encoded = true) page :String ="1" ): Call<PersonsResponse>
     fun getPersons (): Call<PersonsResponse>
 }
