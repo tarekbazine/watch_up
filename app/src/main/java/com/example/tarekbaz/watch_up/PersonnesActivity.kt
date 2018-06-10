@@ -1,5 +1,6 @@
 package com.example.tarekbaz.watch_up
 
+import android.app.Activity
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -16,11 +17,24 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.text.TextUtils
 import kotlinx.android.synthetic.main.drawer_activity.*
 import android.support.v7.widget.SearchView
+import android.util.Log
+import android.widget.Toast
 import com.example.tarekbaz.watch_up.Adapters.PersonneRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
+import com.example.tarekbaz.watch_up.Models.Person
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.PersonsResponse
+import com.example.tarekbaz.watch_up.Models.Service
+import com.google.gson.GsonBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class PersonnesActivity : BaseActivity() {
+
+//    val actors = Mocker.actorList
+
 
     var tabActeur: ActorsFragment? = null
     var tabRealisateur: ProducersFragment? = null
@@ -54,6 +68,7 @@ class PersonnesActivity : BaseActivity() {
 
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
+
 
     }
 
@@ -163,20 +178,16 @@ class PersonnesActivity : BaseActivity() {
 
         var adapter_person: PersonneRecyclerViewAdapter? = null
 
-        val actors = Mocker.actorList
+        var actors:List<Person> = ArrayList<Person>()
+
+        var rootView: View? = null
 
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
-            val rootView = inflater.inflate(R.layout.fragment_listing_cards, container, false)
+            rootView = inflater.inflate(R.layout.fragment_listing_cards, container, false)
 
-            val layoutManager = LinearLayoutManager(context)
-            val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
-            personneRecycler.setLayoutManager(layoutManager)
-            val adapter_person = PersonneRecyclerViewAdapter(context, actors, isActor = true)
-            personneRecycler.setAdapter(adapter_person)
-
-            this.adapter_person = adapter_person
+            getActorsAPI(1)
 
             return rootView
         }
@@ -200,5 +211,41 @@ class PersonnesActivity : BaseActivity() {
                 return fragment
             }
         }
+
+        fun getActorsAPI(page: Int) {
+            val gson = GsonBuilder().create()
+            val retrofit = Retrofit.Builder()
+                    .baseUrl("https://api.themoviedb.org/3/")
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build()
+            val service = retrofit.create<Service>(Service::class.java!!)
+            service.getPersons().enqueue(object: Callback<PersonsResponse> {
+
+                override fun onResponse(call: Call<PersonsResponse>, response: retrofit2.Response<PersonsResponse>?) {
+                    if ((response != null) && (response.code() == 200)) {
+
+                        // init actors
+                        actors = response.body()!!.results
+
+
+                        val layoutManager = LinearLayoutManager(activity)
+                        val personneRecycler = rootView?.findViewById<RecyclerView>(R.id.recyclerView) as RecyclerView
+                        personneRecycler.setLayoutManager(layoutManager)
+                        val adapter_person = PersonneRecyclerViewAdapter(context, actors, isActor = true)
+                        personneRecycler.setAdapter(adapter_person)
+
+                        Log.i("reponse", " "+actors[0] )
+                    }
+
+                }
+
+                override fun onFailure(call: Call<PersonsResponse>?, t: Throwable?){
+                    Toast.makeText(activity, "Erreur", Toast.LENGTH_LONG).show()
+                }
+            })
+        }
+
     }
+
+
 }
