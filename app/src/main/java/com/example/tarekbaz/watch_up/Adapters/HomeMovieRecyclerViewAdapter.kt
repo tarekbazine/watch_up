@@ -26,7 +26,7 @@ class HomeMovieRecyclerViewAdapter(private val mContext: Context, val films: Lis
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         Glide.with(mContext)
-                .load(Config.IMG_BASE_URL + films.get(position).backdrop_path)
+                .load(Config.IMG_BASE_URL + films.get(position).poster_path)
                 .into(holder.image)
 
         holder.name.setText(films.get(position).title)

@@ -27,7 +27,7 @@ class HomeSerieRecyclerViewAdapter(private val mContext: Context, val series: Li
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         Glide.with(mContext)
-                .load(Config.IMG_BASE_URL + series.get(position).backdrop_path)
+                .load(Config.IMG_BASE_URL + series.get(position).poster_path)
                 .into(holder.image)
 
         holder.name.setText(series.get(position).title)

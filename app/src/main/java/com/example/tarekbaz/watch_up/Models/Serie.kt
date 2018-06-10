@@ -13,5 +13,5 @@ data class Serie(val id: Int,
                  @SerializedName("vote_average")
                  val evaluation: Double,
                  var linkedSeries: List<Serie>,
-                 val backdrop_path: String = "") {
+                 val poster_path: String = "") {
 }

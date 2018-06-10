@@ -7,12 +7,9 @@ import android.util.Log
 import android.widget.Toast
 import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
-import com.example.tarekbaz.watch_up.Models.Mocker
-import com.example.tarekbaz.watch_up.Models.Movie
+import com.example.tarekbaz.watch_up.Models.*
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SerieResponse
-import com.example.tarekbaz.watch_up.Models.Serie
-import com.example.tarekbaz.watch_up.Models.Service
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
@@ -69,7 +66,9 @@ class HomeActivity : BaseActivity() {
             override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
 
-                    var movies = response.body()!!.results
+                    val movies = response.body()!!.results
+
+                    Store.homeFilms = movies
 //
 //
 //                    Log.i("dd", ""+todos!![0].title + ""+ todos!![0].completed )
@@ -103,6 +102,7 @@ class HomeActivity : BaseActivity() {
             override fun onResponse(call: Call<SerieResponse>, response: retrofit2.Response<SerieResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val series = response.body()!!.results
+                    Store.homeSeries = series
                     initSerieRecyclerView(series)
                 }
             }
