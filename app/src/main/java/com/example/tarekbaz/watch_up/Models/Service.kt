@@ -2,6 +2,7 @@ package com.example.tarekbaz.watch_up.Models
 
 import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.PersonsResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SerieResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -25,4 +26,7 @@ interface Service {
 
     @GET("/movie/{movie_id}/reviews?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun reviewsMovies(@Path("movie_id") id : Int): Call<MoviesResponse>
+    // TODO specify page
+    @GET("person/popular?api_key=${Config.API_KEY}&language=en-US&page=1")
+    fun getPersons (): Call<PersonsResponse>
 }

@@ -37,7 +37,7 @@ class PersonneDetailActivity : AppCompatActivity() {
         else
             person = Mocker.directorList[index]
 
-        val movies = person.movies
+        val movies = person.known_for
 
         setSupportActionBar(toolbar_detail_personne)
         // add back arrow to toolbar
@@ -51,10 +51,10 @@ class PersonneDetailActivity : AppCompatActivity() {
 
         personneCard.setImageResource(person.picture)
         personne_name.text = person.name
-        birthdayText.text = person.birthDay
+        birthdayText.text = person.birthday
         nationalityText.text = nationality
         works_numText.text = works.toString()
-        bibliographieContent.text = person.bibliography
+        bibliographieContent.text = person.biography
 
         initfilmographyRecyclerView(movies)
     }
@@ -66,5 +66,7 @@ class PersonneDetailActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 
 }

@@ -65,4 +65,7 @@
     <string name="my_fav_salles">Mes Salles</string>
 
 
+    <string name="baseurl">https://api.themoviedb.org/3/</string>
+
+
 </resources>
