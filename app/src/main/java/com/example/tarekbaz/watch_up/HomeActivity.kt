@@ -9,7 +9,7 @@ import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SerieResponse
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
@@ -98,15 +98,15 @@ class HomeActivity : BaseActivity() {
             }
         })
 
-        service.getTodayAiringSeries().enqueue(object: Callback<SerieResponse> {
-            override fun onResponse(call: Call<SerieResponse>, response: retrofit2.Response<SerieResponse>?) {
+        service.getTodayAiringSeries().enqueue(object: Callback<SeriesResponse> {
+            override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val series = response.body()!!.results
-                    Store.homeSeries = series
+                    Store.homeSeries = ArrayList(series)
                     initSerieRecyclerView(series)
                 }
             }
-            override fun onFailure(call: Call<SerieResponse>?, t: Throwable?){
+            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?){
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })

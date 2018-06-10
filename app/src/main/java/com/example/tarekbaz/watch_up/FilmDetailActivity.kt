@@ -21,13 +21,11 @@ import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SalleRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
-import android.os.Build
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SerieResponse
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -97,6 +95,7 @@ class FilmDetailActivity : AppCompatActivity() {
         val comments = Mocker.commentList.getRandomElements(4)
         film.comments = comments
 
+        //todo fav
         Mocker.favMovieList.forEach { it ->
             if (it.id == film.id)
                 is_fan = true
@@ -119,7 +118,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
         descriptionText.text = film.description
 
-        filmDate.text = SimpleDateFormat("yyyy").format(film.release_date)
+        filmDate.text = "(${SimpleDateFormat("yyyy").format(film.release_date)})"
 
 
         //todo
@@ -287,15 +286,15 @@ class FilmDetailActivity : AppCompatActivity() {
             }
         })
 
-//        service.getTodayAiringSeries().enqueue(object: Callback<SerieResponse> {
-//            override fun onResponse(call: Call<SerieResponse>, response: retrofit2.Response<SerieResponse>?) {
+//        service.getTodayAiringSeries().enqueue(object: Callback<SeriesResponse> {
+//            override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
 //                if ((response != null) && (response.code() == 200)) {
 //                    val series = response.body()!!.results
 //                    Store.homeSeries = series
 //                    initSerieRecyclerView(series)
 //                }
 //            }
-//            override fun onFailure(call: Call<SerieResponse>?, t: Throwable?){
+//            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?){
 //                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
 //            }
 //        })

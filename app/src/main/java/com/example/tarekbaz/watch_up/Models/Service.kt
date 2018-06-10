@@ -3,7 +3,7 @@ package com.example.tarekbaz.watch_up.Models
 import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.PersonsResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SerieResponse
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,17 +15,28 @@ import retrofit2.http.Path
 //https://image.tmdb.org/t/p/w185       "concate !!"     /4oD6VEccFkorEBTEDXtpLAaz0Rl.jpg
 interface Service {
 
+    /***Movie***/
     @GET("movie/upcoming?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun getHomeMovies(): Call<MoviesResponse>
-
-    @GET("tv/airing_today?api_key=${Config.API_KEY}&language=en-US&page=1")
-    fun getTodayAiringSeries(): Call<SerieResponse>
 
     @GET("movie/{movie_id}/similar?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun relatedMovies(@Path("movie_id") id : Int): Call<MoviesResponse>
 
     @GET("/movie/{movie_id}/reviews?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun reviewsMovies(@Path("movie_id") id : Int): Call<MoviesResponse>
+
+
+    /***Serie***/
+    @GET("tv/airing_today?api_key=${Config.API_KEY}&language=en-US&page=1")
+    fun getTodayAiringSeries(): Call<SeriesResponse>
+
+    @GET("tv/{tv_id}/similar?api_key=${Config.API_KEY}&language=en-US&page=1")
+    fun relatedSeries(@Path("tv_id") id : Int): Call<SeriesResponse>
+
+    @GET("tv/{tv_id}?api_key=${Config.API_KEY}&language=en-US")
+    fun serieDetails(@Path("tv_id") id : Int): Call<Serie>
+
+
     // TODO specify page
     @GET("person/popular?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun getPersons (): Call<PersonsResponse>
