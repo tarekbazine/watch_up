@@ -25,8 +25,6 @@ class HomeMovieRecyclerViewAdapter(private val mContext: Context, val films: Lis
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-//        holder.image.setImageResource(films.get(position).image)
-
         Glide.with(mContext)
                 .load(Config.IMG_BASE_URL + films.get(position).backdrop_path)
                 .into(holder.image)
