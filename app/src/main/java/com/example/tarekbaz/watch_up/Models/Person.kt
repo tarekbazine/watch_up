@@ -13,6 +13,5 @@ data class Person(
         val profile_path: String,
         var known_for: List<Movie>,
         val popularity: Double
-        , var comments: List<Comment>,
-        var charged: Boolean = false) {
+        , var comments: List<Comment>) {
         }
