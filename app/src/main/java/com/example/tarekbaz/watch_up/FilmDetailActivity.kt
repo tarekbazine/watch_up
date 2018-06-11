@@ -35,21 +35,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class FilmDetailActivity : AppCompatActivity() {
 
-    var str1 = "22:03"
-    var str2 = "22:30"
-    var formatter: DateFormat = SimpleDateFormat("HH:mm")
-    var date1 = formatter.parse(str1)
-    var date2 = formatter.parse(str2)
     var is_fan = false
 
     //Video attributes
     var trailer_video = R.raw.trailer2
     private var mediaController: MediaController? = null
     private var positionVideo: Int = 0
-
-    val filmsTimes: List<Date> = mutableListOf(
-            date1, date2, date1
-    )
 
 
     //Init adapters
