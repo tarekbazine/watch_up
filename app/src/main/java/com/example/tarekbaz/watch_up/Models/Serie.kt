@@ -1,6 +1,7 @@
 package com.example.tarekbaz.watch_up.Models
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class Serie(val id: Int,
                  @SerializedName("name")
@@ -8,10 +9,12 @@ data class Serie(val id: Int,
                  @SerializedName("overview")
                  val discription: String,
                  val image: Int,
-                 val seasons: List<Season>,
+                 var seasons: List<Season>,
                  var comments: List<Comment>,
                  @SerializedName("vote_average")
-                 val evaluation: Double,
+                 val evaluation: Double = 6.6,
                  var linkedSeries: List<Serie>,
-                 val poster_path: String = "") {
+                 val poster_path: String = "",
+                 var first_air_date: Date = Date(),
+                 var episode_run_time :List<Int> = listOf()) {
 }

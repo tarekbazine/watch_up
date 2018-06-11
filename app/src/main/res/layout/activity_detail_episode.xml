@@ -51,7 +51,7 @@
 
             <ImageView
                 android:id="@+id/episodeCard"
-                android:layout_width="85dp"
+                android:layout_width="200dp"
                 android:layout_height="120dp"
                 android:layout_gravity="left"
                 android:adjustViewBounds="true"

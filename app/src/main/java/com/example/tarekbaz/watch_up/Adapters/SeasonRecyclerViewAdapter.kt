@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.Models.Season
 import com.example.tarekbaz.watch_up.R
 import com.example.tarekbaz.watch_up.SeasonDetailActivity
@@ -22,12 +24,16 @@ class SeasonRecyclerViewAdapter(private val mContext: Context, val seasons: List
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.image.setImageResource(seasons.get(position).image)
-        holder.name.setText("Saison " + (position + 1) )
+
+        Glide.with(mContext)
+                .load(Config.IMG_BASE_URL + seasons.get(position).poster_path)
+                .into(holder.image)
+
+//        holder.name.setText("Saison " + (position + 1) )
+        holder.name.text = seasons.get(position).name
 
         holder.image.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
-                //      Toast.makeText(mContext, mNames!!.get(position), Toast.LENGTH_SHORT).show()
 //                //TODO change it
                 val intent = Intent(mContext, SeasonDetailActivity::class.java)
                 intent.putExtra("index", position)

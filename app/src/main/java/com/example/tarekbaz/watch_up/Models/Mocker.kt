@@ -248,7 +248,7 @@ object Mocker {
             it.seasons.forEach {
                 it.linkedActors = actorList.getRandomElements(4)
                 it.comments = commentList.getRandomElements(4)
-                it.epesods.forEach {
+                it.episodes.forEach {
                     it.comments = commentList.getRandomElements(4)
                     it.diffusion = mutableListOf("BeIN Movies", "Antena 3", "Netflix", "Fox Movies", "HBO", "CBN", "MBC", "TOP", "Canal+").getRandomElements(3)
                 }
