@@ -68,7 +68,7 @@ class HomeActivity : BaseActivity() {
 
                     val movies = response.body()!!.results
 
-                    Store.homeFilms = movies
+                    Store.homeFilms = ArrayList(movies)
 //
 //
 //                    Log.i("dd", ""+todos!![0].title + ""+ todos!![0].completed )

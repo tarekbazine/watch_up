@@ -1,17 +1,13 @@
 package com.example.tarekbaz.watch_up.Models
 
-import android.util.Log
-import android.widget.Toast
+import android.os.Build
+import android.support.annotation.RequiresApi
 import com.example.tarekbaz.watch_up.R
-import com.google.gson.GsonBuilder
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import kotlin.collections.ArrayList
 
 
+@RequiresApi(Build.VERSION_CODES.N)
 object Mocker {
 
     fun <E> List<E>.getRandomElements(numberOfElements: Int): List<E> {
@@ -93,34 +89,35 @@ object Mocker {
 
         commentList = ArrayList(commentss)
 
+        val date = Calendar.getInstance().getTime()
         actorList = listOf(
-                Person(1, "Aaron Eckhart", R.drawable.person3, "1944-03-07", 1,"Aaron Eckhart was born on March 12, 1968 in Cupertino, California, USA as Aaron Edward Eckhart. He is an actor and producer, known for The Dark Knight (2008), Thank You for Smoking (2005) and In the Company of Men (1997).","Boston","img", listOf(), 0.8, listOf()),
-                Person(2,"Aaron Paul", R.drawable.person4, "1944-05-03", 1,"Aaron Paul was born Aaron Paul Sturtevant in Emmett, Idaho, to Darla (Haynes) and Robert Sturtevant, a retired Baptist minister. While growing up, Paul took part in church programs, and performed in plays.", "Boston","img",listOf(), 0.8, listOf()),
-                Person(3,"Adam Sandler", R.drawable.person6, "1946-10-25", 1,"Adam Richard Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Alan Sandler, an electrical engineer. He is of Russian Jewish descent", "Boston","img",listOf(), 0.8, listOf()),
+                Person(1, "Aaron Eckhart", R.drawable.person3, date, 1,"Aaron Eckhart was born on March 12, 1968 in Cupertino, California, USA as Aaron Edward Eckhart. He is an actor and producer, known for The Dark Knight (2008), Thank You for Smoking (2005) and In the Company of Men (1997).","Boston","img", listOf(), 0.8, listOf()),
+                Person(2,"Aaron Paul", R.drawable.person4, date, 1,"Aaron Paul was born Aaron Paul Sturtevant in Emmett, Idaho, to Darla (Haynes) and Robert Sturtevant, a retired Baptist minister. While growing up, Paul took part in church programs, and performed in plays.", "Boston","img",listOf(), 0.8, listOf()),
+                Person(3,"Adam Sandler", R.drawable.person6, date, 1,"Adam Richard Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Alan Sandler, an electrical engineer. He is of Russian Jewish descent", "Boston","img",listOf(), 0.8, listOf()),
 //                Person("Salsa Bilato", R.drawable.person2, "1970-03-01", "Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Ala", listOf(), 0.8, listOf()),
-                Person(4,"Adrien Brody", R.drawable.person7, "1950-01-16", 1,"Adrien Nicholas Brody was born in Woodhaven, Queens, New York, the only child of retired history professor Elliot Brody and Hungarian-born photographer Sylvia Plachy. ","Boston","img", listOf(), 0.8, listOf()),
-                Person(5,"Aidan Gillen", R.drawable.person8, "1951-07-31", 1,"Aidan Gillen is an Irish actor. He is best known for portraying Petyr \"Littlefinger\" Baelish in the HBO episodes Game of Thrones (2011), CIA operative Bill Wilson in The Dark Knight Rises (2012), Stuart Alan Jones in the Channel 4 episodes Queer as Folk (1999).","Boston","img", listOf(), 0.8, listOf()),
-                Person(6,"Al Pacino", R.drawable.person9, "1953-09-11", 1,"One of the greatest actors in all of film history, Al Pacino established himself during one of film's greatest decades, the 1970s, and has become an enduring and iconic figure in the world of American movies.", "Boston","img",listOf(), 0.8, listOf()),
-                Person(7,"Alan Arkin", R.drawable.person10, "1955-07-06", 1,"Alan Arkin is an Academy Award-winning American actor who is also an acclaimed director, producer, author, singer and composer.","Boston","img", listOf(), 0.8, listOf()),
-                Person(8,"Mike bill", R.drawable.person1, "1980-02-19", 1,"Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Ala","Boston","img", listOf(), 0.3, listOf()),
-                Person(9,"Alan Rickman", R.drawable.person11, "1955-09-22",1, "Alan Rickman was born on a council estate in Acton, West London, to Margaret Doreen Rose (Bartlett) and Bernard Rickman, who worked at a factory. He had English, Irish, and Welsh ancestry. Alan had an older brother David.","Boston","img", listOf(), 0.8, listOf()),
-                Person(10,"Alan Tudyk", R.drawable.person12, "1955-10-14", 1,"Alan Tudyk was born in El Paso, Texas, and grew up in Plano, where he attended Plano Sr. High. In 1990, he went on to study drama at Lon Morris Jr. College. While there, he was awarded the Academic Excellence Award for Drama.","Boston","img", listOf(), 0.8, listOf()),
-                Person(11,"Alec Baldwin", R.drawable.person13, "1956-03-26", 1,"Raven-haired, suavely handsome and prolific actor Alec Baldwin was born on April 3, 1958 in Massapequa, New York, and is the oldest, and easily the best-known, of the four Baldwin brothers in the acting business (the others are Stephen Baldwin, William Baldwin and Daniel Baldwin).","Boston","img", listOf(), 0.8, listOf())
+                Person(4,"Adrien Brody", R.drawable.person7, date, 1,"Adrien Nicholas Brody was born in Woodhaven, Queens, New York, the only child of retired history professor Elliot Brody and Hungarian-born photographer Sylvia Plachy. ","Boston","img", listOf(), 0.8, listOf()),
+                Person(5,"Aidan Gillen", R.drawable.person8, date, 1,"Aidan Gillen is an Irish actor. He is best known for portraying Petyr \"Littlefinger\" Baelish in the HBO episodes Game of Thrones (2011), CIA operative Bill Wilson in The Dark Knight Rises (2012), Stuart Alan Jones in the Channel 4 episodes Queer as Folk (1999).","Boston","img", listOf(), 0.8, listOf()),
+                Person(6,"Al Pacino", R.drawable.person9, date, 1,"One of the greatest actors in all of film history, Al Pacino established himself during one of film's greatest decades, the 1970s, and has become an enduring and iconic figure in the world of American movies.", "Boston","img",listOf(), 0.8, listOf()),
+                Person(7,"Alan Arkin", R.drawable.person10, date, 1,"Alan Arkin is an Academy Award-winning American actor who is also an acclaimed director, producer, author, singer and composer.","Boston","img", listOf(), 0.8, listOf()),
+                Person(8,"Mike bill", R.drawable.person1, date, 1,"Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Ala","Boston","img", listOf(), 0.3, listOf()),
+                Person(9,"Alan Rickman", R.drawable.person11, date,1, "Alan Rickman was born on a council estate in Acton, West London, to Margaret Doreen Rose (Bartlett) and Bernard Rickman, who worked at a factory. He had English, Irish, and Welsh ancestry. Alan had an older brother David.","Boston","img", listOf(), 0.8, listOf()),
+                Person(10,"Alan Tudyk", R.drawable.person12, date, 1,"Alan Tudyk was born in El Paso, Texas, and grew up in Plano, where he attended Plano Sr. High. In 1990, he went on to study drama at Lon Morris Jr. College. While there, he was awarded the Academic Excellence Award for Drama.","Boston","img", listOf(), 0.8, listOf()),
+                Person(11,"Alec Baldwin", R.drawable.person13, date, 1,"Raven-haired, suavely handsome and prolific actor Alec Baldwin was born on April 3, 1958 in Massapequa, New York, and is the oldest, and easily the best-known, of the four Baldwin brothers in the acting business (the others are Stephen Baldwin, William Baldwin and Daniel Baldwin).","Boston","img", listOf(), 0.8, listOf())
         )
 
         directorList = listOf(
-                Person(1, "Aaron Eckhart", R.drawable.person3, "1944-03-07", 1,"Aaron Eckhart was born on March 12, 1968 in Cupertino, California, USA as Aaron Edward Eckhart. He is an actor and producer, known for The Dark Knight (2008), Thank You for Smoking (2005) and In the Company of Men (1997).","Boston","img", listOf(), 0.8, listOf()),
-                Person(2,"Aaron Paul", R.drawable.person4, "1944-05-03", 1,"Aaron Paul was born Aaron Paul Sturtevant in Emmett, Idaho, to Darla (Haynes) and Robert Sturtevant, a retired Baptist minister. While growing up, Paul took part in church programs, and performed in plays.", "Boston","img",listOf(), 0.8, listOf()),
-                Person(3,"Adam Sandler", R.drawable.person6, "1946-10-25", 1,"Adam Richard Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Alan Sandler, an electrical engineer. He is of Russian Jewish descent", "Boston","img",listOf(), 0.8, listOf()),
+                Person(1, "Aaron Eckhart", R.drawable.person3, date, 1,"Aaron Eckhart was born on March 12, 1968 in Cupertino, California, USA as Aaron Edward Eckhart. He is an actor and producer, known for The Dark Knight (2008), Thank You for Smoking (2005) and In the Company of Men (1997).","Boston","img", listOf(), 0.8, listOf()),
+                Person(2,"Aaron Paul", R.drawable.person4, date, 1,"Aaron Paul was born Aaron Paul Sturtevant in Emmett, Idaho, to Darla (Haynes) and Robert Sturtevant, a retired Baptist minister. While growing up, Paul took part in church programs, and performed in plays.", "Boston","img",listOf(), 0.8, listOf()),
+                Person(3,"Adam Sandler", R.drawable.person6, date, 1,"Adam Richard Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Alan Sandler, an electrical engineer. He is of Russian Jewish descent", "Boston","img",listOf(), 0.8, listOf()),
 //                Person("Salsa Bilato", R.drawable.person2, "1970-03-01", "Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Ala", listOf(), 0.8, listOf()),
-                Person(4,"Adrien Brody", R.drawable.person7, "1950-01-16", 1,"Adrien Nicholas Brody was born in Woodhaven, Queens, New York, the only child of retired history professor Elliot Brody and Hungarian-born photographer Sylvia Plachy. ","Boston","img", listOf(), 0.8, listOf()),
-                Person(5,"Aidan Gillen", R.drawable.person8, "1951-07-31", 1,"Aidan Gillen is an Irish actor. He is best known for portraying Petyr \"Littlefinger\" Baelish in the HBO episodes Game of Thrones (2011), CIA operative Bill Wilson in The Dark Knight Rises (2012), Stuart Alan Jones in the Channel 4 episodes Queer as Folk (1999).","Boston","img", listOf(), 0.8, listOf()),
-                Person(6,"Al Pacino", R.drawable.person9, "1953-09-11", 1,"One of the greatest actors in all of film history, Al Pacino established himself during one of film's greatest decades, the 1970s, and has become an enduring and iconic figure in the world of American movies.", "Boston","img",listOf(), 0.8, listOf()),
-                Person(7,"Alan Arkin", R.drawable.person10, "1955-07-06", 1,"Alan Arkin is an Academy Award-winning American actor who is also an acclaimed director, producer, author, singer and composer.","Boston","img", listOf(), 0.8, listOf()),
-                Person(8,"Mike bill", R.drawable.person1, "1980-02-19", 1,"Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Ala","Boston","img", listOf(), 0.3, listOf()),
-                Person(9,"Alan Rickman", R.drawable.person11, "1955-09-22",1, "Alan Rickman was born on a council estate in Acton, West London, to Margaret Doreen Rose (Bartlett) and Bernard Rickman, who worked at a factory. He had English, Irish, and Welsh ancestry. Alan had an older brother David.","Boston","img", listOf(), 0.8, listOf()),
-                Person(10,"Alan Tudyk", R.drawable.person12, "1955-10-14", 1,"Alan Tudyk was born in El Paso, Texas, and grew up in Plano, where he attended Plano Sr. High. In 1990, he went on to study drama at Lon Morris Jr. College. While there, he was awarded the Academic Excellence Award for Drama.","Boston","img", listOf(), 0.8, listOf()),
-                Person(11,"Alec Baldwin", R.drawable.person13, "1956-03-26", 1,"Raven-haired, suavely handsome and prolific actor Alec Baldwin was born on April 3, 1958 in Massapequa, New York, and is the oldest, and easily the best-known, of the four Baldwin brothers in the acting business (the others are Stephen Baldwin, William Baldwin and Daniel Baldwin).","Boston","img", listOf(), 0.8, listOf())
+                Person(4,"Adrien Brody", R.drawable.person7, date, 1,"Adrien Nicholas Brody was born in Woodhaven, Queens, New York, the only child of retired history professor Elliot Brody and Hungarian-born photographer Sylvia Plachy. ","Boston","img", listOf(), 0.8, listOf()),
+                Person(5,"Aidan Gillen", R.drawable.person8, date, 1,"Aidan Gillen is an Irish actor. He is best known for portraying Petyr \"Littlefinger\" Baelish in the HBO episodes Game of Thrones (2011), CIA operative Bill Wilson in The Dark Knight Rises (2012), Stuart Alan Jones in the Channel 4 episodes Queer as Folk (1999).","Boston","img", listOf(), 0.8, listOf()),
+                Person(6,"Al Pacino", R.drawable.person9, date, 1,"One of the greatest actors in all of film history, Al Pacino established himself during one of film's greatest decades, the 1970s, and has become an enduring and iconic figure in the world of American movies.", "Boston","img",listOf(), 0.8, listOf()),
+                Person(7,"Alan Arkin", R.drawable.person10, date, 1,"Alan Arkin is an Academy Award-winning American actor who is also an acclaimed director, producer, author, singer and composer.","Boston","img", listOf(), 0.8, listOf()),
+                Person(8,"Mike bill", R.drawable.person1, date, 1,"Sandler was born September 9, 1966 in Brooklyn, New York, to Judith (Levine), a teacher at a nursery school, and Stanley Ala","Boston","img", listOf(), 0.3, listOf()),
+                Person(9,"Alan Rickman", R.drawable.person11, date,1, "Alan Rickman was born on a council estate in Acton, West London, to Margaret Doreen Rose (Bartlett) and Bernard Rickman, who worked at a factory. He had English, Irish, and Welsh ancestry. Alan had an older brother David.","Boston","img", listOf(), 0.8, listOf()),
+                Person(10,"Alan Tudyk", R.drawable.person12, date, 1,"Alan Tudyk was born in El Paso, Texas, and grew up in Plano, where he attended Plano Sr. High. In 1990, he went on to study drama at Lon Morris Jr. College. While there, he was awarded the Academic Excellence Award for Drama.","Boston","img", listOf(), 0.8, listOf()),
+                Person(11,"Alec Baldwin", R.drawable.person13, date, 1,"Raven-haired, suavely handsome and prolific actor Alec Baldwin was born on April 3, 1958 in Massapequa, New York, and is the oldest, and easily the best-known, of the four Baldwin brothers in the acting business (the others are Stephen Baldwin, William Baldwin and Daniel Baldwin).","Boston","img", listOf(), 0.8, listOf())
         )
 
 

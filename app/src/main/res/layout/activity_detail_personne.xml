@@ -2,33 +2,34 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
     tools:context="com.example.tarekbaz.watch_up.PersonneDetailActivity">
 
- <android.support.design.widget.AppBarLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-     <android.support.v7.widget.Toolbar
-         android:id="@+id/toolbar_detail_personne"
-         android:layout_width="match_parent"
-         android:layout_height="?attr/actionBarSize"
-         android:background="@color/colorPrimary"
-         app:popupTheme="@style/AppTheme.PopupOverlay"
-         app:title="@string/title_personnes" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_detail_personne"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/title_personnes" />
 
     </android.support.design.widget.AppBarLayout>
 
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:descendantFocusability="blocksDescendants">
+        android:descendantFocusability="blocksDescendants"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
         <LinearLayout
@@ -36,18 +37,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorBackground"
-            android:orientation="vertical"
-            android:descendantFocusability="blocksDescendants">
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
 
 
             <LinearLayout
                 android:id="@+id/topLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
-                android:padding="15dp"
-                android:descendantFocusability="blocksDescendants">
+                android:padding="15dp">
 
                 <ImageView
                     android:id="@+id/personneCard"
@@ -59,19 +60,19 @@
                     android:cropToPadding="false"
                     android:padding="1dp"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/person1" />
+                    app:srcCompat="@color/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:descendantFocusability="blocksDescendants">
+                    android:descendantFocusability="blocksDescendants"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:descendantFocusability="blocksDescendants">
+                        android:descendantFocusability="blocksDescendants"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/personne_name"
@@ -81,7 +82,7 @@
                             android:layout_marginTop="10dp"
                             android:autoText="false"
                             android:fontFamily="@font/roboto_thin"
-                            android:text="Luke Evans "
+                            android:text="Loading..."
                             android:textAlignment="textStart"
                             android:textColor="@color/colorAccent"
                             android:textSize="17sp" />
@@ -110,7 +111,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="10dp"
-                            android:text="15 Avril 1979 (age 38)"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textColor="#fff" />
 
@@ -138,7 +138,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="10dp"
-                            android:text="Britanique"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textColor="#fff" />
 
@@ -166,7 +165,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="10dp"
-                            android:text="29"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textColor="#fff" />
 
@@ -214,7 +212,7 @@
                     android:paddingEnd="20dp"
                     android:paddingStart="20dp"
                     android:paddingTop="10dp"
-                    android:text="A drawable resource is a general concept for a graphic that can be drawn to the screen. Drawables are used to define shapes, colors, borders, gradients, etc. which can then be applied to views within an Activity.  This is typically used for customizing the view graphics that are displayed within a particular view or context."
+                    android:text="Loading"
                     android:textAlignment="viewStart"
                     android:textColor="#FFF" />
 
@@ -238,16 +236,16 @@
                     android:layout_marginEnd="15dp"
                     android:layout_marginStart="15dp"
                     android:background="@color/colorAccent"
-                    android:orientation="horizontal"
-                    android:descendantFocusability="blocksDescendants"/>
+                    android:descendantFocusability="blocksDescendants"
+                    android:orientation="horizontal" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/filmographieRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants"
                     android:padding="7dp"
-                    android:paddingStart="5dp"
-                    android:descendantFocusability="blocksDescendants"/>
+                    android:paddingStart="5dp" />
             </LinearLayout>
 
         </LinearLayout>

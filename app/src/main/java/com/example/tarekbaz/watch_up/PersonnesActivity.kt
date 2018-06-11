@@ -24,6 +24,7 @@ import com.example.tarekbaz.watch_up.Models.Mocker
 import com.example.tarekbaz.watch_up.Models.Person
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.PersonsResponse
 import com.example.tarekbaz.watch_up.Models.Service
+import com.example.tarekbaz.watch_up.Models.Store
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -187,8 +188,12 @@ class PersonnesActivity : BaseActivity() {
                                   savedInstanceState: Bundle?): View? {
             rootView = inflater.inflate(R.layout.fragment_listing_cards, container, false)
 
-            getActorsAPI()
-
+            if(Store.acteurs.size == 0){
+                getActorsAPI()
+            }else{
+                actors = Store.acteurs
+                setUpLayout()
+            }
             return rootView
         }
 
@@ -215,7 +220,7 @@ class PersonnesActivity : BaseActivity() {
         fun getActorsAPI() {
             val gson = GsonBuilder().create()
             val retrofit = Retrofit.Builder()
-                    .baseUrl("https://api.themoviedb.org/3/")
+                    .baseUrl(Config.API_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
             val service = retrofit.create<Service>(Service::class.java!!)
@@ -226,12 +231,10 @@ class PersonnesActivity : BaseActivity() {
 
                         // init actors
                         actors = response.body()!!.results
+                        // Save actors
+                        Store.acteurs = actors
 
-                        val layoutManager = LinearLayoutManager(activity)
-                        val personneRecycler = rootView?.findViewById<RecyclerView>(R.id.recyclerView) as RecyclerView
-                        personneRecycler.setLayoutManager(layoutManager)
-                        val adapter_person = PersonneRecyclerViewAdapter(context, actors, isActor = true)
-                        personneRecycler.setAdapter(adapter_person)
+                        setUpLayout()
 
                         Log.i("reponse", " "+actors[0] )
                     }
@@ -241,6 +244,15 @@ class PersonnesActivity : BaseActivity() {
                     Toast.makeText(activity, "Erreur de connexion", Toast.LENGTH_LONG).show()
                 }
             })
+        }
+
+        fun setUpLayout(){
+            val layoutManager = LinearLayoutManager(activity)
+            val personneRecycler = rootView?.findViewById<RecyclerView>(R.id.recyclerView) as RecyclerView
+            personneRecycler.setLayoutManager(layoutManager)
+            val adapter_person = PersonneRecyclerViewAdapter(context, actors, isActor = true)
+            personneRecycler.setAdapter(adapter_person)
+
         }
 
     }

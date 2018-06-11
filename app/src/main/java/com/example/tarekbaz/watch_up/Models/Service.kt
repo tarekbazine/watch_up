@@ -26,7 +26,10 @@ interface Service {
 
     @GET("/movie/{movie_id}/reviews?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun reviewsMovies(@Path("movie_id") id : Int): Call<MoviesResponse>
-    // TODO specify page
+
     @GET("person/popular?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun getPersons (): Call<PersonsResponse>
+
+    @GET("person/{person_id}?api_key=${Config.API_KEY}&language=en-US")
+    fun getPersonDetail (@Path("person_id") id : Int): Call<Person>
 }

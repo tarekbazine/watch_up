@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.bumptech.glide.Glide
+import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.Models.Person
 import com.example.tarekbaz.watch_up.PersonneDetailActivity
 import com.example.tarekbaz.watch_up.R
@@ -24,7 +26,10 @@ class PersonneRecyclerViewAdapter(private val mContext: Context, var persons : L
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.personne_img.setImageResource(persons.get(position).picture)
+        //image
+        val glide = Glide.with(mContext)
+        glide.load(Config.IMG_BASE_URL + persons.get(position).profile_path)
+                .into(holder.personne_img)
         holder.personne_name.setText(persons.get(position).name)
 //       if (isIndicated.get(position))
 //        holder.personne_is_indecated.rating = 1F
