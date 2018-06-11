@@ -1,5 +1,6 @@
 package com.example.tarekbaz.watch_up
 
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -9,13 +10,21 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.MediaController
+import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.EpisodeRecyclerViewAdapter
-import com.example.tarekbaz.watch_up.Models.Comment
-import com.example.tarekbaz.watch_up.Models.Episode
-import com.example.tarekbaz.watch_up.Models.Mocker
-import com.example.tarekbaz.watch_up.Models.Serie
+import com.example.tarekbaz.watch_up.Models.*
+import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_detail_season.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
 
 class SeasonDetailActivity : AppCompatActivity() {
     //For testing detail season
@@ -41,6 +50,7 @@ class SeasonDetailActivity : AppCompatActivity() {
         commentsSeasonRecyclerView.setAdapter(adapter_comments)
     }
 
+    var index = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_season)
@@ -51,24 +61,37 @@ class SeasonDetailActivity : AppCompatActivity() {
             getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
         }
 
-        val index = intent.extras.getInt("index",0)
+        index = intent.extras.getInt("index",0)
         val indexSerie = intent.extras.getInt("indexSerie",0)
 
-        var serie: Serie = Mocker.serieList[0]
-        Mocker.serieList.forEach { it ->
+        var serie = Store.homeSeries[0]
+        Store.homeSeries.forEach { it ->
             if (it.id == indexSerie)
                 serie = it
         }
 
-        val comments =serie.seasons[index].comments
-        val episodes =serie.seasons[index].epesods
+        val comments = Mocker.commentList.getRandomElements(4)
         val season = serie.seasons[index]
 
-        frameLayout.setBackgroundResource(season.image)
-        seasonCard.setImageResource(season.image)
-        serieTitle.text = "Saison "+ (index+1)
+        val glide = Glide.with(this)
+
+        glide.load(Config.IMG_BASE_URL + season.poster_path)
+                .into(seasonCard)
+
+        glide.load(Config.IMG_BASE_URL + season.poster_path)
+                .into(object : SimpleTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable,
+                                                 transition: Transition<in Drawable>?) {
+                        frameLayout.setBackground(resource)
+                    }
+                })
+
+        serieTitle.text = season.name
         descriptionText.text = season.discription
-        actorsNamesText.text = season.linkedActors.get(0).name
+
+        serieDate.text = "(${SimpleDateFormat("yyyy").format(serie.first_air_date)})"
+        evaluationText.text = serie.evaluation.toString()
+//        actorsNamesText.text = season.linkedActors.get(0).name
 
         //Set title
         toolbar_detail_season.title = serieTitle.text
@@ -83,8 +106,7 @@ class SeasonDetailActivity : AppCompatActivity() {
                 })
 
 
-
-        this.initEpisodesRecyclerView(episodes,index,indexSerie)
+        initDetailSerieDataAPI(indexSerie,season)
         this.initCommentsSeasonRecyclerView(comments)
     }
 
@@ -170,4 +192,51 @@ class SeasonDetailActivity : AppCompatActivity() {
             trailerVideoSeason.start()
         }
     }
+
+    fun initDetailSerieDataAPI(serieId : Int,season : Season){
+
+        val gson = GsonBuilder().create()
+        val retrofit = Retrofit.Builder()
+                .baseUrl(Config.API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+
+        val service = retrofit.create<Service>(Service::class.java!!)
+
+
+        service.seasonDetails(serieId,index).enqueue(object: Callback<Season> {
+            override fun onResponse(call: Call<Season>, response: retrofit2.Response<Season>?) {
+                if ((response != null) && (response.code() == 200)) {
+                    season.episodes = response.body()!!.episodes
+
+                    episodesNumber.text = "${season.episodes.size} épesodes"
+                    initEpisodesRecyclerView(season.episodes,index,serieId)
+                }
+            }
+            override fun onFailure(call: Call<Season>?, t: Throwable?){
+                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+            }
+        })
+
+//        service.relatedSeries(serieId).enqueue(object: Callback<SeriesResponse> {
+//
+//            override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
+//                if ((response != null) && (response.code() == 200)) {
+//                    val relatedSeriers = response.body()!!.results
+//                    serie.linkedSeries = relatedSeriers
+//                    relatedSeriers.forEach{ it ->
+//                        Store.homeSeries.add(it)
+//                    }
+//                    initAssociatedSeriesRecyclerView(relatedSeriers)
+//                }
+//
+//            }
+//
+//            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?){
+//                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+//            }
+//        })
+
+    }
+
 }

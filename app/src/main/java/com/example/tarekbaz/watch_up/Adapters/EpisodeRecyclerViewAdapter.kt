@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.EpisodeDetailActivity
 import com.example.tarekbaz.watch_up.Models.Episode
 import com.example.tarekbaz.watch_up.R
@@ -23,8 +25,14 @@ class EpisodeRecyclerViewAdapter(private val mContext: Context, val episodes: Li
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.image.setImageResource(episodes.get(position).) todo
-        holder.name.setText("Episode "+(position+1))
+
+//        holder.name.setText("Episode "+(position+1))
+        holder.name.text = episodes.get(position).name
+
+
+        Glide.with(mContext)
+                .load(Config.IMG_BASE_URL + episodes.get(position).still_path)
+                .into(holder.image)
 
         holder.image.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {

@@ -20,10 +20,10 @@ interface Service {
     fun getHomeMovies(): Call<MoviesResponse>
 
     @GET("movie/{movie_id}/similar?api_key=${Config.API_KEY}&language=en-US&page=1")
-    fun relatedMovies(@Path("movie_id") id : Int): Call<MoviesResponse>
+    fun relatedMovies(@Path("movie_id") id: Int): Call<MoviesResponse>
 
     @GET("/movie/{movie_id}/reviews?api_key=${Config.API_KEY}&language=en-US&page=1")
-    fun reviewsMovies(@Path("movie_id") id : Int): Call<MoviesResponse>
+    fun reviewsMovies(@Path("movie_id") id: Int): Call<MoviesResponse>
 
 
     /***Serie***/
@@ -31,13 +31,18 @@ interface Service {
     fun getTodayAiringSeries(): Call<SeriesResponse>
 
     @GET("tv/{tv_id}/similar?api_key=${Config.API_KEY}&language=en-US&page=1")
-    fun relatedSeries(@Path("tv_id") id : Int): Call<SeriesResponse>
+    fun relatedSeries(@Path("tv_id") id: Int): Call<SeriesResponse>
 
     @GET("tv/{tv_id}?api_key=${Config.API_KEY}&language=en-US")
-    fun serieDetails(@Path("tv_id") id : Int): Call<Serie>
+    fun serieDetails(@Path("tv_id") id: Int): Call<Serie>
+
+
+    /***Season***/
+    @GET("tv/{tv_id}/season/{season_number}?api_key=${Config.API_KEY}&language=en-US")
+    fun seasonDetails(@Path("tv_id") serieId: Int,@Path("season_number") id: Int): Call<Season>
 
 
     // TODO specify page
     @GET("person/popular?api_key=${Config.API_KEY}&language=en-US&page=1")
-    fun getPersons (): Call<PersonsResponse>
+    fun getPersons(): Call<PersonsResponse>
 }

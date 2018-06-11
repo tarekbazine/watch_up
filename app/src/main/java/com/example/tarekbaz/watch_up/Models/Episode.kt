@@ -1,8 +1,15 @@
 package com.example.tarekbaz.watch_up.Models
 
-data class Episode(val discription: String,
-                   val trailer : Int,
-                   var comments :List<Comment>,
-                   val evaluation : Double,
-                   var diffusion : List<String>) {
+import com.google.gson.annotations.SerializedName
+
+data class Episode(
+        @SerializedName("overview")
+        val discription: String,
+        val trailer: Int,
+        var comments: List<Comment>,
+        @SerializedName("vote_average")
+        val evaluation: Double,
+        var diffusion: List<String>,
+        val still_path: String = "",
+        val name: String = "") {
 }

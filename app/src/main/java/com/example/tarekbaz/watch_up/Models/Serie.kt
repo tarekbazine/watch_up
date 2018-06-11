@@ -15,5 +15,6 @@ data class Serie(val id: Int,
                  val evaluation: Double = 6.6,
                  var linkedSeries: List<Serie>,
                  val poster_path: String = "",
-                 var first_air_date: Date = Date()) {
+                 var first_air_date: Date = Date(),
+                 var episode_run_time :List<Int> = listOf()) {
 }

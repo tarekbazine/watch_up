@@ -81,7 +81,7 @@ class SerieDetailActivity : AppCompatActivity() {
 
         Log.i("mylog",""+serie.id+" "+serieId)
         val comments = Mocker.commentList.getRandomElements(4)
-        serie.comments = comments
+//        serie.comments = comments
 
         //todo fav
         Mocker.favSerieList.forEach { it ->
@@ -158,6 +158,7 @@ class SerieDetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Serie>, response: retrofit2.Response<Serie>?) {
                 if ((response != null) && (response.code() == 200)) {
                     serie.seasons = response.body()!!.seasons
+                    serie.episode_run_time = response.body()!!.episode_run_time
 
                     initSeasonsRecyclerView(serie.seasons, serie.id)
                 }
