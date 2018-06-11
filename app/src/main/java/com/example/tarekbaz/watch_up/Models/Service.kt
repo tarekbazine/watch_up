@@ -28,6 +28,22 @@ interface Service {
     @GET("person/popular?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun getPersons (): Call<PersonsResponse>
 
+    /***Serie***/
+    @GET("tv/airing_today?api_key=${Config.API_KEY}&language=en-US&page=1")
+    fun getTodayAiringSeries(): Call<SeriesResponse>
+
+    @GET("tv/{tv_id}/similar?api_key=${Config.API_KEY}&language=en-US&page=1")
+    fun relatedSeries(@Path("tv_id") id: Int): Call<SeriesResponse>
+
+    @GET("tv/{tv_id}?api_key=${Config.API_KEY}&language=en-US")
+    fun serieDetails(@Path("tv_id") id: Int): Call<Serie>
+
+
+    /***Season***/
+    @GET("tv/{tv_id}/season/{season_number}?api_key=${Config.API_KEY}&language=en-US")
+    fun seasonDetails(@Path("tv_id") serieId: Int,@Path("season_number") id: Int): Call<Season>
+
+
     @GET("person/{person_id}?api_key=${Config.API_KEY}&language=en-US")
     fun getPersonDetail (@Path("person_id") id : Int): Call<Person>
 }

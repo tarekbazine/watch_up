@@ -276,6 +276,9 @@ class FilmDetailActivity : AppCompatActivity() {
                 if ((response != null) && (response.code() == 200)) {
                     val relatedMovies = response.body()!!.results
                     film.linkedMovies = relatedMovies
+                    relatedMovies.forEach { it ->
+                        Store.homeFilms.add(it)
+                    }
                     initAssociatedFilmsRecyclerView(relatedMovies)
                 }
 
