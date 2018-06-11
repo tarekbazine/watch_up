@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import com.example.tarekbaz.watch_up.Adapters.FilmCinemaRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SalleCinemaRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
+import com.example.tarekbaz.watch_up.Models.Store
 
 import kotlinx.android.synthetic.main.activity_cinema.*
 import kotlinx.android.synthetic.main.drawer_activity.*
@@ -123,7 +124,7 @@ class CinemaActivity : BaseActivity() {
 
         var adapter_films : FilmCinemaRecyclerViewAdapter? = null
 
-        val films = Mocker.movieList
+        val films = Store.homeFilms
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {

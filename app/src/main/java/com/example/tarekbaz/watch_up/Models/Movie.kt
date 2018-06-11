@@ -1,8 +1,6 @@
 package com.example.tarekbaz.watch_up.Models
 
-import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements
 import com.google.gson.annotations.SerializedName
-import com.google.gson.annotations.Expose
 import java.util.*
 
 

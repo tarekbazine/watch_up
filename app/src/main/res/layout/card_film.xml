@@ -42,27 +42,8 @@ tools:context="com.example.tarekbaz.watch_up.CinemaActivity$FilmFragment">
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="5dp"
-                android:text="film name" />
-
-            <TextView
-                android:id="@+id/film_realisator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="5dp"
-                android:text="Karim kayle" />
-
-            <TextView
-                android:id="@+id/film_salle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="5dp"
-                android:text="Alger grand poste" />
+                android:text="film name"
+                android:minLines="2"/>
 
             <TextView
                 android:id="@+id/film_date"
@@ -73,7 +54,7 @@ tools:context="com.example.tarekbaz.watch_up.CinemaActivity$FilmFragment">
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="5dp"
                 android:gravity="end"
-                android:text="Lundi 28 Mars 23:20"
+                android:text="Acune date est specifie"
                 android:textAlignment="gravity" />
 
             <RatingBar
@@ -90,7 +71,7 @@ tools:context="com.example.tarekbaz.watch_up.CinemaActivity$FilmFragment">
                 android:numStars="10"
 
                 android:rating="8"
-                android:stepSize="1" />
+                android:stepSize="0.1" />
 
         </LinearLayout>
 

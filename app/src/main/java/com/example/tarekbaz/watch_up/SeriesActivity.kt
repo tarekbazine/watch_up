@@ -11,13 +11,14 @@ import kotlinx.android.synthetic.main.drawer_activity.*
 import android.text.TextUtils
 import com.example.tarekbaz.watch_up.Adapters.SeriesRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
+import com.example.tarekbaz.watch_up.Models.Store
 
 
 class SeriesActivity  : BaseActivity()  {
 
     var adapter_series : SeriesRecyclerViewAdapter? = null
 
-    val series = Mocker.serieList
+    val series = Store.homeSeries
 
     //Add search view
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

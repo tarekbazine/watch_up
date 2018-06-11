@@ -80,7 +80,7 @@
                     android:id="@+id/serieDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="(2017)"
+                    android:text=""
                     android:textAlignment="center"
                     android:textColor="#fff" />
 

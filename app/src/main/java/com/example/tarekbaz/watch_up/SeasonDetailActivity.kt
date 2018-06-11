@@ -17,7 +17,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.EpisodeRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
-import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements
+import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_detail_season.*
 import retrofit2.Call
@@ -70,7 +70,7 @@ class SeasonDetailActivity : AppCompatActivity() {
                 serie = it
         }
 
-        val comments = Mocker.commentList.getRandomElements(4)
+        val comments = Mocker.commentList.getRandomElements_(4)
         val season = serie.seasons[index]
 
         val glide = Glide.with(this)

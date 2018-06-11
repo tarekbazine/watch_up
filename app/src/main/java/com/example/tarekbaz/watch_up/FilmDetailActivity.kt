@@ -24,7 +24,7 @@ import com.example.tarekbaz.watch_up.Models.*
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements
+import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
 import com.google.gson.GsonBuilder
 import retrofit2.Call
@@ -89,10 +89,10 @@ class FilmDetailActivity : AppCompatActivity() {
 
         initDetailFilmDataAPI(film.id)
 
-        val salles = Mocker.salleList.getRandomElements(4)
+        val salles = Mocker.salleList.getRandomElements_(4)
         film.cinemas = salles
 
-        val comments = Mocker.commentList.getRandomElements(4)
+        val comments = Mocker.commentList.getRandomElements_(4)
         film.comments = comments
 
         //todo fav

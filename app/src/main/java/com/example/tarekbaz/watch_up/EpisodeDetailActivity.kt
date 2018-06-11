@@ -1,17 +1,14 @@
 package com.example.tarekbaz.watch_up
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
-import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Comment
 import com.example.tarekbaz.watch_up.Models.Mocker
-import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements
-import com.example.tarekbaz.watch_up.Models.Serie
+import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
 import com.example.tarekbaz.watch_up.Models.Store
 import kotlinx.android.synthetic.main.activity_detail_episode.*
 
@@ -49,7 +46,7 @@ class EpisodeDetailActivity : AppCompatActivity() {
                 serie = it
         }
 
-        val comments = Mocker.commentList.getRandomElements(4)
+        val comments = Mocker.commentList.getRandomElements_(4)
         val episode = serie.seasons[indexSeason].episodes[index]
 
         Glide.with(this)
