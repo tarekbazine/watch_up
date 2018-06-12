@@ -3,6 +3,7 @@ package com.example.tarekbaz.watch_up.Models
 import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.PersonsResponse
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -23,8 +24,8 @@ interface Service {
     @GET("movie/{movie_id}/similar?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun relatedMovies(@Path("movie_id") id: Int): Call<MoviesResponse>
 
-    @GET("/movie/{movie_id}/reviews?api_key=${Config.API_KEY}&language=en-US&page=1")
-    fun reviewsMovies(@Path("movie_id") id : Int): Call<MoviesResponse>
+    @GET("movie/{movie_id}/reviews?api_key=${Config.API_KEY}&language=en-US&page=1")
+    fun reviewsMovie(@Path("movie_id") id : Int): Call<ReviewsResponse>
 
     @GET("search/movie?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun searchMovies(@Query("query") query: String): Call<MoviesResponse>
@@ -41,6 +42,10 @@ interface Service {
 
     @GET("search/tv?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun searchSeries(@Query("query") query: String): Call<SeriesResponse>
+
+    @GET("tv/{tv_id}/reviews?api_key=${Config.API_KEY}&language=en-US&page=1")
+    fun reviewsSerie(@Path("tv_id") id : Int): Call<ReviewsResponse>
+
 
     /***Season***/
     @GET("tv/{tv_id}/season/{season_number}?api_key=${Config.API_KEY}&language=en-US")

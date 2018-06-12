@@ -69,32 +69,15 @@ class HomeActivity : BaseActivity() {
                     val movies = response.body()!!.results
 
                     Store.homeFilms = ArrayList(movies)
-//
-//
-//                    Log.i("dd", ""+todos!![0].title + ""+ todos!![0].completed )
-//                    Log.i("dd", ""+todos!![2].title + ""+ todos!![2].completed )
-//                    Log.i("dd", ""+todos.size )
-////                    txtTitle.setText(post!!.title)
-////                    txtBody.setText(post!!.body)
-//                    Toast.makeText(baseContext, "Succès", Toast.LENGTH_LONG).show()
-//
-//                    initRecyclerView(todos)
-
 
                     // init RecyclerViews
                     initFilmRecyclerView(movies)
-
-                    Log.i("watchuplog", "cool1" )
-                    Log.i("watchuplog", "" + movies[0].toString() )
-                    Log.i("watchuplog", "" + movies[0].title )
-                    Log.i("watchuplog", " "+response.body().toString().length )
-                }
+            }
 
             }
 
             override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?){
-//                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
-                Log.i("watchuplog", "error")
+                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })
 

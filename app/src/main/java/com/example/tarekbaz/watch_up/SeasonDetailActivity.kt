@@ -222,7 +222,7 @@ class SeasonDetailActivity : AppCompatActivity() {
 //
 //            override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
 //                if ((response != null) && (response.code() == 200)) {
-//                    val relatedSeriers = response.body()!!.results
+//                    val relatedSeriers = response.content()!!.results
 //                    serie.linkedSeries = relatedSeriers
 //                    relatedSeriers.forEach{ it ->
 //                        Store.homeSeries.add(it)

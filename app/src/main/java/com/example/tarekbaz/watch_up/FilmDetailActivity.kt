@@ -12,9 +12,7 @@ import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import kotlinx.android.synthetic.main.activity_detail_film.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.*
 import android.view.ViewTreeObserver
 import com.bumptech.glide.Glide
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
@@ -26,6 +24,7 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -83,9 +82,6 @@ class FilmDetailActivity : AppCompatActivity() {
         val salles = Mocker.salleList.getRandomElements_(4)
         film.cinemas = salles
 
-        val comments = Mocker.commentList.getRandomElements_(4)
-        film.comments = comments
-
         //todo fav
         Mocker.favMovieList.forEach { it ->
             if (it.id == film.id)
@@ -135,7 +131,6 @@ class FilmDetailActivity : AppCompatActivity() {
                 })
 
         initSallesRecyclerView(salles)
-        initCommentsRecyclerView(comments)
     }
 
     //Add search view
@@ -280,18 +275,18 @@ class FilmDetailActivity : AppCompatActivity() {
             }
         })
 
-//        service.getTodayAiringSeries().enqueue(object: Callback<SeriesResponse> {
-//            override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
-//                if ((response != null) && (response.code() == 200)) {
-//                    val series = response.body()!!.results
-//                    Store.homeSeries = series
-//                    initSerieRecyclerView(series)
-//                }
-//            }
-//            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?){
-//                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
-//            }
-//        })
+        service.reviewsMovie(movieId).enqueue(object: Callback<ReviewsResponse> {
+            override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
+                if ((response != null) && (response.code() == 200)) {
+                    val comments = response.body()!!.results
+                    film.comments = comments
+                    initCommentsRecyclerView(comments)
+                }
+            }
+            override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?){
+                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+            }
+        })
 
     }
 
