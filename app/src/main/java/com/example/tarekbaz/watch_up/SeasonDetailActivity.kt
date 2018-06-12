@@ -73,6 +73,8 @@ class SeasonDetailActivity : AppCompatActivity() {
         val comments = Mocker.commentList.getRandomElements_(4)
         val season = serie.seasons[index]
 
+//        Log.i("myLogi",""+serie.id +""+ indexSerie)
+//        Log.i("myLogi",""+serie.seasons)
         val glide = Glide.with(this)
 
         glide.load(Config.IMG_BASE_URL + season.poster_path)
@@ -217,26 +219,7 @@ class SeasonDetailActivity : AppCompatActivity() {
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })
-
-//        service.relatedSeries(serieId).enqueue(object: Callback<SeriesResponse> {
-//
-//            override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
-//                if ((response != null) && (response.code() == 200)) {
-//                    val relatedSeriers = response.content()!!.results
-//                    serie.linkedSeries = relatedSeriers
-//                    relatedSeriers.forEach{ it ->
-//                        Store.homeSeries.add(it)
-//                    }
-//                    initAssociatedSeriesRecyclerView(relatedSeriers)
-//                }
-//
-//            }
-//
-//            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?){
-//                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
-//            }
-//        })
-
+        
     }
 
 }

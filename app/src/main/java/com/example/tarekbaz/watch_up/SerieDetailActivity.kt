@@ -16,6 +16,7 @@ import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SeasonRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
 import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_detail_serie.*
@@ -82,10 +83,6 @@ class SerieDetailActivity : AppCompatActivity() {
                 serie = it
         }
 
-        Log.i("mylog", "" + serie.id + " " + serieId)
-        val comments = Mocker.commentList.getRandomElements_(4)
-//        serie.comments = comments
-
         //todo fav
         Mocker.favSerieList.forEach { it ->
             if (it.id == serie.id)
@@ -112,7 +109,6 @@ class SerieDetailActivity : AppCompatActivity() {
         }
         evaluationText.text = serie.evaluation.toString()
 
-        initCommentsRecyclerView(comments)
         initDetailSerieDataAPI(serie.id)
 
         setSupportActionBar(toolbar_detail_serie)
@@ -189,6 +185,21 @@ class SerieDetailActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?) {
+                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+            }
+        })
+
+
+
+        service.reviewsSerie(serieId).enqueue(object: Callback<ReviewsResponse> {
+            override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
+                if ((response != null) && (response.code() == 200)) {
+                    val comments = response.body()!!.results
+                    serie.comments = comments
+                    initCommentsRecyclerView(comments)
+                }
+            }
+            override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?){
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })
