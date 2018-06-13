@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -50,6 +51,8 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films: Li
             holder.film_date.text = "Acune date est specifie"
         }
 
+        holder.film_rating.rating = films.get(position).vote_average.toFloat()
+
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
 
@@ -71,6 +74,7 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films: Li
         //            internal var film_realisator: TextView
 //            internal var film_salle: TextView
         internal var film_date: TextView
+        internal var film_rating: RatingBar
         internal var film_image: ImageView
 
         init {
@@ -78,6 +82,7 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films: Li
 //                film_realisator = itemView.findViewById(R.id.film_realisator)
 //                film_salle = itemView.findViewById(R.id.film_salle)
             film_date = itemView.findViewById(R.id.film_date)
+            film_rating = itemView.findViewById(R.id.film_rating)
             film_image = itemView.findViewById(R.id.film_image)
         }
     }

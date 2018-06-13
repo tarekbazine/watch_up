@@ -32,6 +32,10 @@
                 android:id="@+id/nav_evaluations"
                 android:icon="@drawable/comment1"
                 android:title="@string/title_evaluations" />
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@android:drawable/ic_menu_manage"
+                android:title="@string/title_settings"/>
         </menu>
     </item>
 

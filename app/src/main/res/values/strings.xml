@@ -23,6 +23,7 @@
     <string name="title_personnes">Personnes</string>
     <string name="title_fan">Fan</string>
     <string name="title_evaluations">Evaluations</string>
+    <string name="title_settings">Settings</string>
 
     <!--Home Activity-->
     <string name="title_new_films">Nouveaux Films</string>

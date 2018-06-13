@@ -46,7 +46,7 @@ data class Genre(
         )
 
 
-        val movieGenres0 = listOf(
+        val movieGenres = listOf(
                 Genre(28,"Action"),
                 Genre(12,"Adventure"),
                 Genre(16,"Animation"),
@@ -68,7 +68,7 @@ data class Genre(
                 Genre(37,"Western")
         )
 
-        val serieGenre0 = listOf(
+        val serieGenre = listOf(
                 Genre(10759,"Action & Adventure"),
                 Genre(16,"Animation"),
                 Genre(35,"Comedy"),
