@@ -1,5 +1,6 @@
 package com.example.tarekbaz.watch_up
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
@@ -10,6 +11,9 @@ import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
+import com.example.tarekbaz.watch_up.Offline.MovieDAO
+import com.example.tarekbaz.watch_up.Offline.MovieDB
+import com.example.tarekbaz.watch_up.Offline.RelatedMoviesDAO
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
@@ -48,6 +52,7 @@ class HomeActivity : BaseActivity() {
         toggle.syncState()
 
         initDataAPI()
+        initDB()
     }
 
 
@@ -69,6 +74,17 @@ class HomeActivity : BaseActivity() {
                     val movies = response.body()!!.results
 
                     Store.homeFilms = ArrayList(movies)
+
+                    // Save in database
+//                     saveMovie(movie = movies.get(1))
+                    //Save relation
+//                    saveMovieRelation(dbAllMovies!![0] , dbAllMovies!![1])
+                    // get related movies
+//                    Log.i("related", dbAllMovies!![0].id.toString())
+//                    getRelatedMovies(dbAllMovies!![0].id)
+
+
+
 //
 //
 //                    Log.i("dd", ""+todos!![0].title + ""+ todos!![0].completed )
@@ -113,4 +129,75 @@ class HomeActivity : BaseActivity() {
 
     }
 
+    private var db: MovieDB? = null
+    private var movieDao: MovieDAO? = null
+    private var relatedMovieDao: RelatedMoviesDAO? = null
+    private var dbAllMovies: List<Movie>? = null
+    private var relatedMovies: List<Movie>? = null
+
+    fun saveMovie(movie: Movie) {
+        var act = this
+        object : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg voids: Void): Void? {
+//                val db = MovieDB.getInstance(act)
+//                val dao = db?.movieDAO()
+                act.movieDao?.insert(movie)
+                return null
+            }
+
+
+            override fun onPostExecute(result: Void?) {
+            }
+        }.execute()
+    }
+
+    fun saveMovieRelation(movie: Movie, related: Movie) {
+        var act = this
+        object : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg voids: Void): Void? {
+                act.relatedMovieDao?.insert(AssotiationMovies(movie.id ,related.id))
+                return null
+            }
+
+
+            override fun onPostExecute(result: Void?) {
+            }
+        }.execute()
+    }
+
+    fun getRelatedMovies(id: Int) {
+        var act = this
+        object : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg voids: Void): Void? {
+                act.relatedMovies = act.relatedMovieDao?.getRelatedMovies(id)
+
+                Log.i("related", act.relatedMovies!![0].toString())
+                return null
+            }
+
+
+            override fun onPostExecute(result: Void?) {
+            }
+        }.execute()
+    }
+
+    fun initDB() {
+        var act = this
+
+        object : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg voids: Void): Void? {
+                act.db = MovieDB.getInstance(act)
+                act.movieDao = db?.movieDAO()
+                act.relatedMovieDao = db?.relatedMoviesDAO()
+                dbAllMovies = act.movieDao?.getMovies()
+                return null
+            }
+
+            override fun onPostExecute(result: Void?) {
+                if(dbAllMovies != null) {
+                    Log.i("bd",dbAllMovies.toString())
+                }
+            }
+        }.execute()
+    }
 }

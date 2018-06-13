@@ -4,5 +4,6 @@
         android:id="@+id/love_item"
         android:icon="@drawable/heart_inactive"
         android:title="Search"
+        android:enabled="false"
         app:showAsAction="always" />
 </menu>

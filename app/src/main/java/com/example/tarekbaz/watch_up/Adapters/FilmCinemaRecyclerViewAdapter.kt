@@ -24,7 +24,7 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films : L
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-            holder.film_image.setImageResource(films.get(position).image)
+            holder.film_image.setImageResource(films.get(position).image!!)
             holder.film_name.text = films.get(position).title
 //            holder.film_realisator.setText(films.get(position))//todo
 //            holder.film_salle.setText(films.get(position))//todo
@@ -63,7 +63,7 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films : L
         }
 
     fun filter(keyWords: String) {
-        films = fullFilms.filter { film -> film.title.contains(keyWords, true) }
+        films = fullFilms.filter { film -> film.title!!.contains(keyWords, true) }
         notifyDataSetChanged()
     }
 }
