@@ -124,8 +124,7 @@ class SeriesRecyclerViewAdapter(private val mContext: Context, var series: List<
             }
 
             override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?) {
-                Toast.makeText(mContext, t?.stackTrace.toString(), Toast.LENGTH_LONG).show()
-//                Log.i("myLogapi2", "" + t?.stackTrace)
+                Toast.makeText(mContext, "Echec Search", Toast.LENGTH_LONG).show()
             }
         })
 

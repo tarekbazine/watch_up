@@ -219,7 +219,7 @@ class SeasonDetailActivity : AppCompatActivity() {
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })
-        
+
     }
 
 }

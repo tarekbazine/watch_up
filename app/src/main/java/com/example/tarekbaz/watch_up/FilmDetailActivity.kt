@@ -79,6 +79,13 @@ class FilmDetailActivity : AppCompatActivity() {
 
         initDetailFilmDataAPI(film.id)
 
+        if(! film.genre_ids.isEmpty()) {
+            film.genresList = Genre.genresList.get(film.genre_ids[0])?.name + ""
+            for (i in 1 until film.genre_ids.size) {
+                film.genresList += " / " + Genre.genresList.get(film.genre_ids[i])?.name
+            }
+        }
+
         val salles = Mocker.salleList.getRandomElements_(4)
         film.cinemas = salles
 
@@ -107,6 +114,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
         filmDate.text = "(${SimpleDateFormat("yyyy").format(film.release_date)})"
 
+        filmType.text = film.genresList
 
         //todo
 //        actors_names.text = film.actors.get(0).name

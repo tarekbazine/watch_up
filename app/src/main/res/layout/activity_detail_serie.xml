@@ -84,6 +84,16 @@
                     android:textAlignment="center"
                     android:textColor="#fff" />
 
+
+                <TextView
+                    android:id="@+id/serieType"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="Fantasy / Family / Musical"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent" />
+
                 <LinearLayout
                     android:id="@+id/evaluationFrame"
                     android:layout_width="wrap_content"

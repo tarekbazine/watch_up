@@ -15,7 +15,6 @@ import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SeasonRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
-import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
 import com.google.gson.GsonBuilder
@@ -25,8 +24,6 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
-import com.google.gson.Gson
-import java.util.*
 
 
 class SerieDetailActivity : AppCompatActivity() {
@@ -83,6 +80,14 @@ class SerieDetailActivity : AppCompatActivity() {
                 serie = it
         }
 
+
+        if(! serie.genre_ids.isEmpty()) {
+            serie.genresList = Genre.genresList.get(serie.genre_ids[0])?.name + ""
+            for (i in 1 until serie.genre_ids.size) {
+                serie.genresList += " / " + Genre.genresList.get(serie.genre_ids[i])?.name
+            }
+        }
+
         //todo fav
         Mocker.favSerieList.forEach { it ->
             if (it.id == serie.id)
@@ -108,6 +113,7 @@ class SerieDetailActivity : AppCompatActivity() {
             serieDate.text = "(${SimpleDateFormat("yyyy").format(serie.first_air_date)})"
         }
         evaluationText.text = serie.evaluation.toString()
+        serieType.text = serie.genresList
 
         initDetailSerieDataAPI(serie.id)
 
@@ -166,7 +172,7 @@ class SerieDetailActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Serie>?, t: Throwable?) {
-                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+                Toast.makeText(baseContext, "Echec details", Toast.LENGTH_LONG).show()
             }
         })
 
@@ -185,7 +191,7 @@ class SerieDetailActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?) {
-                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+                Toast.makeText(baseContext, "Echec related", Toast.LENGTH_LONG).show()
             }
         })
 
@@ -200,7 +206,7 @@ class SerieDetailActivity : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?){
-                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+                Toast.makeText(baseContext, "Echec reviews", Toast.LENGTH_LONG).show()
             }
         })
 
