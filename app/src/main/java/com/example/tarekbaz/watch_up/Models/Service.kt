@@ -59,6 +59,7 @@ interface Service {
     fun seasonDetails(@Path("tv_id") serieId: Int,@Path("season_number") id: Int): Call<Season>
 
 
+    /***Person***/
     @GET("person/popular?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun getPersons (): Call<PersonsResponse>
 
