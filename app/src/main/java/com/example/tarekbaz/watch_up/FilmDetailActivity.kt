@@ -121,18 +121,12 @@ class FilmDetailActivity : AppCompatActivity() {
         }else{
             initDBOffline()
         }
+
+        // Ask for permission to stock images
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),1)
-        }
-
-
-        if(! film.genre_ids.isEmpty()) {
-            film.genresList = Genre.genresList.get(film.genre_ids[0])?.name + ""
-            for (i in 1 until film.genre_ids.size) {
-                film.genresList += " / " + Genre.genresList.get(film.genre_ids[i])?.name
-            }
         }
 
 //        val salles = Mocker.salleList.getRandomElements_(4)
@@ -146,48 +140,10 @@ class FilmDetailActivity : AppCompatActivity() {
     //    initSallesRecyclerView(salles)
     //    initCommentsRecyclerView(comments)
 
-        glide.load(Config.IMG_BASE_URL + film.poster_path)
-                .into(filmCard)
-        filmTitle.text = film.title
-        glide.load(Config.IMG_BASE_URL + film.poster_path)
-                .into(object : SimpleTarget<Drawable>() {
-                    override fun onResourceReady(resource: Drawable,
-                                                 transition: Transition<in Drawable>?) {
-                        frameLayout.setBackground(resource)
-                    }
-                })
-
-        evaluationText.text = film.vote_average.toString()
-
-        descriptionText.text = film.description
-
-        filmDate.text = "(${SimpleDateFormat("yyyy").format(film.release_date)})"
-
-        filmType.text = film.genresList
-
         //todo
 //        actors_names.text = film.actors.get(0).name
 //        producertext.text = film.directors.get(0).name
 
-        setSupportActionBar(toolbar_detail_film)
-        // add back arrow to toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
-            getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
-        }
-        //Set activity title
-        toolbar_detail_film.title = film.title
-
-        //Init trailer video
-        initTrailer(trailer_video)
-
-        //Hide Media controller when scrolling
-        scrollContainer.getViewTreeObserver().addOnScrollChangedListener(
-                ViewTreeObserver.OnScrollChangedListener {
-                    mediaController!!.hide()
-                })
-
-//        initSallesRecyclerView(salles)
     }
 
     //Add search view
@@ -307,12 +263,21 @@ class FilmDetailActivity : AppCompatActivity() {
                     }
                 })
 
+
+        if(! film!!.genre_ids.isEmpty()) {
+            film!!.genresList = Genre.genresList.get(film!!.genre_ids[0])?.name + ""
+            for (i in 1 until film!!.genre_ids.size) {
+                film!!.genresList += " / " + Genre.genresList.get(film!!.genre_ids[i])?.name
+            }
+        }
+
         evaluationText.text = film!!.vote_average.toString()
 
         descriptionText.text = film!!.description
 
         filmDate.text = "(${SimpleDateFormat("yyyy").format(film!!.release_date)})"
 
+        filmType.text = film!!.genresList
 
         setSupportActionBar(toolbar_detail_film)
         // add back arrow to toolbar
@@ -406,7 +371,7 @@ class FilmDetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val comments = response.body()!!.results
-                    film.comments = comments
+                    film!!.comments = comments
                     initCommentsRecyclerView(comments)
                 }
             }
