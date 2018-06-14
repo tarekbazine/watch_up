@@ -6,6 +6,7 @@ data class Genre(
         val name : String
 ) {
     companion object {
+        val KEY = "PREFERRED_GENRES"
 
         val genresList = hashMapOf( //todo ommit duplicate
                 28 to  Genre(28,"Action"),

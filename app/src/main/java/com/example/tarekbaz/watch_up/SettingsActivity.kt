@@ -12,6 +12,7 @@ import com.example.tarekbaz.watch_up.Models.Genre
 import com.example.tarekbaz.watch_up.Models.Store
 import kotlinx.android.synthetic.main.activity_settings.*
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
@@ -33,6 +34,8 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.Models.Movie
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
+import kotlin.collections.HashSet
 
 
 class SettingsActivity : AppCompatActivity() {
@@ -49,6 +52,20 @@ class SettingsActivity : AppCompatActivity() {
         }
 
 
+        ////
+        // Get the current list.
+        val prefGenres = getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
+        val genres = prefGenres.getStringSet(Genre.KEY, HashSet<String>())
+
+        val editor = prefGenres.edit()
+
+        Log.i("myLogiii",genres.toString())
+
+        genres.forEach {
+            Store.preferedGenres.add(it.toInt())
+        }
+
+
         val checkBoxList = ArrayList<CheckBox>()
 
         for (i in 0 until Genre.movieGenres.size) {
@@ -56,12 +73,28 @@ class SettingsActivity : AppCompatActivity() {
             cb.setTextColor(Color.WHITE)
             cb.text = Genre.movieGenres[i].name
             cb.id = Genre.movieGenres[i].id
-            if (Store.preferedGenres.get(cb.id) != null) cb.isChecked = true
+//            if (Store.preferedGenres.get(cb.id) != null) cb.isChecked = true
+            if (Store.preferedGenres.contains(cb.id)) cb.isChecked = true
             cb.setOnCheckedChangeListener { _cb, b ->
                 if (b) {
-                    Store.preferedGenres.put(_cb.id, Genre(_cb.id, _cb.text.toString()))
+//                    Store.preferedGenres.put(_cb.id, Genre(_cb.id, _cb.text.toString()))
+                    Store.preferedGenres.add(_cb.id)
+
+                    genres.add(_cb.id.toString())
+                    // Save the list.
+                    editor.putStringSet(Genre.KEY, genres)
+                    editor.apply()
+                    ///
+                    Log.i("myLogiii",genres.toString())
                 } else {
                     Store.preferedGenres.remove(_cb.id)
+
+                    genres.remove(_cb.id.toString())
+                    // Save the list.
+                    editor.putStringSet(Genre.KEY, genres)
+                    editor.apply()
+                    ///
+                    Log.i("myLogiii",genres.toString())
                 }
             }
             checkBoxList.add(cb)
@@ -95,8 +128,14 @@ class SettingsActivity : AppCompatActivity() {
 
         val service = retrofit.create<Service>(Service::class.java!!)
 
-        val keys = ArrayList(Store.preferedGenres.keys)
+        /*val keys = ArrayList(Store.preferedGenres.keys)
 
+        var genresList = keys[0].toString()
+        for (i in 1 until Store.preferedGenres.size) {
+            genresList += "|" + keys[i]
+        }*/
+
+        val keys = ArrayList(Store.preferedGenres)
         var genresList = keys[0].toString()
         for (i in 1 until Store.preferedGenres.size) {
             genresList += "|" + keys[i]
@@ -105,14 +144,14 @@ class SettingsActivity : AppCompatActivity() {
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         val cal = Calendar.getInstance()
         val date_bonr_inf = sdf.format(cal.time)
-        cal.add(Calendar.DATE,7)
+        cal.add(Calendar.DATE, 7)
         val date_bonr_sup = sdf.format(cal.time)
 
         service.latestMovies(date_bonr_inf, date_bonr_sup, genresList)
                 .enqueue(object : Callback<MoviesResponse> {
                     override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
                         if ((response != null) && (response.code() == 200
-                                        && !response.body()!!.results.isEmpty()) ) {
+                                        && !response.body()!!.results.isEmpty())) {
                             val latestMovie = response.body()!!.results[0]
                             Store.homeFilms.add(latestMovie)
                             initNotificatioData(latestMovie)
