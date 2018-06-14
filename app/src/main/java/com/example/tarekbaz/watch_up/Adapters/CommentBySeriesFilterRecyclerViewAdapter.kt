@@ -24,7 +24,7 @@ class CommentBySeriesFilterRecyclerViewAdapter(private val mContext: Context, va
 
         holder.serie_image.setImageResource(series.get(position).image)
         holder.serie_name.text = series.get(position).title
-        holder.serie_realisator.setText("")
+//        holder.serie_realisator.setText("")
 
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
@@ -41,12 +41,12 @@ class CommentBySeriesFilterRecyclerViewAdapter(private val mContext: Context, va
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var serie_name: TextView
-        internal var serie_realisator: TextView
+//        internal var serie_realisator: TextView
         internal var serie_image: ImageView
 
         init {
             serie_name = itemView.findViewById(R.id.film_name)
-            serie_realisator = itemView.findViewById(R.id.film_realisator)
+//            serie_realisator = itemView.findViewById(R.id.film_realisator)
             serie_image = itemView.findViewById(R.id.film_image)
         }
     }

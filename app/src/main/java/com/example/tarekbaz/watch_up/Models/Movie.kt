@@ -22,7 +22,9 @@ data class Movie(
                  @ColumnInfo(name = "vote_average") var vote_average: Double = 6.6,
 //                 @Ignore var release_date: Date? = Date()
                  @ColumnInfo(name = "release_date")var release_date: Date ?= Date(),
-                 @ColumnInfo(name = "is_fav", index = true)var fav: Boolean? = false
+                 @ColumnInfo(name = "is_fav", index = true)var fav: Boolean? = false,
+                 @Ignore var genre_ids: List<Int> = listOf(),
+                 @Ignore var genresList : String = "Non genre est specifé"
                  ) {
     constructor() : this(0, "", "", 0, 0, null, null, null, null,null, "",0.0,null,false)
 

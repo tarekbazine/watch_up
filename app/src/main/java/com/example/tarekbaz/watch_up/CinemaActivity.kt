@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import com.example.tarekbaz.watch_up.Adapters.FilmCinemaRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SalleCinemaRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
+import com.example.tarekbaz.watch_up.Models.Store
 
 import kotlinx.android.synthetic.main.activity_cinema.*
 import kotlinx.android.synthetic.main.drawer_activity.*
@@ -34,8 +35,8 @@ class CinemaActivity : BaseActivity() {
      */
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
-    var tabFilm : FilmFragment? = null
-    var tabSalle : SalleFragment? = null
+    var tabFilm: FilmFragment? = null
+    var tabSalle: SalleFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,10 +76,10 @@ class CinemaActivity : BaseActivity() {
             override fun onQueryTextChange(newText: String): Boolean {
 
                 if (TextUtils.isEmpty(newText)) {
-                    tabSalle!!.adapter_salle!!.filter("")
+                    if (tabSalle != null) tabSalle!!.adapter_salle!!.filter("")
                     tabFilm!!.adapter_films!!.filter("")
                 } else {
-                    tabSalle!!.adapter_salle!!.filter(newText)
+                    if (tabSalle != null) tabSalle!!.adapter_salle!!.filter(newText)
                     tabFilm!!.adapter_films!!.filter(newText)
                 }
 
@@ -100,7 +101,7 @@ class CinemaActivity : BaseActivity() {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            if (position == 0){
+            if (position == 0) {
                 tabFilm = FilmFragment.newInstance(position + 1)
                 return tabFilm as FilmFragment
             }
@@ -121,9 +122,9 @@ class CinemaActivity : BaseActivity() {
      */
     class FilmFragment : Fragment() {
 
-        var adapter_films : FilmCinemaRecyclerViewAdapter? = null
+        var adapter_films: FilmCinemaRecyclerViewAdapter? = null
 
-        val films = Mocker.movieList
+        val films = Store.homeFilms
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
@@ -167,7 +168,7 @@ class CinemaActivity : BaseActivity() {
      */
     class SalleFragment : Fragment() {
 
-        var adapter_salle : SalleCinemaRecyclerViewAdapter? = null
+        var adapter_salle: SalleCinemaRecyclerViewAdapter? = null
 
         val salles = Mocker.salleList
 

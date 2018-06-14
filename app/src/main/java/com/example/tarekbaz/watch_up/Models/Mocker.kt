@@ -10,7 +10,7 @@ import kotlin.collections.ArrayList
 @RequiresApi(Build.VERSION_CODES.N)
 object Mocker {
 
-    fun <E> List<E>.getRandomElements(numberOfElements: Int): List<E> {
+    fun <E> List<E>.getRandomElements_(numberOfElements: Int): List<E> {
 
         val rand = Random()
 //
@@ -226,38 +226,38 @@ object Mocker {
         )
 
         actorList.forEach {
-            it.comments = commentList.getRandomElements(5)
-            it.known_for = movieList.getRandomElements(5)
+            it.comments = commentList.getRandomElements_(5)
+            it.known_for = movieList.getRandomElements_(5)
         }
         directorList.forEach {
-            it.comments = commentList.getRandomElements(5)
-            it.known_for = movieList.getRandomElements(5)
+            it.comments = commentList.getRandomElements_(5)
+            it.known_for = movieList.getRandomElements_(5)
         }
 
         movieList.forEach {
-            it.cinemas = salleList.getRandomElements(4)
-            it.actors = actorList.getRandomElements(4)
-            it.directors = directorList.getRandomElements(4)
-            it.comments = commentList.getRandomElements(4)
-            it.linkedMovies = movieList.getRandomElements(4)
+            it.cinemas = salleList.getRandomElements_(4)
+            it.actors = actorList.getRandomElements_(4)
+            it.directors = directorList.getRandomElements_(4)
+            it.comments = commentList.getRandomElements_(4)
+            it.linkedMovies = movieList.getRandomElements_(4)
         }
 
         serieList.forEach {
-            it.comments = commentList.getRandomElements(4)
-            it.linkedSeries = serieList.getRandomElements(4)
+            it.comments = commentList.getRandomElements_(4)
+            it.linkedSeries = serieList.getRandomElements_(4)
             it.seasons.forEach {
-                it.linkedActors = actorList.getRandomElements(4)
-                it.comments = commentList.getRandomElements(4)
+                it.linkedActors = actorList.getRandomElements_(4)
+                it.comments = commentList.getRandomElements_(4)
                 it.episodes.forEach {
-                    it.comments = commentList.getRandomElements(4)
-                    it.diffusion = mutableListOf("BeIN Movies", "Antena 3", "Netflix", "Fox Movies", "HBO", "CBN", "MBC", "TOP", "Canal+").getRandomElements(3)
+                    it.comments = commentList.getRandomElements_(4)
+                    it.diffusion = mutableListOf("BeIN Movies", "Antena 3", "Netflix", "Fox Movies", "HBO", "CBN", "MBC", "TOP", "Canal+").getRandomElements_(3)
                 }
             }
         }
 
-//        favMovieList = movieList.getRandomElements(5)
-//        favSerieList = serieList.getRandomElements(5)
-//        favCinemaList = favCinemaList.getRandomElements(5)
+//        favMovieList = movieList.getRandomElements_(5)
+//        favSerieList = serieList.getRandomElements_(5)
+//        favCinemaList = favCinemaList.getRandomElements_(5)
 
         favMovieList = ArrayList(this.movieList.subList(0, 1))
         favSerieList = ArrayList(this.serieList.subList(0, 1))

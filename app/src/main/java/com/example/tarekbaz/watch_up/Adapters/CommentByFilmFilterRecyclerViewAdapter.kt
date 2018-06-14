@@ -47,15 +47,15 @@ class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, var 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var film_name: TextView
-        internal var film_realisator: TextView
-        internal var film_salle: TextView
+//        internal var film_realisator: TextView
+//        internal var film_salle: TextView
         internal var film_date: TextView
         internal var film_image: ImageView
 
         init {
             film_name = itemView.findViewById(R.id.film_name)
-            film_realisator = itemView.findViewById(R.id.film_realisator)
-            film_salle = itemView.findViewById(R.id.film_salle)
+//            film_realisator = itemView.findViewById(R.id.film_realisator)
+//            film_salle = itemView.findViewById(R.id.film_salle)
             film_date = itemView.findViewById(R.id.film_date)
             film_image = itemView.findViewById(R.id.film_image)
         }

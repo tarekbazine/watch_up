@@ -1,7 +1,7 @@
 package com.example.tarekbaz.watch_up.Models
 
-data class Comment(val personName : String,
+data class Comment(val author : String,
                    val date : String,
                    val filmName: String,
-                   val body : String) {
+                   val content : String) {
 }

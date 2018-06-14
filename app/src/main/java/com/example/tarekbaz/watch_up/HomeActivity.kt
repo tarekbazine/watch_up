@@ -99,18 +99,12 @@ class HomeActivity : BaseActivity() {
 
                     // init RecyclerViews
                     initFilmRecyclerView(movies)
-
-                    Log.i("watchuplog", "cool1" )
-                    Log.i("watchuplog", "" + movies[0].toString() )
-                    Log.i("watchuplog", "" + movies[0].title )
-                    Log.i("watchuplog", " "+response.body().toString().length )
-                }
+            }
 
             }
 
             override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?){
-//                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
-                Log.i("watchuplog", "error")
+                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })
 

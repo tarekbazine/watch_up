@@ -17,7 +17,7 @@ import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SeasonRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
-import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_detail_serie.*
@@ -27,18 +27,19 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 
+
 class SerieDetailActivity : AppCompatActivity() {
 
     var is_fan = false
 
-    private fun initSeasonsRecyclerView(seasons : List<Season>,index : Int) {
+    private fun initSeasonsRecyclerView(seasons: List<Season>, index: Int) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         seasonsRecyclerView.setLayoutManager(layoutManager)
-        val adapter_seasons= SeasonRecyclerViewAdapter(this, seasons, index)
+        val adapter_seasons = SeasonRecyclerViewAdapter(this, seasons, index)
         seasonsRecyclerView.setAdapter(adapter_seasons)
     }
 
-    private fun initAssociatedSeriesRecyclerView(assSerie : List<Serie>) {
+    private fun initAssociatedSeriesRecyclerView(assSerie: List<Serie>) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         associatedSeriesRecyclerView.setLayoutManager(layoutManager)
         val adapter_films = HomeSerieRecyclerViewAdapter(this, assSerie)
@@ -68,27 +69,31 @@ class SerieDetailActivity : AppCompatActivity() {
         return true
     }
 
-    var serie:Serie  = Store.homeSeries[0]
+    var serie: Serie = Store.homeSeries[0]
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_serie)
 
-        val serieId = intent.extras.getInt("_id",0)
+        val serieId = intent.extras.getInt("_id", 0)
 
         Store.homeSeries.forEach { it ->
             if (it.id == serieId)
                 serie = it
         }
 
-        Log.i("mylog",""+serie.id+" "+serieId)
-        val comments = Mocker.commentList.getRandomElements(4)
-//        serie.comments = comments
+
+        if(! serie.genre_ids.isEmpty()) {
+            serie.genresList = Genre.genresList.get(serie.genre_ids[0])?.name + ""
+            for (i in 1 until serie.genre_ids.size) {
+                serie.genresList += " / " + Genre.genresList.get(serie.genre_ids[i])?.name
+            }
+        }
 
         //todo fav
         Mocker.favSerieList.forEach { it ->
-            if(it.id == serie.id)
+            if (it.id == serie.id)
                 is_fan = true
         }
 
@@ -107,15 +112,17 @@ class SerieDetailActivity : AppCompatActivity() {
 
         serieTitle.text = serie.title
         descriptionText.text = serie.discription
-        serieDate.text = "(${SimpleDateFormat("yyyy").format(serie.first_air_date)})"
+        if (serie.first_air_date != null) {
+            serieDate.text = "(${SimpleDateFormat("yyyy").format(serie.first_air_date)})"
+        }
         evaluationText.text = serie.evaluation.toString()
+        serieType.text = serie.genresList
 
-        initCommentsRecyclerView(comments)
         initDetailSerieDataAPI(serie.id)
 
         setSupportActionBar(toolbar_detail_serie)
         // add back arrow to toolbar
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
             getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
         }
@@ -146,7 +153,7 @@ class SerieDetailActivity : AppCompatActivity() {
     }
 
 
-    fun initDetailSerieDataAPI(serieId : Int){
+    fun initDetailSerieDataAPI(serieId: Int) {
 
         val gson = GsonBuilder().create()
         val retrofit = Retrofit.Builder()
@@ -157,7 +164,7 @@ class SerieDetailActivity : AppCompatActivity() {
         val service = retrofit.create<Service>(Service::class.java!!)
 
 
-        service.serieDetails(serieId).enqueue(object: Callback<Serie> {
+        service.serieDetails(serieId).enqueue(object : Callback<Serie> {
             override fun onResponse(call: Call<Serie>, response: retrofit2.Response<Serie>?) {
                 if ((response != null) && (response.code() == 200)) {
                     serie.seasons = response.body()!!.seasons
@@ -166,18 +173,19 @@ class SerieDetailActivity : AppCompatActivity() {
                     initSeasonsRecyclerView(serie.seasons, serie.id)
                 }
             }
-            override fun onFailure(call: Call<Serie>?, t: Throwable?){
-                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+
+            override fun onFailure(call: Call<Serie>?, t: Throwable?) {
+                Toast.makeText(baseContext, "Echec details", Toast.LENGTH_LONG).show()
             }
         })
 
-        service.relatedSeries(serieId).enqueue(object: Callback<SeriesResponse> {
+        service.relatedSeries(serieId).enqueue(object : Callback<SeriesResponse> {
 
             override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val relatedSeriers = response.body()!!.results
                     serie.linkedSeries = relatedSeriers
-                    relatedSeriers.forEach{ it ->
+                    relatedSeriers.forEach { it ->
                         Store.homeSeries.add(it)
                     }
                     initAssociatedSeriesRecyclerView(relatedSeriers)
@@ -185,8 +193,23 @@ class SerieDetailActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?){
-                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?) {
+                Toast.makeText(baseContext, "Echec related", Toast.LENGTH_LONG).show()
+            }
+        })
+
+
+
+        service.reviewsSerie(serieId).enqueue(object: Callback<ReviewsResponse> {
+            override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
+                if ((response != null) && (response.code() == 200)) {
+                    val comments = response.body()!!.results
+                    serie.comments = comments
+                    initCommentsRecyclerView(comments)
+                }
+            }
+            override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?){
+                Toast.makeText(baseContext, "Echec reviews", Toast.LENGTH_LONG).show()
             }
         })
 

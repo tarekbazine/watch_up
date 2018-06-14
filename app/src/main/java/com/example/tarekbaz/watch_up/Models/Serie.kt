@@ -16,5 +16,8 @@ data class Serie(val id: Int,
                  var linkedSeries: List<Serie>,
                  val poster_path: String = "",
                  var first_air_date: Date = Date(),
-                 var episode_run_time :List<Int> = listOf()) {
+                 var episode_run_time :List<Int> = listOf(),
+                 var genre_ids: List<Int> = listOf(),
+                 var genresList : String = "Non genre est specifé"
+) {
 }

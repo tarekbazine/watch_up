@@ -15,9 +15,7 @@ import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import kotlinx.android.synthetic.main.activity_detail_film.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.*
 import android.view.ViewTreeObserver
 import com.bumptech.glide.Glide
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
@@ -34,17 +32,20 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements
+import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
 import com.example.tarekbaz.watch_up.Offline.ImageManager
 import com.example.tarekbaz.watch_up.Offline.MovieDAO
 import com.example.tarekbaz.watch_up.Offline.MovieDB
 import com.example.tarekbaz.watch_up.Offline.RelatedMoviesDAO
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.DateFormat
+import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -127,17 +128,66 @@ class FilmDetailActivity : AppCompatActivity() {
         }
 
 
-        /*
-        val salles = Mocker.salleList.getRandomElements(4)
-        film!!.cinemas = salles
+        if(! film.genre_ids.isEmpty()) {
+            film.genresList = Genre.genresList.get(film.genre_ids[0])?.name + ""
+            for (i in 1 until film.genre_ids.size) {
+                film.genresList += " / " + Genre.genresList.get(film.genre_ids[i])?.name
+            }
+        }
 
-        val comments = Mocker.commentList.getRandomElements(4)
-        film!!.comments = comments*/
+//        val salles = Mocker.salleList.getRandomElements_(4)
+//        film.cinemas = salles
+//
+//        val comments = Mocker.commentList.getRandomElements(4)
+//        film.comments = comments
+
 
 
     //    initSallesRecyclerView(salles)
     //    initCommentsRecyclerView(comments)
 
+        glide.load(Config.IMG_BASE_URL + film.poster_path)
+                .into(filmCard)
+        filmTitle.text = film.title
+        glide.load(Config.IMG_BASE_URL + film.poster_path)
+                .into(object : SimpleTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable,
+                                                 transition: Transition<in Drawable>?) {
+                        frameLayout.setBackground(resource)
+                    }
+                })
+
+        evaluationText.text = film.vote_average.toString()
+
+        descriptionText.text = film.description
+
+        filmDate.text = "(${SimpleDateFormat("yyyy").format(film.release_date)})"
+
+        filmType.text = film.genresList
+
+        //todo
+//        actors_names.text = film.actors.get(0).name
+//        producertext.text = film.directors.get(0).name
+
+        setSupportActionBar(toolbar_detail_film)
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
+            getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
+        }
+        //Set activity title
+        toolbar_detail_film.title = film.title
+
+        //Init trailer video
+        initTrailer(trailer_video)
+
+        //Hide Media controller when scrolling
+        scrollContainer.getViewTreeObserver().addOnScrollChangedListener(
+                ViewTreeObserver.OnScrollChangedListener {
+                    mediaController!!.hide()
+                })
+
+//        initSallesRecyclerView(salles)
     }
 
     //Add search view
@@ -352,21 +402,18 @@ class FilmDetailActivity : AppCompatActivity() {
             }
         })
 
-
-
-
-//        service.getTodayAiringSeries().enqueue(object: Callback<SeriesResponse> {
-//            override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
-//                if ((response != null) && (response.code() == 200)) {
-//                    val series = response.body()!!.results
-//                    Store.homeSeries = series
-//                    initSerieRecyclerView(series)
-//                }
-//            }
-//            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?){
-//                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
-//            }
-//        })
+        service.reviewsMovie(movieId).enqueue(object: Callback<ReviewsResponse> {
+            override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
+                if ((response != null) && (response.code() == 200)) {
+                    val comments = response.body()!!.results
+                    film.comments = comments
+                    initCommentsRecyclerView(comments)
+                }
+            }
+            override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?){
+                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+            }
+        })
 
     }
 
