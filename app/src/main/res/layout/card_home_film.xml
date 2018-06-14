@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_film_relative_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-  >
+    android:layout_margin="1dp">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/card_view_film"
         android:layout_width="120dp"
         android:layout_height="175dp"
-        android:layout_marginStart="3dp"
         android:layout_marginEnd="7dp"
-        >
+        android:layout_marginStart="3dp">
 
         <RelativeLayout
+            android:id="@+id/card_film_sub_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimary">
@@ -22,22 +23,21 @@
                 android:id="@+id/image_card_film"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:scaleType="centerCrop"
                 android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/side_nav_bar" />
 
             <TextView
+                android:id="@+id/name_card_film"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:text="La Belle et la Bète jhbj jhjbjh jhbj jb hjjgjhg"
                 android:layout_below="@+id/image_card_film"
-                android:id="@+id/name_card_film"
                 android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:layout_marginTop="7dp"
-                android:textColor="#FFF"
                 android:layout_marginBottom="5dp"
-                />
+                android:layout_marginTop="7dp"
+                android:gravity="center"
+                android:text="La Belle et la Bète jhbj jhjbjh jhbj jb hjjgjhg"
+                android:textColor="#FFF" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

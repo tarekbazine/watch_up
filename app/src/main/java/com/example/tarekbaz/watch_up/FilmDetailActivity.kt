@@ -1,5 +1,8 @@
 package com.example.tarekbaz.watch_up
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -20,26 +23,58 @@ import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SalleRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
 import android.graphics.drawable.Drawable
+import android.os.AsyncTask
+import android.os.Build
+import android.support.annotation.RequiresApi
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
+import com.example.tarekbaz.watch_up.Offline.ImageManager
+import com.example.tarekbaz.watch_up.Offline.MovieDAO
+import com.example.tarekbaz.watch_up.Offline.MovieDB
+import com.example.tarekbaz.watch_up.Offline.RelatedMoviesDAO
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.DateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class FilmDetailActivity : AppCompatActivity() {
 
-    var is_fan = false
+    var str1 = "22:03"
+    var str2 = "22:30"
+    var formatter: DateFormat = SimpleDateFormat("HH:mm")
+    var date1 = formatter.parse(str1)
+    var date2 = formatter.parse(str2)
 
     //Video attributes
     var trailer_video = R.raw.trailer2
     private var mediaController: MediaController? = null
     private var positionVideo: Int = 0
+
+    val filmsTimes: List<Date> = mutableListOf(
+            date1, date2, date1
+    )
+
+    private var db: MovieDB? = null
+    private var movieDao: MovieDAO? = null
+    private var relatedMovieDao: RelatedMoviesDAO? = null
+    private var relatedMovies: List<Movie>? = null
+    private var favoriteMoviesId: ArrayList<Int>? = ArrayList()
+
+    var loveItem : MenuItem? = null
+    var glide: RequestManager? = null
+    var index:Int? = null
 
 
     //Init adapters
@@ -50,10 +85,10 @@ class FilmDetailActivity : AppCompatActivity() {
         sallesRecyclerView.setAdapter(adapter_salles)
     }
 
-    private fun initAssociatedFilmsRecyclerView(assFilms: List<Movie>) {
+    private fun initAssociatedFilmsRecyclerView(assFilms: List<Movie>, offline:Boolean=false) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         associatedFilmsRecyclerView.setLayoutManager(layoutManager)
-        val adapter_films = HomeMovieRecyclerViewAdapter(this, assFilms)
+        val adapter_films = HomeMovieRecyclerViewAdapter(this, assFilms, offline)
         associatedFilmsRecyclerView.setAdapter(adapter_films)
     }
 
@@ -64,95 +99,59 @@ class FilmDetailActivity : AppCompatActivity() {
         commentsFilmRecyclerView.setAdapter(adapter_comments)
     }
 
-    var film = Store.homeFilms[0]
+    var offline:Boolean ?= null
+    var film : Movie ?= null
 
+
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_film)
 
-        val index = intent.extras.getInt("index", 0)
+        index = intent.extras.getInt("index", 0)
+        offline = intent.extras.getBoolean("mode", false)
 
-        Store.homeFilms.forEach { it ->
-            if (it.id == index)
-                film = it
-        }
-
-        initDetailFilmDataAPI(film.id)
-
-        if(! film.genre_ids.isEmpty()) {
-            film.genresList = Genre.genresList.get(film.genre_ids[0])?.name + ""
-            for (i in 1 until film.genre_ids.size) {
-                film.genresList += " / " + Genre.genresList.get(film.genre_ids[i])?.name
+        if(!offline!!){
+            Store.homeFilms.forEach { it ->
+                if (it.id == index)
+                    film = it
             }
+            initDetailFilmDataAPI(film!!.id)
+            setUpLayout()
+        }else{
+            initDBOffline()
         }
 
-        val salles = Mocker.salleList.getRandomElements_(4)
-        film.cinemas = salles
-
-        //todo fav
-        Mocker.favMovieList.forEach { it ->
-            if (it.id == film.id)
-                is_fan = true
+        // Ask for permission to stock images
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),1)
         }
 
-        val glide = Glide.with(this)
+//        val salles = Mocker.salleList.getRandomElements_(4)
+//        film.cinemas = salles
+//
+//        val comments = Mocker.commentList.getRandomElements(4)
+//        film.comments = comments
 
-        glide.load(Config.IMG_BASE_URL + film.poster_path)
-                .into(filmCard)
-        filmTitle.text = film.title
-        glide.load(Config.IMG_BASE_URL + film.poster_path)
-                .into(object : SimpleTarget<Drawable>() {
-                    override fun onResourceReady(resource: Drawable,
-                                                 transition: Transition<in Drawable>?) {
-                        frameLayout.setBackground(resource)
-                    }
-                })
 
-        evaluationText.text = film.vote_average.toString()
 
-        descriptionText.text = film.description
-
-        filmDate.text = "(${SimpleDateFormat("yyyy").format(film.release_date)})"
-
-        filmType.text = film.genresList
+    //    initSallesRecyclerView(salles)
+    //    initCommentsRecyclerView(comments)
 
         //todo
 //        actors_names.text = film.actors.get(0).name
 //        producertext.text = film.directors.get(0).name
 
-        setSupportActionBar(toolbar_detail_film)
-        // add back arrow to toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
-            getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
-        }
-        //Set activity title
-        toolbar_detail_film.title = film.title
-
-        //Init trailer video
-        initTrailer(trailer_video)
-
-        //Hide Media controller when scrolling
-        scrollContainer.getViewTreeObserver().addOnScrollChangedListener(
-                ViewTreeObserver.OnScrollChangedListener {
-                    mediaController!!.hide()
-                })
-
-        initSallesRecyclerView(salles)
     }
 
     //Add search view
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_love, menu)
-
-        //Set fun heart icon for the first time
-        if (this.is_fan) {
-            this.is_fan = false
-            menu.findItem(R.id.love_item).setIcon(R.drawable.heart2)
-        } else {
-            this.is_fan = true
-            menu.findItem(R.id.love_item).setIcon(R.drawable.heart_inactive)
-        }
+        loveItem = menu.findItem(R.id.love_item)
+        initDB()
+        menu.findItem(R.id.love_item).setIcon(R.drawable.heart_inactive)
         return true
     }
 
@@ -161,15 +160,13 @@ class FilmDetailActivity : AppCompatActivity() {
         if (item.itemId == android.R.id.home) {
             finish()
         } else if (item.itemId == R.id.love_item) {
-            if (this.is_fan) {
-                this.is_fan = false
+            if (!favoriteMoviesId!!.contains(film!!.id)) {
                 item.setIcon(R.drawable.heart2)
-                Mocker.favMovieList.add(film)
+                saveMovieAndRelatedMovies(film!!)
                 Toast.makeText(this, "Film ajouté à Mes Fans", LENGTH_SHORT).show()
             } else {
-                this.is_fan = true
                 item.setIcon(R.drawable.heart_inactive)
-                Mocker.favMovieList.remove(film)
+                deleteMovie(film!!)
                 Toast.makeText(this, "Film enlevé de Mes Fans", LENGTH_SHORT).show()
             }
         }
@@ -195,7 +192,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
         trailerVideo.setOnPreparedListener { mediaPlayer ->
             if (this.positionVideo == 0) {
-                trailerVideo.seekTo(10000)
+                trailerVideo.seekTo(1000)
             } else {
                 trailerVideo.seekTo(positionVideo)
             }
@@ -208,7 +205,6 @@ class FilmDetailActivity : AppCompatActivity() {
             }
 
         }
-
         // Change image preview
         trailerVideo.setPlayPauseListener(object : CustomVideoView.PlayPauseListener {
             override fun onPlay() {
@@ -254,6 +250,94 @@ class FilmDetailActivity : AppCompatActivity() {
         }
     }
 
+    fun setUpLayout(){
+        glide = Glide.with(this)
+        glide!!.load(Config.IMG_BASE_URL + film!!.poster_path)
+                .into(filmCard)
+        filmTitle.text = film!!.title
+        glide!!.load(Config.IMG_BASE_URL + film!!.poster_path)
+                .into(object : SimpleTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable,
+                                                 transition: Transition<in Drawable>?) {
+                        frameLayout.setBackground(resource)
+                    }
+                })
+
+
+        if(! film!!.genre_ids.isEmpty()) {
+            film!!.genresList = Genre.genresList.get(film!!.genre_ids[0])?.name + ""
+            for (i in 1 until film!!.genre_ids.size) {
+                film!!.genresList += " / " + Genre.genresList.get(film!!.genre_ids[i])?.name
+            }
+        }
+
+        evaluationText.text = film!!.vote_average.toString()
+
+        descriptionText.text = film!!.description
+
+        filmDate.text = "(${SimpleDateFormat("yyyy").format(film!!.release_date)})"
+
+        filmType.text = film!!.genresList
+
+        setSupportActionBar(toolbar_detail_film)
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
+            getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
+        }
+        //Set activity title
+        toolbar_detail_film.title = film!!.title
+
+        //Init trailer video
+        initTrailer(trailer_video)
+
+        //Hide Media controller when scrolling
+        scrollContainer.getViewTreeObserver().addOnScrollChangedListener(
+                ViewTreeObserver.OnScrollChangedListener {
+                    mediaController!!.hide()
+                })
+    }
+
+    fun initDBOffline() {
+        var act = this
+        object : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg voids: Void): Void? {
+                act.db = MovieDB.getInstance(act)
+                act.movieDao = act.db!!.movieDAO()
+                act.relatedMovieDao = act.db!!.relatedMoviesDAO()
+                return null
+            }
+
+            override fun onPostExecute(result: Void?) {
+                Store.favFilms.forEach { it ->
+                    if (it.id == act.index)
+                        film = it
+                }
+                act.setUpLayout()
+                act.associateMovies()
+                Log.i("bd","bd created")
+            }
+        }.execute()
+    }
+
+    fun associateMovies() {
+        var act = this
+        object : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg voids: Void): Void? {
+                    val associatedMovies = act.relatedMovieDao?.getRelatedMovies(film!!.id)
+                    film!!.linkedMovies = associatedMovies
+                    Log.i("related", film!!.linkedMovies!!.toString())
+                return null
+            }
+
+            override fun onPostExecute(result: Void?) {
+            //    Store.favFilms = act.fanFilms as ArrayList<Movie>
+                act.initAssociatedFilmsRecyclerView(film!!.linkedMovies!!,true)
+                Log.i("bd","bd created")
+            }
+        }.execute()
+    }
+
     fun initDetailFilmDataAPI(movieId : Int){
 
         val gson = GsonBuilder().create()
@@ -269,7 +353,7 @@ class FilmDetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val relatedMovies = response.body()!!.results
-                    film.linkedMovies = relatedMovies
+                    film!!.linkedMovies = relatedMovies
                     relatedMovies.forEach { it ->
                         Store.homeFilms.add(it)
                     }
@@ -287,7 +371,7 @@ class FilmDetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val comments = response.body()!!.results
-                    film.comments = comments
+                    film!!.comments = comments
                     initCommentsRecyclerView(comments)
                 }
             }
@@ -298,4 +382,140 @@ class FilmDetailActivity : AppCompatActivity() {
 
     }
 
+    // Fonctions to save in DB
+    fun saveMovieAndRelatedMovies(movie: Movie){
+        saveMovie(movie = movie,related = null,recursive = true)
+        // Save image
+        ImageManager.saveImageBitmap(this, filmCard ,movie.id.toString())
+        for (movieR in movie.linkedMovies!!){
+            saveImageGlide(movieR)
+        }
+    }
+
+    fun saveMovie(movie: Movie, related: Movie? =null, recursive:Boolean=false) {
+        var act = this
+        object : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg voids: Void): Void? {
+                if(recursive){
+                    movie.fav = true
+                    act.favoriteMoviesId!!.add(movie.id)
+                    val nb = act.relatedMovieDao?.nbrAssociation(movie.id)!!
+                    if (nb>0){
+                        act.movieDao?.setFav(movie.id,1)
+                    }else{
+                        act.movieDao?.insert(movie)
+                    }
+                    var index = 0
+                    for (relatedMv in movie.linkedMovies!!){
+                            saveMovie(movie = movie,related = relatedMv,recursive = false)
+//                            act.saveImageGlide(relatedMv)
+                            index++
+                    }
+                }else{
+                    val nb = act.relatedMovieDao?.nbrAssociation(related!!.id)!!
+                    if (! act.favoriteMoviesId!!.contains(related!!.id) && nb == 0){
+                        act.movieDao?.insert(related!!)
+                        saveMovieRelation(movie, related!!)
+//                        ImageManager.saveAssociatedImage(act,act.associatedFilmsRecyclerView,related!!.id,movieIndex)
+//
+                    }
+//                    getRelatedMovies(movie.id)
+                }
+                return null
+            }
+
+
+            override fun onPostExecute(result: Void?) {
+            }
+        }.execute()
+    }
+
+    fun deleteMovie(movie: Movie) {
+        var act = this
+        object : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg voids: Void): Void? {
+                    movie.fav = false
+                    act.favoriteMoviesId!!.remove(movie.id)
+                    val nb = act.relatedMovieDao?.nbrAssociation(movie.id)!!
+                    act.relatedMovieDao?.deleteAllRelated(movie.id)  // delete all related
+                    for (relatedMv in movie.linkedMovies!!){
+                        if (!act.favoriteMoviesId!!.contains(relatedMv.id) && act.relatedMovieDao?.nbrAssociation(relatedMv.id)!! == 0){
+                            act.movieDao?.delete(relatedMv)
+                            ImageManager.deleteImage(relatedMv.id.toString())
+                        }
+                    }
+                if (nb == 0){
+                    act.movieDao?.delete(movie)
+                    Log.i("deleted?",ImageManager.deleteImage(movie.id.toString()).toString())
+                }else{
+                    act.movieDao?.setFav(movie.id,0)
+                }
+//                getRelatedMovies(movie.id)
+                return null
+            }
+
+
+            override fun onPostExecute(result: Void?) {
+            }
+        }.execute()
+    }
+
+    fun saveMovieRelation(movie: Movie, related: Movie) {
+        var act = this
+        object : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg voids: Void): Void? {
+                act.relatedMovieDao?.insert(AssotiationMovies(movie.id ,related.id))
+
+                return null
+            }
+
+
+            override fun onPostExecute(result: Void?) {
+            }
+        }.execute()
+    }
+
+    fun initDB() {
+        var act = this
+        object : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg voids: Void): Void? {
+                act.db = MovieDB.getInstance(act)
+                act.movieDao = act.db!!.movieDAO()
+                act.relatedMovieDao = act.db!!.relatedMoviesDAO()
+                act.favoriteMoviesId = act.movieDao?.getFavMoviesId() as ArrayList<Int>?
+                return null
+            }
+
+            override fun onPostExecute(result: Void?) {
+                Log.i("bd","bd created")
+                act.loveItem!!.setEnabled(true)
+                //Set fun heart icon for the first time
+                if (favoriteMoviesId!!.contains(film!!.id)) {
+                    act.loveItem!!.setIcon(R.drawable.heart2)
+                }
+            }
+        }.execute()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if(loveItem != null) loveItem!!.setEnabled(false)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+//        Log.i("restart","_____")
+        initDB()
+    }
+
+    fun saveImageGlide(movie: Movie){
+        glide!!.asBitmap()
+                .load(Config.IMG_BASE_URL + movie.poster_path)
+                .into( object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL){
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        // Save image
+                        ImageManager.saveImage(this@FilmDetailActivity, resource ,movie.id.toString())
+                    }
+                })
+    }
 }

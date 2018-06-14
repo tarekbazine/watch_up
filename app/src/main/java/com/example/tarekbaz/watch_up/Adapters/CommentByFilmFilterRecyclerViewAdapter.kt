@@ -23,7 +23,7 @@ class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, var 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.film_image.setImageResource(films.get(position).image)
+        holder.film_image.setImageResource(films.get(position).image!!)
         holder.film_name.text = films.get(position).title
 //        holder.film_realisator.setText(films.get(position).directors.toString())//todo
 //        holder.film_salle.setText(films.get(position).cinemas.toString())//todo
@@ -62,7 +62,7 @@ class CommentByFilmFilterRecyclerViewAdapter(private val mContext: Context, var 
     }
 
     fun filter(keyWords: String) {
-        films = fullMovies.filter { film -> film.title.contains(keyWords, true) }
+        films = fullMovies.filter { film -> film.title!!.contains(keyWords, true) }
         notifyDataSetChanged()
     }
 }

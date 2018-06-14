@@ -139,7 +139,7 @@ class SeasonDetailActivity : AppCompatActivity() {
 
         trailerVideoSeason.setOnPreparedListener { mediaPlayer ->
             if (this.positionVideo == 0) {
-                trailerVideoSeason.seekTo(10000)
+                trailerVideoSeason.seekTo(1000)
             } else {
                 trailerVideoSeason.seekTo(positionVideo)
             }

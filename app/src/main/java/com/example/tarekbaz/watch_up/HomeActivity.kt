@@ -10,6 +10,9 @@ import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
+import com.example.tarekbaz.watch_up.Offline.MovieDAO
+import com.example.tarekbaz.watch_up.Offline.MovieDB
+import com.example.tarekbaz.watch_up.Offline.RelatedMoviesDAO
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
@@ -70,6 +73,28 @@ class HomeActivity : BaseActivity() {
 
                     Store.homeFilms = ArrayList(movies)
 
+                    // Save in database
+//                     saveMovie(movie = movies.get(1))
+                    //Save relation
+//                    saveMovieRelation(dbAllMovies!![0] , dbAllMovies!![1])
+                    // get related movies
+//                    Log.i("related", dbAllMovies!![0].id.toString())
+//                    getRelatedMovies(dbAllMovies!![0].id)
+
+
+
+//
+//
+//                    Log.i("dd", ""+todos!![0].title + ""+ todos!![0].completed )
+//                    Log.i("dd", ""+todos!![2].title + ""+ todos!![2].completed )
+//                    Log.i("dd", ""+todos.size )
+////                    txtTitle.setText(post!!.title)
+////                    txtBody.setText(post!!.body)
+//                    Toast.makeText(baseContext, "Succès", Toast.LENGTH_LONG).show()
+//
+//                    initRecyclerView(todos)
+
+
                     // init RecyclerViews
                     initFilmRecyclerView(movies)
             }
@@ -95,5 +120,4 @@ class HomeActivity : BaseActivity() {
         })
 
     }
-
 }

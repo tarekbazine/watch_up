@@ -7,5 +7,6 @@ class Store {
         var acteurs : List<Person> = listOf()
 
         var preferedGenres : HashMap<Int,Genre> = HashMap()
+        var favFilms : ArrayList<Movie> = ArrayList()
     }
 }
