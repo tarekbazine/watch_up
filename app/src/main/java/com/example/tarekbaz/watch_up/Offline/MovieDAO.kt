@@ -7,8 +7,6 @@ import android.arch.persistence.room.Transaction
 
 
 
-
-
 interface BaseDao<T> {
     @Insert(onConflict = OnConflictStrategy.ROLLBACK)
     fun insert(vararg obj: T)
@@ -23,38 +21,30 @@ interface BaseDao<T> {
 
 
 @Dao
-interface  MovieDAO{
-    @Insert(onConflict = OnConflictStrategy.ROLLBACK)
-    fun insert(movie: Movie)
+abstract class MovieDAO:BaseDao<Movie>{
 
 //    @Transaction
 //     fun insertTrans(movie: Movie){
 //        insert(movie)
 //    }
 
-    @Delete
-    fun delete(movie: Movie)
-
-    @Update(onConflict = OnConflictStrategy.FAIL)
-    fun update(movie: Movie)
-
     /**
      * Updating only is_fav
      */
     @Query("UPDATE movie SET is_fav=:value WHERE movie.id = :id")
-    fun setFav(id: Int, value:Int)
+    abstract fun setFav(id: Int, value:Int)
 
     @Query("SELECT * FROM movie")
-    fun getMovies(): List<Movie>
+    abstract fun getMovies(): List<Movie>
 
     @Query("SELECT id FROM movie WHERE is_fav = 1")
-    fun getFavMoviesId(): List<Int>
+    abstract fun getFavMoviesId(): List<Int>
 
     @Query("SELECT * FROM movie WHERE is_fav = 1")
-    fun getFavMovies(): List<Movie>
+    abstract fun getFavMovies(): List<Movie>
 
     @Query("SELECT * FROM movie WHERE id = :id")
-    fun getMovie(id: Int): List<Movie>
+    abstract fun getMovie(id: Int): List<Movie>
 }
 
 @Dao

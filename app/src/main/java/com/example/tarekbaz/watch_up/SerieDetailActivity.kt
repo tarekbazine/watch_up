@@ -1,7 +1,9 @@
 package com.example.tarekbaz.watch_up
 
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -68,6 +70,7 @@ class SerieDetailActivity : AppCompatActivity() {
 
     var serie:Serie  = Store.homeSeries[0]
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_serie)

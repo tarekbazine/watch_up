@@ -1,5 +1,7 @@
 package com.example.tarekbaz.watch_up
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
@@ -26,8 +28,11 @@ import android.graphics.drawable.Drawable
 import android.os.AsyncTask
 import android.os.Build
 import android.support.annotation.RequiresApi
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
@@ -50,8 +55,6 @@ class FilmDetailActivity : AppCompatActivity() {
     var formatter: DateFormat = SimpleDateFormat("HH:mm")
     var date1 = formatter.parse(str1)
     var date2 = formatter.parse(str2)
-    var is_fan = false
-    var bd_charged = false
 
     //Video attributes
     var trailer_video = R.raw.trailer2
@@ -117,6 +120,11 @@ class FilmDetailActivity : AppCompatActivity() {
         }else{
             initDBOffline()
         }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),1)
+        }
 
 
         /*
@@ -125,13 +133,6 @@ class FilmDetailActivity : AppCompatActivity() {
 
         val comments = Mocker.commentList.getRandomElements(4)
         film!!.comments = comments*/
-
-//        //todo fav
-//        Mocker.favMovieList.forEach { it ->
-//            if (it.id == film!!.id)
-//                is_fan = true
-//        }
-
 
 
     //    initSallesRecyclerView(salles)
@@ -185,7 +186,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
         trailerVideo.setOnPreparedListener { mediaPlayer ->
             if (this.positionVideo == 0) {
-                trailerVideo.seekTo(10000)
+                trailerVideo.seekTo(1000)
             } else {
                 trailerVideo.seekTo(positionVideo)
             }
@@ -198,7 +199,6 @@ class FilmDetailActivity : AppCompatActivity() {
             }
 
         }
-
         // Change image preview
         trailerVideo.setPlayPauseListener(object : CustomVideoView.PlayPauseListener {
             override fun onPlay() {
@@ -282,7 +282,6 @@ class FilmDetailActivity : AppCompatActivity() {
                     mediaController!!.hide()
                 })
     }
-
 
     fun initDBOffline() {
         var act = this
@@ -371,16 +370,17 @@ class FilmDetailActivity : AppCompatActivity() {
 
     }
 
-
     // Fonctions to save in DB
-
     fun saveMovieAndRelatedMovies(movie: Movie){
         saveMovie(movie = movie,related = null,recursive = true)
         // Save image
         ImageManager.saveImageBitmap(this, filmCard ,movie.id.toString())
+        for (movieR in movie.linkedMovies!!){
+            saveImageGlide(movieR)
+        }
     }
 
-    fun saveMovie(movie: Movie, related: Movie? =null, recursive:Boolean=false, movieIndex: Int = 0) {
+    fun saveMovie(movie: Movie, related: Movie? =null, recursive:Boolean=false) {
         var act = this
         object : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg voids: Void): Void? {
@@ -395,7 +395,7 @@ class FilmDetailActivity : AppCompatActivity() {
                     }
                     var index = 0
                     for (relatedMv in movie.linkedMovies!!){
-                            saveMovie(movie = movie,related = relatedMv,recursive = false, movieIndex = index)
+                            saveMovie(movie = movie,related = relatedMv,recursive = false)
 //                            act.saveImageGlide(relatedMv)
                             index++
                     }
@@ -499,15 +499,11 @@ class FilmDetailActivity : AppCompatActivity() {
     fun saveImageGlide(movie: Movie){
         glide!!.asBitmap()
                 .load(Config.IMG_BASE_URL + movie.poster_path)
-                .into( object : SimpleTarget<Bitmap>(100,100){
+                .into( object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL){
                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                         // Save image
                         ImageManager.saveImage(this@FilmDetailActivity, resource ,movie.id.toString())
                     }
                 })
     }
-
-
-
-
 }
