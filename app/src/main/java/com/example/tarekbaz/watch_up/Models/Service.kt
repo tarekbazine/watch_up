@@ -30,6 +30,13 @@ interface Service {
     @GET("search/movie?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun searchMovies(@Query("query") query: String): Call<MoviesResponse>
 
+    @GET("discover/movie?sort_by=release_date.desc&api_key=${Config.API_KEY}&language=en-US&page=1")
+    fun latestMovies(
+            @Query("release_date.gte") date_inf : String,
+            @Query("release_date.lte") date_sup : String,
+            @Query("with_genres") genre_ids : String
+    ): Call<MoviesResponse>
+
     /***Serie***/
     @GET("tv/airing_today?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun getTodayAiringSeries(): Call<SeriesResponse>
