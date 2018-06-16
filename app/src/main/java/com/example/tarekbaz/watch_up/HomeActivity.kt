@@ -3,7 +3,6 @@ package com.example.tarekbaz.watch_up
 import android.content.Context
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -56,23 +55,11 @@ class HomeActivity : BaseActivity() {
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
-        initDataAPI()
         dialog = showDialog()
-//        Timer().schedule(object : TimerTask() {
-//            override fun run() {
-//                hideDialog(dialog)
-//            }
-//        }, 5000)
+        initDataAPI()
+
 
         Genre.initPreferredGenres(this)
-
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SET_ALARM)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this,
-//                    arrayOf(Manifest.permission.SET_ALARM, Manifest.permission.WAKE_LOCK),1)
-//        }
-
         NewMoviesNotification.startAlarmService(applicationContext)
     }
 
@@ -107,7 +94,7 @@ class HomeActivity : BaseActivity() {
                 Timer().schedule(object : TimerTask() {
                         override fun run() {
                             hideDialog(dialog)
-                            showFailDialog()
+//                            showFailDialog()
                         }
                     }, 5000)
                 }
