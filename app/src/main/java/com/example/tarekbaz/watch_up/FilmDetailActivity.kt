@@ -51,20 +51,10 @@ import kotlin.collections.ArrayList
 
 class FilmDetailActivity : AppCompatActivity() {
 
-    var str1 = "22:03"
-    var str2 = "22:30"
-    var formatter: DateFormat = SimpleDateFormat("HH:mm")
-    var date1 = formatter.parse(str1)
-    var date2 = formatter.parse(str2)
-
     //Video attributes
     var trailer_video = R.raw.trailer2
     private var mediaController: MediaController? = null
     private var positionVideo: Int = 0
-
-    val filmsTimes: List<Date> = mutableListOf(
-            date1, date2, date1
-    )
 
     private var db: MovieDB? = null
     private var movieDao: MovieDAO? = null
@@ -103,7 +93,6 @@ class FilmDetailActivity : AppCompatActivity() {
     var film : Movie ?= null
 
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_film)
@@ -112,6 +101,7 @@ class FilmDetailActivity : AppCompatActivity() {
         offline = intent.extras.getBoolean("mode", false)
 
         if(!offline!!){
+            film =  Store.homeFilms[0]
             Store.homeFilms.forEach { it ->
                 if (it.id == index)
                     film = it
@@ -128,21 +118,6 @@ class FilmDetailActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this,
                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),1)
         }
-
-//        val salles = Mocker.salleList.getRandomElements_(4)
-//        film.cinemas = salles
-//
-//        val comments = Mocker.commentList.getRandomElements(4)
-//        film.comments = comments
-
-
-
-    //    initSallesRecyclerView(salles)
-    //    initCommentsRecyclerView(comments)
-
-        //todo
-//        actors_names.text = film.actors.get(0).name
-//        producertext.text = film.directors.get(0).name
 
     }
 
@@ -296,6 +271,10 @@ class FilmDetailActivity : AppCompatActivity() {
                 ViewTreeObserver.OnScrollChangedListener {
                     mediaController!!.hide()
                 })
+
+        val salles = Mocker.salleList.getRandomElements_(4)
+        film!!.cinemas = salles
+        initSallesRecyclerView(salles)
     }
 
     fun initDBOffline() {

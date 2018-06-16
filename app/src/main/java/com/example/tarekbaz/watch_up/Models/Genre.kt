@@ -1,5 +1,8 @@
 package com.example.tarekbaz.watch_up.Models
 
+import android.content.Context
+import android.util.Log
+
 
 data class Genre(
         val id : Int,
@@ -87,5 +90,20 @@ data class Genre(
                 Genre(10768,"War & Politics"),
                 Genre(37,"Western")
         )
+
+
+        fun initPreferredGenres(context: Context){
+
+            val prefGenres = context.getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
+            val genres = prefGenres.getStringSet(Genre.KEY, HashSet<String>())
+
+            Log.i("myLogiii", genres.toString())
+
+            genres.forEach {
+                Store.preferedGenres.add(it.toInt())
+            }
+
+
+        }
     }
 }

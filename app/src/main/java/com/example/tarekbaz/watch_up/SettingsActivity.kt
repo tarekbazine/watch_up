@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.util.Log
@@ -52,20 +53,6 @@ class SettingsActivity : AppCompatActivity() {
         }
 
 
-        ////
-        // Get the current list.
-        val prefGenres = getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
-        val genres = prefGenres.getStringSet(Genre.KEY, HashSet<String>())
-
-        val editor = prefGenres.edit()
-
-        Log.i("myLogiii",genres.toString())
-
-        genres.forEach {
-            Store.preferedGenres.add(it.toInt())
-        }
-
-
         val checkBoxList = ArrayList<CheckBox>()
 
         for (i in 0 until Genre.movieGenres.size) {
@@ -73,29 +60,20 @@ class SettingsActivity : AppCompatActivity() {
             cb.setTextColor(Color.WHITE)
             cb.text = Genre.movieGenres[i].name
             cb.id = Genre.movieGenres[i].id
-//            if (Store.preferedGenres.get(cb.id) != null) cb.isChecked = true
             if (Store.preferedGenres.contains(cb.id)) cb.isChecked = true
             cb.setOnCheckedChangeListener { _cb, b ->
                 if (b) {
-//                    Store.preferedGenres.put(_cb.id, Genre(_cb.id, _cb.text.toString()))
                     Store.preferedGenres.add(_cb.id)
-
-                    genres.add(_cb.id.toString())
-                    // Save the list.
-                    editor.putStringSet(Genre.KEY, genres)
-                    editor.apply()
-                    ///
-                    Log.i("myLogiii",genres.toString())
+//                    genres.add(_cb.id.toString())
+//                    editor.putStringSet(Genre.KEY, genres)
                 } else {
                     Store.preferedGenres.remove(_cb.id)
-
-                    genres.remove(_cb.id.toString())
-                    // Save the list.
-                    editor.putStringSet(Genre.KEY, genres)
-                    editor.apply()
-                    ///
-                    Log.i("myLogiii",genres.toString())
+//                    genres.remove(_cb.id.toString())
+//                    editor.putStringSet(Genre.KEY, genres)
                 }
+//                editor.commit()
+//                Log.i("myLogiii", genres.toString())
+//                Log.i("myLogiii2", prefGenres.getStringSet(Genre.KEY, HashSet<String>()).toString())
             }
             checkBoxList.add(cb)
 
@@ -111,117 +89,27 @@ class SettingsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // handle arrow click here
         if (item.itemId == android.R.id.home) {
-            api()
-
+            NewMoviesNotification.create(applicationContext)
             finish()
         }
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onStop() {
+        super.onStop()
 
-    fun api() {//todo check genre exist !!! at least one
-        val gson = GsonBuilder().create()
-        val retrofit = Retrofit.Builder()
-                .baseUrl(Config.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build()
+        val prefGenres = getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
+        val genres = prefGenres.getStringSet(Genre.KEY, HashSet<String>())
+        val editor = prefGenres.edit()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        //todo
+        editor.putStringSet(Genre.KEY, null)
+        editor.commit()
 
-        /*val keys = ArrayList(Store.preferedGenres.keys)
-
-        var genresList = keys[0].toString()
-        for (i in 1 until Store.preferedGenres.size) {
-            genresList += "|" + keys[i]
-        }*/
-
-        val keys = ArrayList(Store.preferedGenres)
-        var genresList = keys[0].toString()
-        for (i in 1 until Store.preferedGenres.size) {
-            genresList += "|" + keys[i]
+        Store.preferedGenres.forEach { it ->
+            genres.add(it.toString())
         }
-
-        val sdf = SimpleDateFormat("yyyy-MM-dd")
-        val cal = Calendar.getInstance()
-        val date_bonr_inf = sdf.format(cal.time)
-        cal.add(Calendar.DATE, 7)
-        val date_bonr_sup = sdf.format(cal.time)
-
-        service.latestMovies(date_bonr_inf, date_bonr_sup, genresList)
-                .enqueue(object : Callback<MoviesResponse> {
-                    override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
-                        if ((response != null) && (response.code() == 200
-                                        && !response.body()!!.results.isEmpty())) {
-                            val latestMovie = response.body()!!.results[0]
-                            Store.homeFilms.add(latestMovie)
-                            initNotificatioData(latestMovie)
-                        }
-                    }
-
-                    override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?) {
-                        Toast.makeText(baseContext, "Echec Noty", Toast.LENGTH_LONG).show()
-                    }
-                })
-    }
-
-    fun initNotificatioData(film: Movie) {
-        Glide.with(applicationContext)
-                .asBitmap()
-                .load(Config.IMG_BASE_URL + film.poster_path)
-                .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                        createNotification(resource, film)
-                    }
-                })
-    }
-
-    @SuppressLint("NewApi")
-    private fun createNotification(bitmap: Bitmap, film: Movie) {//185 278
-        // Create an explicit intent for an Activity in your app
-        val intent = Intent(this, FilmDetailActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        intent.putExtra("index", film.id)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-//        Store.homeFilms.add(films.get(position))
-
-        val CHANNEL_ID = "CHANNEL_WU_01"
-        val notificationId = 1
-
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//        CharSequence name = getString(CHANNEL_ID);
-//        String description = getString(R.string.channel_description);
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, "CHANNEL_WU_NAME", importance)
-//        channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            val notificationManager = getSystemService(NotificationManager::class.java!!)
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        val mBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.star)
-                .setLargeIcon(bitmap)
-                .setContentTitle(film.title)
-                .setContentText("Premium show: ${SimpleDateFormat("E dd MMM yyyy").format(film.release_date)}")
-                .setStyle(NotificationCompat.BigPictureStyle()
-                        .bigPicture(bitmap)
-                        .setBigContentTitle(film.title)
-                        .setSummaryText("Premium show: ${SimpleDateFormat("E dd MMM yyyy").format(film.release_date)}")
-                )
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                // Set the intent that will fire when the user taps the notification
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-
-
-        //run
-        val notificationManager = NotificationManagerCompat.from(this)
-        // notificationId is a unique int for each notification that you must define
-        notificationManager.notify(notificationId, mBuilder.build())
-
+        editor.putStringSet(Genre.KEY, genres)
+        editor.commit()
     }
 }
