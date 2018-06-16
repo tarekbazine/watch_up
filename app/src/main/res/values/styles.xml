@@ -34,4 +34,26 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!--&lt;!&ndash;Dialog style&ndash;&gt;-->
+    <!--<style name="Loading_Style">-->
+        <!--<item name="android:layout_width">match_parent</item>-->
+        <!--<item name="android:layout_height">match_parent</item>-->
+        <!--&lt;!&ndash; No backgrounds, titles or window float &ndash;&gt;-->
+        <!--<item name="android:windowBackground">@null</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:windowIsFloating">false</item>-->
+    <!--</style>-->
+
+    <style name="Loading_Style" parent="android:Theme">
+        <!--<item name="android:layout_width">match_parent</item>-->
+        <!--<item name="android:layout_height">match_parent</item>-->
+        <!-- No backgrounds, titles or window float -->
+        <!--<item name="android:windowBackground">@null</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+
 </resources>
