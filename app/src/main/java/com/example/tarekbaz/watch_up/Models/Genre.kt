@@ -1,11 +1,15 @@
 package com.example.tarekbaz.watch_up.Models
 
+import android.content.Context
+import android.util.Log
+
 
 data class Genre(
         val id : Int,
         val name : String
 ) {
     companion object {
+        val KEY = "PREFERRED_GENRES"
 
         val genresList = hashMapOf( //todo ommit duplicate
                 28 to  Genre(28,"Action"),
@@ -46,7 +50,7 @@ data class Genre(
         )
 
 
-        val movieGenres0 = listOf(
+        val movieGenres = listOf(
                 Genre(28,"Action"),
                 Genre(12,"Adventure"),
                 Genre(16,"Animation"),
@@ -68,7 +72,7 @@ data class Genre(
                 Genre(37,"Western")
         )
 
-        val serieGenre0 = listOf(
+        val serieGenre = listOf(
                 Genre(10759,"Action & Adventure"),
                 Genre(16,"Animation"),
                 Genre(35,"Comedy"),
@@ -86,5 +90,20 @@ data class Genre(
                 Genre(10768,"War & Politics"),
                 Genre(37,"Western")
         )
+
+
+        fun initPreferredGenres(context: Context){
+
+            val prefGenres = context.getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
+            val genres = prefGenres.getStringSet(Genre.KEY, HashSet<String>())
+
+            Log.i("myLogiii", genres.toString())
+
+            genres.forEach {
+                Store.preferedGenres.add(it.toInt())
+            }
+
+
+        }
     }
 }

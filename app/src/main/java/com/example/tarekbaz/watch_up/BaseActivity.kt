@@ -64,6 +64,12 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 val intent = Intent(this, CommentEvaluationActivity::class.java)
                 startActivity(intent)
             }
+            R.id.nav_setting -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                drawer_layout.closeDrawer(GravityCompat.START)
+                return true
+            }
         }
 
         finish()

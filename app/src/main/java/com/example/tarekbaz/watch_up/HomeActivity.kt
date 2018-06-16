@@ -1,7 +1,13 @@
 package com.example.tarekbaz.watch_up
 
 import android.content.Context
+import android.Manifest
+import android.app.Activity
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -58,6 +64,16 @@ class HomeActivity : BaseActivity() {
 //                hideDialog(dialog)
 //            }
 //        }, 5000)
+
+        Genre.initPreferredGenres(this)
+
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SET_ALARM)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this,
+//                    arrayOf(Manifest.permission.SET_ALARM, Manifest.permission.WAKE_LOCK),1)
+//        }
+
+        NewMoviesNotification.startAlarmService(applicationContext)
     }
 
 
@@ -80,29 +96,6 @@ class HomeActivity : BaseActivity() {
 
                     Store.homeFilms = ArrayList(movies)
 
-                    // Save in database
-//                     saveMovie(movie = movies.get(1))
-                    //Save relation
-//                    saveMovieRelation(dbAllMovies!![0] , dbAllMovies!![1])
-                    // get related movies
-//                    Log.i("related", dbAllMovies!![0].id.toString())
-//                    getRelatedMovies(dbAllMovies!![0].id)
-
-
-
-//
-//
-//                    Log.i("dd", ""+todos!![0].title + ""+ todos!![0].completed )
-//                    Log.i("dd", ""+todos!![2].title + ""+ todos!![2].completed )
-//                    Log.i("dd", ""+todos.size )
-////                    txtTitle.setText(post!!.title)
-////                    txtBody.setText(post!!.body)
-//                    Toast.makeText(baseContext, "Succès", Toast.LENGTH_LONG).show()
-//
-//                    initRecyclerView(todos)
-
-
-                    // init RecyclerViews
                     initFilmRecyclerView(movies)
                     hideDialog(dialog)
             }
@@ -134,8 +127,7 @@ class HomeActivity : BaseActivity() {
         })
 
     }
-
-    // this function shows a dialog_progress dialogue
+// this function shows a dialog_progress dialogue
     fun showDialog(): AlertDialog {
         //Loading spinner
         val builder = AlertDialog.Builder(this,R.style.Loading_Style)
@@ -145,8 +137,7 @@ class HomeActivity : BaseActivity() {
         builder.setCancelable(false)
         val dialog = builder.create()
         dialog.show()
-        return dialog
-    }
+        return dialog}
 
     fun hideDialog(dialog: AlertDialog?){
         //Loading spinner
