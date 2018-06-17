@@ -60,36 +60,5 @@ class HomeActivity : BaseActivity() {
         val series = Store.homeSeries
         initSerieRecyclerView(series)
     }
-
-
-
-// this function shows a dialog_progress dialogue
-    fun showDialog(): AlertDialog {
-        //Loading spinner
-        val builder = AlertDialog.Builder(this,R.style.Loading_Style)
-        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE  ) as LayoutInflater
-        val view = inflater.inflate(R.layout.dialog_progress,null)
-        builder.setView(view)
-        builder.setCancelable(false)
-        val dialog = builder.create()
-        dialog.show()
-        return dialog}
-
-    fun hideDialog(dialog: AlertDialog?){
-        //Loading spinner
-        dialog!!.dismiss()
-    }
-
-    fun showFailDialog(): AlertDialog {
-        //Loading spinner
-        val builder = AlertDialog.Builder(this,R.style.Loading_Style)
-        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE  ) as LayoutInflater
-        val view = inflater.inflate(R.layout.dialog_failed,null)
-        builder.setView(view)
-        builder.setCancelable(false)
-        val dialog = builder.create()
-        dialog.show()
-        return dialog
-    }
 }
 

@@ -66,6 +66,8 @@ class FilmDetailActivity : AppCompatActivity() {
     var glide: RequestManager? = null
     var index: Int? = null
 
+    var dialog : AlertDialog? = null
+
 
     //Init adapters
     private fun initSallesRecyclerView(salles: List<Cinema>) {
@@ -80,6 +82,9 @@ class FilmDetailActivity : AppCompatActivity() {
         associatedFilmsRecyclerView.setLayoutManager(layoutManager)
         val adapter_films = HomeMovieRecyclerViewAdapter(this, assFilms, offline)
         associatedFilmsRecyclerView.setAdapter(adapter_films)
+        if (!offline) {
+            hideDialog(dialog)
+        }
     }
 
     private fun initCommentsRecyclerView(comments: List<Comment>) {
@@ -110,6 +115,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 if (it.id == index)
                     film = it
             }
+            dialog = showDialog()
             initDetailFilmDataAPI(film!!.id)
             setUpLayout()
         } else {
@@ -332,7 +338,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        val service = retrofit.create<Service>(Service::class.java)
 
         service.relatedMovies(movieId).enqueue(object : Callback<MoviesResponse> {
 
@@ -537,5 +543,23 @@ class FilmDetailActivity : AppCompatActivity() {
                         ImageManager.saveImage(this@FilmDetailActivity, resource, movie.id.toString())
                     }
                 })
+    }
+
+    // this function shows a dialog_progress dialogue
+    fun showDialog(): AlertDialog {
+        //Loading spinner
+        val builder = AlertDialog.Builder(this)
+        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE  ) as LayoutInflater
+        val view = inflater.inflate(R.layout.dialog_progress,null)
+        builder.setView(view)
+        builder.setCancelable(false)
+        val dialog = builder.create()
+        dialog.show()
+        return dialog
+    }
+
+    fun hideDialog(dialog: AlertDialog?){
+        //Loading spinner
+        dialog!!.dismiss()
     }
 }
