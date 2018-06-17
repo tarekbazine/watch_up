@@ -1,6 +1,7 @@
 package com.example.tarekbaz.watch_up
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -9,14 +10,10 @@ import android.os.Bundle
 import android.widget.MediaController
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import kotlinx.android.synthetic.main.activity_detail_film.*
 import java.text.SimpleDateFormat
-import android.view.ViewTreeObserver
 import com.bumptech.glide.Glide
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
@@ -28,6 +25,8 @@ import android.os.Build
 import android.support.annotation.RequiresApi
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
+import android.view.*
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
@@ -62,9 +61,9 @@ class FilmDetailActivity : AppCompatActivity() {
     private var relatedMovies: List<Movie>? = null
     private var favoriteMoviesId: ArrayList<Int>? = ArrayList()
 
-    var loveItem : MenuItem? = null
+    var loveItem: MenuItem? = null
     var glide: RequestManager? = null
-    var index:Int? = null
+    var index: Int? = null
 
 
     //Init adapters
@@ -75,7 +74,7 @@ class FilmDetailActivity : AppCompatActivity() {
         sallesRecyclerView.setAdapter(adapter_salles)
     }
 
-    private fun initAssociatedFilmsRecyclerView(assFilms: List<Movie>, offline:Boolean=false) {
+    private fun initAssociatedFilmsRecyclerView(assFilms: List<Movie>, offline: Boolean = false) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         associatedFilmsRecyclerView.setLayoutManager(layoutManager)
         val adapter_films = HomeMovieRecyclerViewAdapter(this, assFilms, offline)
@@ -89,8 +88,8 @@ class FilmDetailActivity : AppCompatActivity() {
         commentsFilmRecyclerView.setAdapter(adapter_comments)
     }
 
-    var offline:Boolean ?= null
-    var film : Movie ?= null
+    var offline: Boolean? = null
+    var film: Movie? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,7 +99,7 @@ class FilmDetailActivity : AppCompatActivity() {
         index = intent.extras.getInt("index", 0)
         offline = intent.extras.getBoolean("mode", false)
 
-        if(!offline!!){
+        if (!offline!!) {
             film =  Store.homeFilms[0]
             Store.homeFilms.forEach { it ->
                 if (it.id == index)
@@ -108,7 +107,7 @@ class FilmDetailActivity : AppCompatActivity() {
             }
             initDetailFilmDataAPI(film!!.id)
             setUpLayout()
-        }else{
+        } else {
             initDBOffline()
         }
 
@@ -116,7 +115,7 @@ class FilmDetailActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),1)
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
         }
 
     }
@@ -225,7 +224,7 @@ class FilmDetailActivity : AppCompatActivity() {
         }
     }
 
-    fun setUpLayout(){
+    fun setUpLayout() {
         glide = Glide.with(this)
         glide!!.load(Config.IMG_BASE_URL + film!!.poster_path)
                 .into(filmCard)
@@ -239,7 +238,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 })
 
 
-        if(! film!!.genre_ids.isEmpty()) {
+        if (!film!!.genre_ids.isEmpty()) {
             film!!.genresList = Genre.genresList.get(film!!.genre_ids[0])?.name + ""
             for (i in 1 until film!!.genre_ids.size) {
                 film!!.genresList += " / " + Genre.genresList.get(film!!.genre_ids[i])?.name
@@ -303,21 +302,21 @@ class FilmDetailActivity : AppCompatActivity() {
         var act = this
         object : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg voids: Void): Void? {
-                    val associatedMovies = act.relatedMovieDao?.getRelatedMovies(film!!.id)
-                    film!!.linkedMovies = associatedMovies
-                    Log.i("related", film!!.linkedMovies!!.toString())
+                val associatedMovies = act.relatedMovieDao?.getRelatedMovies(film!!.id)
+                film!!.linkedMovies = associatedMovies
+                Log.i("related", film!!.linkedMovies!!.toString())
                 return null
             }
 
             override fun onPostExecute(result: Void?) {
-            //    Store.favFilms = act.fanFilms as ArrayList<Movie>
-                act.initAssociatedFilmsRecyclerView(film!!.linkedMovies!!,true)
-                Log.i("bd","bd created")
+                //    Store.favFilms = act.fanFilms as ArrayList<Movie>
+                act.initAssociatedFilmsRecyclerView(film!!.linkedMovies!!, true)
+                Log.i("bd", "bd created")
             }
         }.execute()
     }
 
-    fun initDetailFilmDataAPI(movieId : Int){
+    fun initDetailFilmDataAPI(movieId: Int) {
 
         val gson = GsonBuilder().create()
         val retrofit = Retrofit.Builder()
@@ -327,7 +326,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
         val service = retrofit.create<Service>(Service::class.java!!)
 
-        service.relatedMovies(movieId).enqueue(object: Callback<MoviesResponse> {
+        service.relatedMovies(movieId).enqueue(object : Callback<MoviesResponse> {
 
             override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
@@ -341,12 +340,12 @@ class FilmDetailActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?){
+            override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?) {
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })
 
-        service.reviewsMovie(movieId).enqueue(object: Callback<ReviewsResponse> {
+        service.reviewsMovie(movieId).enqueue(object : Callback<ReviewsResponse> {
             override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val comments = response.body()!!.results
@@ -354,7 +353,8 @@ class FilmDetailActivity : AppCompatActivity() {
                     initCommentsRecyclerView(comments)
                 }
             }
-            override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?){
+
+            override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?) {
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })
@@ -362,20 +362,20 @@ class FilmDetailActivity : AppCompatActivity() {
     }
 
     // Fonctions to save in DB
-    fun saveMovieAndRelatedMovies(movie: Movie){
-        saveMovie(movie = movie,related = null,recursive = true)
+    fun saveMovieAndRelatedMovies(movie: Movie) {
+        saveMovie(movie = movie, related = null, recursive = true)
         // Save image
-        ImageManager.saveImageBitmap(this, filmCard ,movie.id.toString())
-        for (movieR in movie.linkedMovies!!){
+        ImageManager.saveImageBitmap(this, filmCard, movie.id.toString())
+        for (movieR in movie.linkedMovies!!) {
             saveImageGlide(movieR)
         }
     }
 
-    fun saveMovie(movie: Movie, related: Movie? =null, recursive:Boolean=false) {
+    fun saveMovie(movie: Movie, related: Movie? = null, recursive: Boolean = false) {
         var act = this
         object : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg voids: Void): Void? {
-                if(recursive){
+                if (recursive) {
                     movie.fav = true
                     act.favoriteMoviesId!!.add(movie.id)
                     val nb = act.relatedMovieDao?.nbrAssociation(movie.id)!!

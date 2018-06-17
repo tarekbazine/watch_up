@@ -1,24 +1,22 @@
 package com.example.tarekbaz.watch_up
 
+import android.content.Context
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
+import android.view.LayoutInflater
 import android.widget.Toast
 import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
-import com.example.tarekbaz.watch_up.Offline.MovieDAO
-import com.example.tarekbaz.watch_up.Offline.MovieDB
-import com.example.tarekbaz.watch_up.Offline.RelatedMoviesDAO
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
@@ -26,10 +24,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 
 class HomeActivity : BaseActivity() {
 
+    var dialog: AlertDialog? = null
 
     private fun initFilmRecyclerView(films : List<Movie>) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -55,17 +55,11 @@ class HomeActivity : BaseActivity() {
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
+        dialog = showDialog()
         initDataAPI()
 
+
         Genre.initPreferredGenres(this)
-
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SET_ALARM)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this,
-//                    arrayOf(Manifest.permission.SET_ALARM, Manifest.permission.WAKE_LOCK),1)
-//        }
-
         NewMoviesNotification.startAlarmService(applicationContext)
     }
 
@@ -90,13 +84,20 @@ class HomeActivity : BaseActivity() {
                     Store.homeFilms = ArrayList(movies)
 
                     initFilmRecyclerView(movies)
+                    hideDialog(dialog)
             }
 
             }
 
             override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?){
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
-            }
+                Timer().schedule(object : TimerTask() {
+                        override fun run() {
+                            hideDialog(dialog)
+//                            showFailDialog()
+                        }
+                    }, 5000)
+                }
         })
 
         service.getTodayAiringSeries().enqueue(object: Callback<SeriesResponse> {
@@ -113,5 +114,33 @@ class HomeActivity : BaseActivity() {
         })
 
     }
+// this function shows a dialog_progress dialogue
+    fun showDialog(): AlertDialog {
+        //Loading spinner
+        val builder = AlertDialog.Builder(this,R.style.Loading_Style)
+        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE  ) as LayoutInflater
+        val view = inflater.inflate(R.layout.dialog_progress,null)
+        builder.setView(view)
+        builder.setCancelable(false)
+        val dialog = builder.create()
+        dialog.show()
+        return dialog}
 
+    fun hideDialog(dialog: AlertDialog?){
+        //Loading spinner
+        dialog!!.dismiss()
+    }
+
+    fun showFailDialog(): AlertDialog {
+        //Loading spinner
+        val builder = AlertDialog.Builder(this,R.style.Loading_Style)
+        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE  ) as LayoutInflater
+        val view = inflater.inflate(R.layout.dialog_failed,null)
+        builder.setView(view)
+        builder.setCancelable(false)
+        val dialog = builder.create()
+        dialog.show()
+        return dialog
+    }
 }
+

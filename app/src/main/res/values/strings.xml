@@ -68,5 +68,8 @@
 
     <string name="baseurl">https://api.themoviedb.org/3/</string>
 
+    <string name="failed_title">Chargement Echoué</string>
+    <string name="failed_content">Vérifier la connexion internet</string>
+
 
 </resources>
