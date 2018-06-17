@@ -213,9 +213,9 @@ class NewMoviesNotification {
 //            editor.commit()
 
                 val calendar = Calendar.getInstance()
-                calendar.set(Calendar.HOUR_OF_DAY, 9)//24
-                calendar.set(Calendar.MINUTE, 0)
-                calendar.set(Calendar.SECOND, 0)
+                calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR))
+                calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE))
+                calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND))
 
                 Log.i("myLogiii", "service started " + Build.VERSION.SDK_INT)
                 val intent = Intent(context, AlarmReceiver::class.java)
@@ -238,7 +238,8 @@ class NewMoviesNotification {
                 alarm.setRepeating(AlarmManager.RTC_WAKEUP,
 //                    calendar.timeInMillis,
                         calendar.timeInMillis,
-                        AlarmManager.INTERVAL_FIFTEEN_MINUTES, pintent)
+                        AlarmManager.INTERVAL_FIFTEEN_MINUTES/*todo*/,
+                        pintent)
 //            }
 
                 Log.i("myLogiii", "already service started ")

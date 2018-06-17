@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
@@ -184,6 +185,8 @@ class SerieDetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val relatedSeriers = response.body()!!.results
+                    if(relatedSeriers.isEmpty())
+                        noAssociatedSeries.visibility = TextView.VISIBLE
                     serie.linkedSeries = relatedSeriers
                     relatedSeriers.forEach { it ->
                         Store.homeSeries.add(it)
@@ -204,6 +207,7 @@ class SerieDetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val comments = response.body()!!.results
+                    if (comments.isEmpty()) noComments.visibility = TextView.VISIBLE
                     serie.comments = comments
                     initCommentsRecyclerView(comments)
                 }

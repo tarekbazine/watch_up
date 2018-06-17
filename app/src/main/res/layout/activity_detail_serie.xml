@@ -233,6 +233,19 @@
                 android:textSize="19sp"
                 android:textStyle="bold" />
 
+
+            <TextView
+                android:id="@+id/noAssociatedSeries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingStart="10dp"
+                android:text="@string/no_associated_series"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:visibility="gone"
+                android:textSize="19sp" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/associatedSeriesRecyclerView"
                 android:layout_width="match_parent"
@@ -252,6 +265,18 @@
             android:textColor="@color/colorAccent"
             android:textSize="19sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/noComments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="10dp"
+            android:text="@string/no_comments"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:visibility="gone"
+            android:textSize="19sp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/commentsSerieRecyclerView"

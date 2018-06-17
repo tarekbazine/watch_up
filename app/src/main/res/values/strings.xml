@@ -7,6 +7,7 @@
     <string name="title_salle">Salles</string>
 
     <string name="title_comments">Commentaires</string>
+    <string name="no_comments">Aucun commentaire</string>
 
 
     <string name="action_settings">Settings</string>
@@ -34,6 +35,7 @@
 
     <!--Film Detail-->
     <string name="associated_films">Films Associés</string>
+    <string name="no_associated_films">Pas des films Associés</string>
     <string name="canals">Salles de Diffusion</string>
 
     <!--Episode Detail-->
@@ -46,6 +48,7 @@
     <string name="seasons">Saisons</string>
     Séries Associées
     <string name="associated_series">Séries Associées</string>
+    <string name="no_associated_series">Pas des séries Associées</string>
     <!--Cinema Activity-->
     <string name="title_toolbar_cinema">Cinema</string>
 

@@ -16,6 +16,9 @@ interface Service {
     @GET("movie/upcoming?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun getHomeMovies(): Call<MoviesResponse>
 
+    @GET("movie/{movie_id}?api_key=${Config.API_KEY}&language=en-US")
+    fun movieDetails(@Path("movie_id") id: Int): Call<Movie>
+
     @GET("movie/{movie_id}/similar?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun relatedMovies(@Path("movie_id") id: Int): Call<MoviesResponse>
 

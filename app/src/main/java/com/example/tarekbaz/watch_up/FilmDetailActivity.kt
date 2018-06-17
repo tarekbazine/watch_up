@@ -27,6 +27,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.view.*
+import android.widget.TextView
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
@@ -101,12 +102,10 @@ class FilmDetailActivity : AppCompatActivity() {
         offline = intent.extras.getBoolean("mode", false)
         fromNotification = intent.extras.getBoolean("fromNotification", false)
 
-        Log.i("myLogiii1122", "1")
-
-        if(fromNotification!!){
-            Toast.makeText(this,"fromnoti",Toast.LENGTH_LONG).show()
-        }else if (!offline!!) {
-            film =  Store.homeFilms[0]
+        if (fromNotification!!) {
+            initDetailFilmDataAPIFromNotification(index!!)
+        } else if (!offline!!) {
+            film = Store.homeFilms[0]
             Store.homeFilms.forEach { it ->
                 if (it.id == index)
                     film = it
@@ -116,7 +115,6 @@ class FilmDetailActivity : AppCompatActivity() {
         } else {
             initDBOffline()
         }
-        Log.i("myLogiii1122", "2")
 
         // Ask for permission to stock images
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -233,18 +231,20 @@ class FilmDetailActivity : AppCompatActivity() {
     }
 
     fun setUpLayout() {
-        glide = Glide.with(this)
-        glide!!.load(Config.IMG_BASE_URL + film!!.poster_path)
-                .into(filmCard)
-        filmTitle.text = film!!.title
-        glide!!.load(Config.IMG_BASE_URL + film!!.poster_path)
-                .into(object : SimpleTarget<Drawable>() {
-                    override fun onResourceReady(resource: Drawable,
-                                                 transition: Transition<in Drawable>?) {
-                        frameLayout.setBackground(resource)
-                    }
-                })
 
+        if (null != film!!.poster_path) {
+            glide = Glide.with(this)
+            glide!!.load(Config.IMG_BASE_URL + film!!.poster_path)
+                    .into(filmCard)
+            filmTitle.text = film!!.title
+            glide!!.load(Config.IMG_BASE_URL + film!!.poster_path)
+                    .into(object : SimpleTarget<Drawable>() {
+                        override fun onResourceReady(resource: Drawable,
+                                                     transition: Transition<in Drawable>?) {
+                            frameLayout.setBackground(resource)
+                        }
+                    })
+        }
 
         if (!film!!.genre_ids.isEmpty()) {
             film!!.genresList = Genre.genresList.get(film!!.genre_ids[0])?.name + ""
@@ -301,7 +301,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 }
                 act.setUpLayout()
                 act.associateMovies()
-                Log.i("bd","bd created")
+                Log.i("bd", "bd created")
             }
         }.execute()
     }
@@ -339,6 +339,8 @@ class FilmDetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val relatedMovies = response.body()!!.results
+                    if (relatedMovies.isEmpty())
+                        noAssociatedFilms.visibility = TextView.VISIBLE
                     film!!.linkedMovies = relatedMovies
                     relatedMovies.forEach { it ->
                         Store.homeFilms.add(it)
@@ -357,12 +359,41 @@ class FilmDetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val comments = response.body()!!.results
+                    if (comments.isEmpty()) noComments.visibility = TextView.VISIBLE
                     film!!.comments = comments
                     initCommentsRecyclerView(comments)
                 }
             }
 
             override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?) {
+                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+            }
+        })
+
+    }
+
+    fun initDetailFilmDataAPIFromNotification(movieId: Int) {
+
+        val gson = GsonBuilder().create()
+        val retrofit = Retrofit.Builder()
+                .baseUrl(Config.API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+
+        val service = retrofit.create<Service>(Service::class.java!!)
+
+        service.movieDetails(movieId).enqueue(object : Callback<Movie> {
+
+            override fun onResponse(call: Call<Movie>, response: retrofit2.Response<Movie>?) {
+                if ((response != null) && (response.code() == 200)) {
+                    film = response.body()
+                    initDetailFilmDataAPI(movieId)
+                    setUpLayout()
+                }
+
+            }
+
+            override fun onFailure(call: Call<Movie>?, t: Throwable?) {
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })
@@ -389,20 +420,20 @@ class FilmDetailActivity : AppCompatActivity() {
                     movie.fav = true
                     act.favoriteMoviesId!!.add(movie.id)
                     val nb = act.relatedMovieDao?.nbrAssociation(movie.id)!!
-                    if (nb>0){
-                        act.movieDao?.setFav(movie.id,1)
-                    }else{
+                    if (nb > 0) {
+                        act.movieDao?.setFav(movie.id, 1)
+                    } else {
                         act.movieDao?.insert(movie)
                     }
                     var index = 0
-                    for (relatedMv in movie.linkedMovies!!){
-                            saveMovie(movie = movie,related = relatedMv,recursive = false)
+                    for (relatedMv in movie.linkedMovies!!) {
+                        saveMovie(movie = movie, related = relatedMv, recursive = false)
 //                            act.saveImageGlide(relatedMv)
-                            index++
+                        index++
                     }
-                }else{
+                } else {
                     val nb = act.relatedMovieDao?.nbrAssociation(related!!.id)!!
-                    if (! act.favoriteMoviesId!!.contains(related!!.id) && nb == 0){
+                    if (!act.favoriteMoviesId!!.contains(related!!.id) && nb == 0) {
                         act.movieDao?.insert(related!!)
                         saveMovieRelation(movie, related!!)
 //                        ImageManager.saveAssociatedImage(act,act.associatedFilmsRecyclerView,related!!.id,movieIndex)
@@ -423,21 +454,21 @@ class FilmDetailActivity : AppCompatActivity() {
         var act = this
         object : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg voids: Void): Void? {
-                    movie.fav = false
-                    act.favoriteMoviesId!!.remove(movie.id)
-                    val nb = act.relatedMovieDao?.nbrAssociation(movie.id)!!
-                    act.relatedMovieDao?.deleteAllRelated(movie.id)  // delete all related
-                    for (relatedMv in movie.linkedMovies!!){
-                        if (!act.favoriteMoviesId!!.contains(relatedMv.id) && act.relatedMovieDao?.nbrAssociation(relatedMv.id)!! == 0){
-                            act.movieDao?.delete(relatedMv)
-                            ImageManager.deleteImage(relatedMv.id.toString())
-                        }
+                movie.fav = false
+                act.favoriteMoviesId!!.remove(movie.id)
+                val nb = act.relatedMovieDao?.nbrAssociation(movie.id)!!
+                act.relatedMovieDao?.deleteAllRelated(movie.id)  // delete all related
+                for (relatedMv in movie.linkedMovies!!) {
+                    if (!act.favoriteMoviesId!!.contains(relatedMv.id) && act.relatedMovieDao?.nbrAssociation(relatedMv.id)!! == 0) {
+                        act.movieDao?.delete(relatedMv)
+                        ImageManager.deleteImage(relatedMv.id.toString())
                     }
-                if (nb == 0){
+                }
+                if (nb == 0) {
                     act.movieDao?.delete(movie)
-                    Log.i("deleted?",ImageManager.deleteImage(movie.id.toString()).toString())
-                }else{
-                    act.movieDao?.setFav(movie.id,0)
+                    Log.i("deleted?", ImageManager.deleteImage(movie.id.toString()).toString())
+                } else {
+                    act.movieDao?.setFav(movie.id, 0)
                 }
 //                getRelatedMovies(movie.id)
                 return null
@@ -453,7 +484,7 @@ class FilmDetailActivity : AppCompatActivity() {
         var act = this
         object : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg voids: Void): Void? {
-                act.relatedMovieDao?.insert(AssotiationMovies(movie.id ,related.id))
+                act.relatedMovieDao?.insert(AssotiationMovies(movie.id, related.id))
 
                 return null
             }
@@ -476,7 +507,7 @@ class FilmDetailActivity : AppCompatActivity() {
             }
 
             override fun onPostExecute(result: Void?) {
-                Log.i("bd","bd created")
+                Log.i("bd", "bd created")
                 act.loveItem!!.setEnabled(true)
                 //Set fun heart icon for the first time
                 if (favoriteMoviesId!!.contains(film!!.id)) {
@@ -488,7 +519,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        if(loveItem != null) loveItem!!.setEnabled(false)
+        if (loveItem != null) loveItem!!.setEnabled(false)
     }
 
     override fun onRestart() {
@@ -497,13 +528,13 @@ class FilmDetailActivity : AppCompatActivity() {
         initDB()
     }
 
-    fun saveImageGlide(movie: Movie){
+    fun saveImageGlide(movie: Movie) {
         glide!!.asBitmap()
                 .load(Config.IMG_BASE_URL + movie.poster_path)
-                .into( object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL){
+                .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                         // Save image
-                        ImageManager.saveImage(this@FilmDetailActivity, resource ,movie.id.toString())
+                        ImageManager.saveImage(this@FilmDetailActivity, resource, movie.id.toString())
                     }
                 })
     }
