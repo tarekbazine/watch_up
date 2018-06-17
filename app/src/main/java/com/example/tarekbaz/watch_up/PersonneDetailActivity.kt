@@ -1,6 +1,5 @@
 package com.example.tarekbaz.watch_up
 
-import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
 
 
 class PersonneDetailActivity : AppCompatActivity() {

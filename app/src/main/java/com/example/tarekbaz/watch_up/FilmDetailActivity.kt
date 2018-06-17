@@ -89,6 +89,7 @@ class FilmDetailActivity : AppCompatActivity() {
     }
 
     var offline: Boolean? = null
+    var fromNotification: Boolean? = null
     var film: Movie? = null
 
 
@@ -98,8 +99,13 @@ class FilmDetailActivity : AppCompatActivity() {
 
         index = intent.extras.getInt("index", 0)
         offline = intent.extras.getBoolean("mode", false)
+        fromNotification = intent.extras.getBoolean("fromNotification", false)
 
-        if (!offline!!) {
+        Log.i("myLogiii1122", "1")
+
+        if(fromNotification!!){
+            Toast.makeText(this,"fromnoti",Toast.LENGTH_LONG).show()
+        }else if (!offline!!) {
             film =  Store.homeFilms[0]
             Store.homeFilms.forEach { it ->
                 if (it.id == index)
@@ -110,6 +116,7 @@ class FilmDetailActivity : AppCompatActivity() {
         } else {
             initDBOffline()
         }
+        Log.i("myLogiii1122", "2")
 
         // Ask for permission to stock images
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)

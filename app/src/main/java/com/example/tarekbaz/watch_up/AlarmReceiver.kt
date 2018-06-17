@@ -17,13 +17,13 @@ class AlarmReceiver :  BroadcastReceiver() {
 
         //auto start noty after boot
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
-            NewMoviesNotification.startAlarmService(context.applicationContext)
+            NewMoviesNotification.startAlarmService(context)
             return
         }
 
         doAsync {
             //Trigger the notification
-            NewMoviesNotification.createFromService(context.applicationContext)
+            NewMoviesNotification.createFromService(context)
         }.execute()
 
     }

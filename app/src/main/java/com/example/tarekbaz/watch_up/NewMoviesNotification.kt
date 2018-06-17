@@ -147,6 +147,7 @@ class NewMoviesNotification {
             val intent = Intent(context, FilmDetailActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             intent.putExtra("index", film.id)
+            intent.putExtra("fromNotification", true)
             val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
 //        Store.homeFilms.add(films.get(position))

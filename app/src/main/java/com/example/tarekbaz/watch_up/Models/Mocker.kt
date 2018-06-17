@@ -7,33 +7,13 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-@RequiresApi(Build.VERSION_CODES.N)
 object Mocker {
 
     fun <E> List<E>.getRandomElements_(numberOfElements: Int): List<E> {
-
-        val rand = Random()
-//
-//        var randomElement : List<E> = listOf()
-//
-//        for (i in 0 until numberOfElements) {
-//            val randomIndex = rand.nextInt(this.size)
-//            randomElement.// = this[randomIndex]
-//            this[randomIndex]
-//        }
-
-        val randomIndex0 = rand.nextInt(this.size)
-        val randomIndex1 = rand.nextInt(this.size)
-        val randomIndex2 = rand.nextInt(this.size)
-        val randomIndex3 = rand.nextInt(this.size)
-
-        return listOf(this[randomIndex0], this[randomIndex1], this[randomIndex2], this[randomIndex3])
-
-
-//        if (numberOfElements > this.size) {
-//            return this.shuffled().take(this.size)
-//        }
-//        return this.shuffled().take(numberOfElements)
+        if (numberOfElements > this.size) {
+            return this.shuffled().take(this.size)
+        }
+        return this.shuffled().take(numberOfElements)
     }
 
     val salleList: List<Cinema>
