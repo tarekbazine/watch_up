@@ -86,7 +86,7 @@ tools:context="com.example.tarekbaz.watch_up.CinemaActivity$FilmFragment">
                 android:layout_height="160dp"
                 android:layout_alignParentEnd="true"
                 android:adjustViewBounds="true"
-                android:src="@drawable/film4" />
+                android:src="@drawable/no_img1" />
         </RelativeLayout>
 
     </LinearLayout>

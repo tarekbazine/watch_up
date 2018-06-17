@@ -21,8 +21,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class PersonneDetailActivity : AppCompatActivity() {
-    var personne : Person? = null
-    var index:Int ?= null
+    var personne: Person? = null
+    var index: Int? = null
 
 
     private fun initfilmographyRecyclerView(movies: List<Movie>) {
@@ -37,20 +37,20 @@ class PersonneDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_personne)
 
-         index = intent.extras.getInt("index", 0)
+        index = intent.extras.getInt("index", 0)
 
 
         setSupportActionBar(toolbar_detail_personne)
         // add back arrow to toolbar
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
             getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
         }
         personne = Store.acteurs[this.index!!]
 
-        if (personne!!.biography == null){
+        if (personne!!.biography == null) {
             getActorDetailAPI()
-        }else{
+        } else {
             setUpLayout()
         }
         // maj interface
@@ -74,7 +74,7 @@ class PersonneDetailActivity : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         val service = retrofit.create<Service>(Service::class.java)
-        service.getPersonDetail(personne!!.id).enqueue(object: Callback<Person> {
+        service.getPersonDetail(personne!!.id).enqueue(object : Callback<Person> {
 
             @RequiresApi(Build.VERSION_CODES.N)
             override fun onResponse(call: Call<Person>, response: retrofit2.Response<Person>?) {
@@ -82,21 +82,21 @@ class PersonneDetailActivity : AppCompatActivity() {
 
                     // Maj person
                     val data = response.body()!!
-                    if(data.birthday != null)personne!!.birthday = data.birthday
+                    if (data.birthday != null) personne!!.birthday = data.birthday
                     personne!!.biography = data.biography
                     personne!!.gender = data.gender
-                    if(data.place_of_birth != null)personne!!.place_of_birth = data.place_of_birth
+                    if (data.place_of_birth != null) personne!!.place_of_birth = data.place_of_birth
 
-                    personne!!.known_for.forEach { it->
+                    personne!!.known_for.forEach { it ->
                         Store.homeFilms.add(it)
                     }
                     setUpLayout()
 
-                    Log.i("reponse", " "+personne!!.biography)
+                    Log.i("reponse", " " + personne!!.biography)
                 }
             }
 
-            override fun onFailure(call: Call<Person>?, t: Throwable?){
+            override fun onFailure(call: Call<Person>?, t: Throwable?) {
                 Toast.makeText(baseContext, "Erreur de connexion", Toast.LENGTH_LONG).show()
             }
         })
@@ -104,19 +104,20 @@ class PersonneDetailActivity : AppCompatActivity() {
 
 
     @RequiresApi(Build.VERSION_CODES.N)
-    fun setUpLayout(){
+    fun setUpLayout() {
         //Set title
         toolbar_detail_personne.title = personne!!.name
         //image
-        val glide = Glide.with(this@PersonneDetailActivity)
-        glide.load(Config.IMG_BASE_URL + personne!!.profile_path)
-                .into(personneCard)
+        if (null != personne!!.profile_path)
+            Glide.with(this@PersonneDetailActivity)
+                    .load(Config.IMG_BASE_URL + personne!!.profile_path)
+                    .into(personneCard)
 
 
         personne_name.text = personne!!.name
         val format = SimpleDateFormat("dd-MM-yyy")
-        if (personne!!.birthday != null) birthdayText.text =format.format(personne!!.birthday)
-        if (personne!!.place_of_birth != null)  nationalityText.text = (personne!!.place_of_birth).split(",").last()
+        if (personne!!.birthday != null) birthdayText.text = format.format(personne!!.birthday)
+        if (personne!!.place_of_birth != null) nationalityText.text = (personne!!.place_of_birth).split(",").last()
         works_numText.text = personne!!.known_for.size.toString()
         bibliographieContent.text = personne!!.biography
         initfilmographyRecyclerView(personne!!.known_for)

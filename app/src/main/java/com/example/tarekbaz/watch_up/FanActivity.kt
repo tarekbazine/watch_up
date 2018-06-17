@@ -27,26 +27,6 @@ class FanActivity : BaseActivity() {
     private var relatedMovieDao: RelatedMoviesDAO? = null
     private var fanFilms : List<Movie>? = null
 
-    //TODO USE Models
-    val filmNames: List<String> = mutableListOf(
-            "La Belle et La Bète", "Hunger Game", "Drone" , "Hunger Game 2"
-    )
-
-    val imageFilmsUrls: List<Int> = mutableListOf(
-            R.drawable.film4,R.drawable.film5,R.drawable.serie1,R.drawable.film5
-    )
-
-    val serieNames: List<String> = mutableListOf(
-            "Le throne de Fer", "LaCasa de Papel", "Breaking Bad" , "LaCasa de Papel"
-    )
-
-    val imageSerieUrls: List<Int> = mutableListOf(
-            R.drawable.film1,R.drawable.serie2,R.drawable.film3,R.drawable.serie2
-    )
-
-
-//    val fanFilms = Mocker.favMovieList
-    val fanSeries = Mocker.favSerieList
     val fanSalles = Mocker.favCinemaList
 
     var adapter_films :HomeMovieRecyclerViewAdapter? = null
@@ -55,11 +35,6 @@ class FanActivity : BaseActivity() {
         fan_film_slider.setLayoutManager(layoutManager)
         adapter_films = HomeMovieRecyclerViewAdapter(this, fanFilms!!,true)
         fan_film_slider.setAdapter(adapter_films)
-
-        val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        fan_serie_slider.setLayoutManager(layoutManager2)
-        val adapter_series = HomeSerieRecyclerViewAdapter(this, fanSeries)
-        fan_serie_slider.setAdapter(adapter_series)
 
         val layoutManager3 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         fan_salle_slider.setLayoutManager(layoutManager3)

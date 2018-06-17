@@ -12,6 +12,7 @@ import android.widget.SearchView
 import com.example.tarekbaz.watch_up.Adapters.CommentByFilmFilterRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
+import com.example.tarekbaz.watch_up.Models.Store
 
 class CommentByFilmFragment : Fragment() {
 
@@ -34,7 +35,7 @@ class CommentByFilmFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val filterRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
         filterRecycler.setLayoutManager(layoutManager)
-        val adapter_filter_films = CommentByFilmFilterRecyclerViewAdapter(context!!, Mocker.movieList)
+        val adapter_filter_films = CommentByFilmFilterRecyclerViewAdapter(context!!, Store.homeFilms)
         filterRecycler.setAdapter(adapter_filter_films)
 
     }
@@ -46,7 +47,7 @@ class CommentByFilmFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val filterRecycler = viewSearch.findViewById<RecyclerView>(R.id.recycler)
         filterRecycler.setLayoutManager(layoutManager)
-        val adapter_filter_films = CommentByFilmFilterRecyclerViewAdapter(context!!, Mocker.movieList)
+        val adapter_filter_films = CommentByFilmFilterRecyclerViewAdapter(context!!, Store.homeFilms)
         filterRecycler.setAdapter(adapter_filter_films)
 
         this.filmAdapter = adapter_filter_films

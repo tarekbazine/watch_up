@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:alpha="1"
-            android:background="@drawable/serie2">
+            android:background="@drawable/no_img2">
 
             <LinearLayout
                 android:id="@+id/topLayout"
@@ -64,7 +64,7 @@
                     android:background="@color/colorAccent"
                     android:cropToPadding="false"
                     android:padding="1dp"
-                    app:srcCompat="@drawable/serie2" />
+                    app:srcCompat="@drawable/no_img2" />
 
                 <TextView
                     android:id="@+id/serieTitle"

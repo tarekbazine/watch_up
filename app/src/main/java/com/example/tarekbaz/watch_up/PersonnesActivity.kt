@@ -134,7 +134,8 @@ class PersonnesActivity : BaseActivity() {
 
         var adapter_producers: PersonneRecyclerViewAdapter? = null
 
-        val directors = Mocker.directorList
+//        val directors = Mocker.directorList//todo
+        val directors = Store.acteurs.shuffled().take(Store.acteurs.size)
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {

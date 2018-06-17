@@ -24,7 +24,7 @@
                 android:layout_height="135dp"
                 android:scaleType="centerCrop"
                 android:layout_centerHorizontal="true"
-                app:srcCompat="@drawable/side_nav_bar"
+                android:src="@drawable/no_img2"
                 />
 
             <TextView

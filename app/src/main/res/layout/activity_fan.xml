@@ -77,32 +77,6 @@
                     android:orientation="horizontal" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="15dp"
-                android:paddingBottom="15dp"
-                android:orientation="vertical"
-                >
-
-                <TextView
-                    android:id="@+id/home_new_series"
-                    android:layout_width="315dp"
-                    android:layout_height="41dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/my_fav_series"
-                    android:textSize="22sp"
-                    android:theme="@style/AppTheme.AppBarOverlay" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/fan_serie_slider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" />
-            </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>
