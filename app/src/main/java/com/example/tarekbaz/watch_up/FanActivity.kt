@@ -49,11 +49,11 @@ class FanActivity : BaseActivity() {
     val fanSeries = Mocker.favSerieList
     val fanSalles = Mocker.favCinemaList
 
-
+    var adapter_films :HomeMovieRecyclerViewAdapter? = null
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         fan_film_slider.setLayoutManager(layoutManager)
-        val adapter_films = HomeMovieRecyclerViewAdapter(this, fanFilms!!,true)
+        adapter_films = HomeMovieRecyclerViewAdapter(this, fanFilms!!,true)
         fan_film_slider.setAdapter(adapter_films)
 
         val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -82,6 +82,10 @@ class FanActivity : BaseActivity() {
 
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        refreshFav()
+    }
 
     fun initDB() {
         var act = this
@@ -103,6 +107,11 @@ class FanActivity : BaseActivity() {
         }.execute()
     }
 
+    fun refreshFav() {
+//            fanFilms =  Store.favFilms
+        adapter_films!!.notifyDataSetChanged()
+    }
+
     fun associateMovies() {
         var act = this
         object : AsyncTask<Void, Void, Void>() {
@@ -122,6 +131,8 @@ class FanActivity : BaseActivity() {
             }
         }.execute()
     }
+
+
 
 
 }

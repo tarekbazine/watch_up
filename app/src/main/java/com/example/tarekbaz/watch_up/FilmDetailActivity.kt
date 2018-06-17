@@ -141,6 +141,7 @@ class FilmDetailActivity : AppCompatActivity() {
             } else {
                 item.setIcon(R.drawable.heart_inactive)
                 deleteMovie(film!!)
+                Store.favFilms.remove(film!!)
                 Toast.makeText(this, "Film enlevé de Mes Fans", LENGTH_SHORT).show()
             }
         }
@@ -364,7 +365,9 @@ class FilmDetailActivity : AppCompatActivity() {
     // Fonctions to save in DB
     fun saveMovieAndRelatedMovies(movie: Movie) {
         saveMovie(movie = movie, related = null, recursive = true)
-        // Save image
+        // add to store to skip reloading from db
+        Store.favFilms.add(movie)
+        // Save images
         ImageManager.saveImageBitmap(this, filmCard, movie.id.toString())
         for (movieR in movie.linkedMovies!!) {
             saveImageGlide(movieR)

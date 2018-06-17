@@ -102,8 +102,6 @@ data class Genre(
             genres.forEach {
                 Store.preferedGenres.add(it.toInt())
             }
-
-
         }
     }
 }

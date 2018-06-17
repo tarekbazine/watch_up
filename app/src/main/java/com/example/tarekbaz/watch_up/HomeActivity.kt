@@ -29,7 +29,6 @@ import java.util.*
 
 class HomeActivity : BaseActivity() {
 
-    var dialog: AlertDialog? = null
 
     private fun initFilmRecyclerView(films : List<Movie>) {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -55,65 +54,15 @@ class HomeActivity : BaseActivity() {
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-        dialog = showDialog()
-        initDataAPI()
-
-
-        Genre.initPreferredGenres(this)
-        NewMoviesNotification.startAlarmService(applicationContext)
+//        initDataAPI()
+        val movies =  Store.homeFilms
+        initFilmRecyclerView(movies)
+        val series = Store.homeSeries
+        initSerieRecyclerView(series)
     }
 
 
-    fun initDataAPI(){
 
-        val gson = GsonBuilder().create()
-        val retrofit = Retrofit.Builder()
-                .baseUrl(Config.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build()
-
-        val service = retrofit.create<Service>(Service::class.java!!)
-
-        service.getHomeMovies().enqueue(object: Callback<MoviesResponse> {
-
-            override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
-                if ((response != null) && (response.code() == 200)) {
-
-                    val movies = response.body()!!.results
-
-                    Store.homeFilms = ArrayList(movies)
-
-                    initFilmRecyclerView(movies)
-                    hideDialog(dialog)
-            }
-
-            }
-
-            override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?){
-                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
-                Timer().schedule(object : TimerTask() {
-                        override fun run() {
-                            hideDialog(dialog)
-//                            showFailDialog()
-                        }
-                    }, 5000)
-                }
-        })
-
-        service.getTodayAiringSeries().enqueue(object: Callback<SeriesResponse> {
-            override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
-                if ((response != null) && (response.code() == 200)) {
-                    val series = response.body()!!.results
-                    Store.homeSeries = ArrayList(series)
-                    initSerieRecyclerView(series)
-                }
-            }
-            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?){
-                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
-            }
-        })
-
-    }
 // this function shows a dialog_progress dialogue
     fun showDialog(): AlertDialog {
         //Loading spinner
