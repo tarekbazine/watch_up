@@ -1,6 +1,7 @@
 package com.example.tarekbaz.watch_up
 
 import android.app.Activity
+import android.content.Context
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -14,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_personnes.*
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.text.TextUtils
 import kotlinx.android.synthetic.main.drawer_activity.*
 import android.support.v7.widget.SearchView
@@ -40,6 +42,8 @@ class PersonnesActivity : BaseActivity() {
     var tabActeur: ActorsFragment? = null
     var tabRealisateur: ProducersFragment? = null
 
+    var dialog : AlertDialog? = null
+
     /**
      * The [android.support.v4.view.PagerAdapter] that will provide
      * fragments for each of the sections. We use a
@@ -53,6 +57,9 @@ class PersonnesActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_personnes)
+
+        dialog = showDialog()
+
         setSupportActionBar(toolbar_personnes)
         //Add drawer button
         val toggle = ActionBarDrawerToggle(
@@ -234,9 +241,7 @@ class PersonnesActivity : BaseActivity() {
                         actors = response.body()!!.results
                         // Save actors
                         Store.acteurs = actors
-
                         setUpLayout()
-
                         Log.i("reponse", " "+actors[0] )
                     }
                 }
@@ -253,9 +258,27 @@ class PersonnesActivity : BaseActivity() {
             personneRecycler.setLayoutManager(layoutManager)
             val adapter_person = PersonneRecyclerViewAdapter(context, actors, isActor = true)
             personneRecycler.setAdapter(adapter_person)
-
+            (activity as PersonnesActivity).hideDialog( (activity as PersonnesActivity).dialog)
         }
 
+    }
+
+    // this function shows a dialog_progress dialogue
+    fun showDialog(): AlertDialog {
+        //Loading spinner
+        val builder = AlertDialog.Builder(this)
+        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE  ) as LayoutInflater
+        val view = inflater.inflate(R.layout.dialog_progress,null)
+        builder.setView(view)
+        builder.setCancelable(false)
+        val dialog = builder.create()
+        dialog.show()
+        return dialog
+    }
+
+    fun hideDialog(dialog: AlertDialog?){
+        //Loading spinner
+        dialog!!.dismiss()
     }
 
 
