@@ -12,6 +12,7 @@ import android.widget.SearchView
 import com.example.tarekbaz.watch_up.Adapters.CommentBySeriesFilterRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
+import com.example.tarekbaz.watch_up.Models.Store
 
 class CommentBySerieFragment : Fragment() {
 
@@ -35,7 +36,7 @@ class CommentBySerieFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val lastRecycler = this.view!!.findViewById<RecyclerView>(R.id.recycler)
         lastRecycler.setLayoutManager(layoutManager)
-        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context!!, Mocker.serieList)
+        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context!!, Store.homeSeries)
         lastRecycler.setAdapter(adapter_series)
     }
 
@@ -46,7 +47,7 @@ class CommentBySerieFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val lastRecycler = rootView.findViewById<RecyclerView>(R.id.recycler)
         lastRecycler.setLayoutManager(layoutManager)
-        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context!!, Mocker.serieList)
+        val adapter_series = CommentBySeriesFilterRecyclerViewAdapter(context!!, Store.homeSeries)
         lastRecycler.setAdapter(adapter_series)
 
         this.serieAdapter = adapter_series
