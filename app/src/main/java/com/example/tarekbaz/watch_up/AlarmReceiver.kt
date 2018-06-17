@@ -21,10 +21,10 @@ class AlarmReceiver :  BroadcastReceiver() {
             return
         }
 
-        doAsync {
+//        doAsync {
             //Trigger the notification
             NewMoviesNotification.createFromService(context)
-        }.execute()
+//        }.execute()
 
     }
 

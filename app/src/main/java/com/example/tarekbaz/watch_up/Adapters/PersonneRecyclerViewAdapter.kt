@@ -30,6 +30,8 @@ class PersonneRecyclerViewAdapter(private val mContext: Context, var persons: Li
         if (null != persons.get(position).profile_path)
             Glide.with(mContext).load(Config.IMG_BASE_URL + persons.get(position).profile_path)
                     .into(holder.personne_img)
+        else
+            holder.personne_img.setImageResource(R.drawable.no_avatar)
 
         holder.personne_name.setText(persons.get(position).name)
 //       if (isIndicated.get(position))

@@ -26,9 +26,12 @@ class HomeSerieRecyclerViewAdapter(private val mContext: Context, val series: Li
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        Glide.with(mContext)
-                .load(Config.IMG_BASE_URL + series.get(position).poster_path)
-                .into(holder.image)
+        if (null != series.get(position).poster_path)
+            Glide.with(mContext)
+                    .load(Config.IMG_BASE_URL + series.get(position).poster_path)
+                    .into(holder.image)
+        else
+            holder.image.setImageResource(R.drawable.no_img2)
 
         holder.name.setText(series.get(position).title)
 
@@ -53,8 +56,8 @@ class HomeSerieRecyclerViewAdapter(private val mContext: Context, val series: Li
         internal var name: TextView
 
         init {
-                image = itemView.findViewById(R.id.image_card_film)
-                name = itemView.findViewById(R.id.name_card_film)
+            image = itemView.findViewById(R.id.image_card_film)
+            name = itemView.findViewById(R.id.name_card_film)
         }
     }
 

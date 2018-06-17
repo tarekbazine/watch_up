@@ -207,7 +207,7 @@ class NewMoviesNotification {
 
             val lastDaySharedSet = sp.getString(DAY, "2000-02-20")
 
-//            if (todayDate.toString() != lastDaySharedSet) {
+//            if (todayDate.toString() != lastDaySharedSet) {//todo
 //            val editor = sp.edit()
 //            editor.putString(DAY, todayDate.toString())
 //            editor.commit()

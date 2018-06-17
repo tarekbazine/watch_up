@@ -75,18 +75,20 @@ class SeasonDetailActivity : AppCompatActivity() {
 
 //        Log.i("myLogi",""+serie.id +""+ indexSerie)
 //        Log.i("myLogi",""+serie.seasons)
-        val glide = Glide.with(this)
+        if(null != season.poster_path) {
+            val glide = Glide.with(this)
 
-        glide.load(Config.IMG_BASE_URL + season.poster_path)
-                .into(seasonCard)
+            glide.load(Config.IMG_BASE_URL + season.poster_path)
+                    .into(seasonCard)
 
-        glide.load(Config.IMG_BASE_URL + season.poster_path)
-                .into(object : SimpleTarget<Drawable>() {
-                    override fun onResourceReady(resource: Drawable,
-                                                 transition: Transition<in Drawable>?) {
-                        frameLayout.setBackground(resource)
-                    }
-                })
+            glide.load(Config.IMG_BASE_URL + season.poster_path)
+                    .into(object : SimpleTarget<Drawable>() {
+                        override fun onResourceReady(resource: Drawable,
+                                                     transition: Transition<in Drawable>?) {
+                            frameLayout.setBackground(resource)
+                        }
+                    })
+        }
 
         serieTitle.text = season.name
         descriptionText.text = season.discription
