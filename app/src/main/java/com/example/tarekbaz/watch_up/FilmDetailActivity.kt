@@ -33,6 +33,7 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.CreditsResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
 import com.example.tarekbaz.watch_up.Offline.ImageManager
 import com.example.tarekbaz.watch_up.Offline.MovieDAO
@@ -372,6 +373,41 @@ class FilmDetailActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?) {
+                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+            }
+        })
+
+
+        service.creditsMovie(movieId).enqueue(object : Callback<CreditsResponse> {
+            override fun onResponse(call: Call<CreditsResponse>, response: retrofit2.Response<CreditsResponse>?) {
+                if ((response != null) && (response.code() == 200)) {
+                    val cast = response.body()!!.cast
+                    actors_names.text = "Acune actuers est specifé"
+                    if (!cast.isEmpty()) {
+                        var end = cast.size
+
+                        film!!.actorsList = cast[0].name + ""
+                        if (cast.size > 3) end = 3
+                        for (i in 1 until end) {
+                            film!!.actorsList += ", " + cast[i].name
+                        }
+
+                        actors_names.text = film!!.actorsList
+                    }
+
+
+                    val crew = response.body()!!.crew
+                    crew.forEach {
+                        if (it.job == CreditsResponse.DIRECTOR){
+                            producertext.text = it.name
+                            film!!.director = it.name
+                            return
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CreditsResponse>?, t: Throwable?) {
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })

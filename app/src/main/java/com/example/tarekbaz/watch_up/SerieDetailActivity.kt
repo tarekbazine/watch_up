@@ -18,6 +18,7 @@ import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SeasonRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
+import com.example.tarekbaz.watch_up.Models.ResponsesAPI.CreditsResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
 import com.google.gson.GsonBuilder
@@ -72,7 +73,6 @@ class SerieDetailActivity : AppCompatActivity() {
 
     var serie: Serie = Store.homeSeries[0]
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_serie)
@@ -216,6 +216,42 @@ class SerieDetailActivity : AppCompatActivity() {
                 Toast.makeText(baseContext, "Echec reviews", Toast.LENGTH_LONG).show()
             }
         })
+
+
+        service.creditsMovie(serieId).enqueue(object : Callback<CreditsResponse> {
+            override fun onResponse(call: Call<CreditsResponse>, response: retrofit2.Response<CreditsResponse>?) {
+                if ((response != null) && (response.code() == 200)) {
+                    val cast = response.body()!!.cast
+                    actorsNames.text = "Acune actuers est specifé"
+                    if (!cast.isEmpty()) {
+                        var end = cast.size
+
+                        serie.actorsList = cast[0].name + ""
+                        if (cast.size > 3) end = 3
+                        for (i in 1 until end) {
+                            serie.actorsList += ", " + cast[i].name
+                        }
+
+                        actorsNames.text = serie.actorsList
+                    }
+
+
+                    val crew = response.body()!!.crew
+                    crew.forEach {
+                        if (it.job == CreditsResponse.DIRECTOR){
+                            producerText.text = it.name
+                            serie.director = it.name
+                            return
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CreditsResponse>?, t: Throwable?) {
+                Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
+            }
+        })
+
 
     }
 

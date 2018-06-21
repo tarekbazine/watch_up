@@ -164,7 +164,7 @@
                     app:srcCompat="@drawable/theatre_masks" />
 
                 <TextView
-                    android:id="@+id/actorsNamesText"
+                    android:id="@+id/actorsNames"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -195,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Bill CONDON"
+                    android:text="Acune producteur est specifé"
                     android:textColor="#fff"
                     android:textSize="15sp"
                     android:textStyle="bold" />

@@ -18,6 +18,8 @@ data class Serie(val id: Int,
                  var first_air_date: Date = Date(),
                  var episode_run_time :List<Int> = listOf(),
                  var genre_ids: List<Int> = listOf(),
-                 var genresList : String = "Non genre est specifé"
+                 var genresList : String = "Non genre est specifé",
+                 var actorsList : String = "Acune actuers est specifé",
+                 var director : String = "Acune producteur est specifé"
 ) {
 }

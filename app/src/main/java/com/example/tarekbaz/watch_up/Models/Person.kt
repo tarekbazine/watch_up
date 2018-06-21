@@ -7,11 +7,12 @@ data class Person(
         val name: String,
         val picture: Int,
         var birthday: Date,
-        var gender:Int,
+        var gender: Int,
         var biography: String,
         var place_of_birth: String,
         val profile_path: String,
         var known_for: List<Movie>,
-        val popularity: Double
-        , var comments: List<Comment>) {
-        }
+        val popularity: Double,
+        var comments: List<Comment>,
+        val job: String = "" ) {
+}
