@@ -41,7 +41,7 @@ class SplashActivity : AppCompatActivity() {
 
         val service = retrofit.create<Service>(Service::class.java!!)
 
-        service.getHomeMovies().enqueue(object: Callback<MoviesResponse> {
+        service.getHomeMovies(1).enqueue(object: Callback<MoviesResponse> {
 
             override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
@@ -86,7 +86,7 @@ class SplashActivity : AppCompatActivity() {
             }
         })
 
-        service.getTodayAiringSeries().enqueue(object: Callback<SeriesResponse> {
+        service.getTodayAiringSeries(1).enqueue(object: Callback<SeriesResponse> {
             override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val series = response.body()!!.results

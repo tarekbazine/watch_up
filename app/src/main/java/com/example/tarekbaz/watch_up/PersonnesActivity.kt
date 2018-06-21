@@ -191,6 +191,7 @@ class PersonnesActivity : BaseActivity() {
 
         var rootView: View? = null
 
+        var alreadyRequestedPages = 1
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
@@ -232,7 +233,7 @@ class PersonnesActivity : BaseActivity() {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
             val service = retrofit.create<Service>(Service::class.java!!)
-            service.getPersons().enqueue(object: Callback<PersonsResponse> {
+            service.getPersons(1).enqueue(object: Callback<PersonsResponse> {
 
                 override fun onResponse(call: Call<PersonsResponse>, response: retrofit2.Response<PersonsResponse>?) {
                     if ((response != null) && (response.code() == 200)) {
@@ -240,7 +241,7 @@ class PersonnesActivity : BaseActivity() {
                         // init actors
                         actors = response.body()!!.results
                         // Save actors
-                        Store.acteurs = actors
+                        Store.acteurs = ArrayList(actors)
                         setUpLayout()
                         Log.i("reponse", " "+actors[0] )
                     }
@@ -252,13 +253,63 @@ class PersonnesActivity : BaseActivity() {
             })
         }
 
+        fun getActors(page : Int){
+            val gson = GsonBuilder().create()
+            val retrofit = Retrofit.Builder()
+                    .baseUrl(Config.API_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build()
+            val service = retrofit.create<Service>(Service::class.java!!)
+            service.getPersons(page).enqueue(object: Callback<PersonsResponse> {
+
+                override fun onResponse(call: Call<PersonsResponse>, response: retrofit2.Response<PersonsResponse>?) {
+                    if ((response != null) && (response.code() == 200)) {
+                        val _actors = response.body()!!.results
+                        // Save actors
+                        Store.acteurs.addAll(_actors)
+                        actors = Store.acteurs
+
+                        adapter_person!!.notifyDataSetChanged()
+                    }
+                }
+
+                override fun onFailure(call: Call<PersonsResponse>?, t: Throwable?){
+                    Toast.makeText(activity, "Erreur de pag "+ page, Toast.LENGTH_LONG).show()
+                }
+            })
+        }
+
         fun setUpLayout(){
             val layoutManager = LinearLayoutManager(activity)
             val personneRecycler = rootView?.findViewById<RecyclerView>(R.id.recyclerView) as RecyclerView
             personneRecycler.setLayoutManager(layoutManager)
-            val adapter_person = PersonneRecyclerViewAdapter(context, actors, isActor = true)
+            adapter_person = PersonneRecyclerViewAdapter(context, actors, isActor = true)
             personneRecycler.setAdapter(adapter_person)
             (activity as PersonnesActivity).hideDialog( (activity as PersonnesActivity).dialog)
+
+            personneRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                var pastVisiblesItems: Int = 0
+                var visibleItemCount: Int = 0
+                var totalItemCount: Int = 0
+
+                override fun onScrolled(recyclerView: RecyclerView?,
+                                        dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    visibleItemCount = layoutManager.childCount
+                    totalItemCount = layoutManager.itemCount
+                    pastVisiblesItems = layoutManager.findFirstVisibleItemPosition()
+
+                    val availablePages = (totalItemCount/Config.ITEMS_PER_PAGE)
+
+                    if (visibleItemCount + pastVisiblesItems >= (totalItemCount - Config.NEXT_PAGE_LIMIT)
+                            && alreadyRequestedPages <= availablePages){
+                        alreadyRequestedPages = availablePages + 1
+//                    Log.i("ActorLog","next p "+availablePages+" "+visibleItemCount +" " +pastVisiblesItems+" "+totalItemCount)
+                        getActors(availablePages + 1)
+                    }
+                }
+            })
+
         }
 
     }

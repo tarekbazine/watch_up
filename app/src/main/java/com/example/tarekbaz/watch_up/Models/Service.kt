@@ -13,8 +13,8 @@ import retrofit2.http.Query
 interface Service {
 
     /***Movie***/
-    @GET("movie/upcoming?api_key=${Config.API_KEY}&language=en-US&page=1")
-    fun getHomeMovies(): Call<MoviesResponse>
+    @GET("movie/upcoming?api_key=${Config.API_KEY}&language=en-US")
+    fun getHomeMovies(@Query("page") page: Int): Call<MoviesResponse>
 
     @GET("movie/{movie_id}?api_key=${Config.API_KEY}&language=en-US")
     fun movieDetails(@Path("movie_id") id: Int): Call<Movie>
@@ -36,8 +36,8 @@ interface Service {
     ): Call<MoviesResponse>
 
     /***Serie***/
-    @GET("tv/airing_today?api_key=${Config.API_KEY}&language=en-US&page=1")
-    fun getTodayAiringSeries(): Call<SeriesResponse>
+    @GET("tv/airing_today?api_key=${Config.API_KEY}&language=en-US")
+    fun getTodayAiringSeries(@Query("page") page: Int): Call<SeriesResponse>
 
     @GET("tv/{tv_id}/similar?api_key=${Config.API_KEY}&language=en-US&page=1")
     fun relatedSeries(@Path("tv_id") id: Int): Call<SeriesResponse>
@@ -58,8 +58,8 @@ interface Service {
 
 
     /***Person***/
-    @GET("person/popular?api_key=${Config.API_KEY}&language=en-US&page=1")
-    fun getPersons(): Call<PersonsResponse>
+    @GET("person/popular?api_key=${Config.API_KEY}&language=en-US")
+    fun getPersons(@Query("page") page: Int): Call<PersonsResponse>
 
     @GET("person/{person_id}?api_key=${Config.API_KEY}&language=en-US")
     fun getPersonDetail(@Path("person_id") id: Int): Call<Person>
