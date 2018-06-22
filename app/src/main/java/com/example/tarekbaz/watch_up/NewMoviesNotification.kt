@@ -32,6 +32,8 @@ class NewMoviesNotification {
 
     companion object {
 
+        val ALREADY_SEEN = "ALREADY_SEEN"
+
         fun create(context: Context) {
             if (Store.preferedGenres.isEmpty()) return
 
@@ -42,6 +44,10 @@ class NewMoviesNotification {
                     .build()
 
             val service = retrofit.create<Service>(Service::class.java!!)
+
+            val prefGenres = context.getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
+            val filmAlreadySeen = prefGenres.getStringSet(ALREADY_SEEN, HashSet<String>())
+
 
             val keys = ArrayList(Store.preferedGenres)
             var genresList = keys[0].toString()
@@ -55,12 +61,44 @@ class NewMoviesNotification {
             cal.add(Calendar.DATE, 7)
             val date_bonr_sup = sdf.format(cal.time)
 
-            service.latestMovies(date_bonr_inf.toString(),date_bonr_sup.toString(), genresList)
+            service.latestMovies(date_bonr_inf.toString(), date_bonr_sup.toString(), genresList)
                     .enqueue(object : Callback<MoviesResponse> {
                         override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
                             if ((response != null) && (response.code() == 200
                                             && !response.body()!!.results.isEmpty())) {
-                                val latestMovie = response.body()!!.results[0]
+
+
+                                val latestMovies = response.body()!!.results
+
+                                Log.i("myLogiii", "from service ")
+
+                                var latestMovie : Movie? = null
+
+                                //todo test if the film is alredy seen
+                                for (i in 0 until latestMovies.size){
+                                    if (!filmAlreadySeen.contains(latestMovies[i].id.toString())){
+                                        latestMovie = latestMovies[i]
+                                        break
+                                    }
+                                }
+
+                                if (latestMovie == null) {
+                                    Toast.makeText(context, "No up movie " + response.toString()
+                                            , Toast.LENGTH_LONG).show()
+                                    return
+                                }
+
+                                val editor = prefGenres.edit()
+
+                                filmAlreadySeen.add(latestMovie.id.toString())
+
+                                //todo
+                                editor.putStringSet(ALREADY_SEEN, null)
+                                editor.commit()
+
+                                editor.putStringSet(ALREADY_SEEN, filmAlreadySeen)
+                                editor.commit()
+
                                 Store.homeFilms.add(latestMovie)
                                 initNotificatioData(latestMovie, context)
                             } else if (response != null) {
@@ -91,8 +129,10 @@ class NewMoviesNotification {
             val prefGenres = context.getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
             val genres = prefGenres.getStringSet(Genre.KEY, HashSet<String>())
             if (genres.isEmpty()) return
+            val filmAlreadySeen = prefGenres.getStringSet(ALREADY_SEEN, HashSet<String>())
 
             Log.i("myLogiii1122", genres.toString())
+            Log.i("myLogiii1122 film ", filmAlreadySeen.toString())
 
             val keys = ArrayList(genres)
             var genresList = keys[0].toString()
@@ -111,9 +151,36 @@ class NewMoviesNotification {
                         override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
                             if ((response != null) && (response.code() == 200
                                             && !response.body()!!.results.isEmpty())) {
-                                val latestMovie = response.body()!!.results[0]
-//                                Store.homeFilms.add(latestMovie)
+                                val latestMovies = response.body()!!.results
+
                                 Log.i("myLogiii", "from service ")
+
+                                var latestMovie : Movie? = null
+
+                                //todo test if the film is alredy seen
+                                for (i in 0 until latestMovies.size){
+                                    if (!filmAlreadySeen.contains(latestMovies[i].id.toString())){
+                                        latestMovie = latestMovies[i]
+                                        break
+                                    }
+                                }
+
+                                if (latestMovie == null) {
+                                    Toast.makeText(context, "No up movie " + response.toString()
+                                            , Toast.LENGTH_LONG).show()
+                                    return
+                                }
+
+                                val editor = prefGenres.edit()
+
+                                filmAlreadySeen.add(latestMovie.id.toString())
+
+                                //todo
+                                editor.putStringSet(ALREADY_SEEN, null)
+                                editor.commit()
+
+                                editor.putStringSet(ALREADY_SEEN, filmAlreadySeen)
+                                editor.commit()
 
                                 initNotificatioData(latestMovie, context)
                             } else if (response != null) {
@@ -212,22 +279,22 @@ class NewMoviesNotification {
 //            editor.putString(DAY, todayDate.toString())
 //            editor.commit()
 
-                val calendar = Calendar.getInstance()
-                calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR))
-                calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE))
-                calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND))
+            val calendar = Calendar.getInstance()
+            calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR))
+            calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE))
+            calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND))
 
-                Log.i("myLogiii", "service started " + Build.VERSION.SDK_INT)
-                val intent = Intent(context, AlarmReceiver::class.java)
+            Log.i("myLogiii", "service started " + Build.VERSION.SDK_INT)
+            val intent = Intent(context, AlarmReceiver::class.java)
 
 //            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
-                val pintent = PendingIntent.getBroadcast(
-                        context, SERVICE_ID, intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                )
-                //todo PendingIntent.FLAG_CANCEL_CURRENT
-                val alarm = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val pintent = PendingIntent.getBroadcast(
+                    context, SERVICE_ID, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+            )
+            //todo PendingIntent.FLAG_CANCEL_CURRENT
+            val alarm = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
@@ -235,14 +302,14 @@ class NewMoviesNotification {
 //                        System.currentTimeMillis()+60000,
 //                        pintent)
 //            }else {
-                alarm.setRepeating(AlarmManager.RTC_WAKEUP,
+            alarm.setRepeating(AlarmManager.RTC_WAKEUP,
 //                    calendar.timeInMillis,
-                        calendar.timeInMillis,
-                        AlarmManager.INTERVAL_FIFTEEN_MINUTES/*todo*/,
-                        pintent)
+                    calendar.timeInMillis,
+                    AlarmManager.INTERVAL_FIFTEEN_MINUTES/*todo*/,
+                    pintent)
 //            }
 
-                Log.i("myLogiii", "already service started ")
+            Log.i("myLogiii", "already service started ")
 
 //            AlarmManager.INTERVAL_DAY
 //            System.currentTimeMillis()
