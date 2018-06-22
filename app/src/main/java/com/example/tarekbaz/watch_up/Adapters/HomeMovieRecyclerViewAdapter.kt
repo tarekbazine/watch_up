@@ -39,6 +39,8 @@ class HomeMovieRecyclerViewAdapter(private val mContext: Context, val films: Lis
             val image = ImageManager.getImageFromPath(films.get(position).id)
             if (image != null) {
                 holder.image.setImageBitmap(image)
+            }else{
+                holder.image.setImageResource(R.drawable.no_img1)
             }
             if (mContext is FilmDetailActivity) {
                 holder.image.isEnabled = false

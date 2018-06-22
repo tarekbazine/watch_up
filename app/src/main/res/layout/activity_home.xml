@@ -39,13 +39,22 @@
 
                 <TextView
                     android:id="@+id/home_new_films"
-                    android:layout_width="315dp"
-                    android:layout_height="41dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
+                    android:background="@drawable/scratch"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
                     android:text="@string/title_new_films"
-                    android:textSize="22sp"
-                    android:theme="@style/AppTheme.AppBarOverlay" />
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/imdb"
+                    android:textSize="19sp"
+                    android:textStyle="bold|italic"
+                    android:theme="@style/AppTheme.AppBarOverlay"
+                    android:translationX="-55dp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/home_film_slider"
@@ -63,13 +72,21 @@
 
                 <TextView
                     android:id="@+id/home_new_series"
-                    android:layout_width="315dp"
-                    android:layout_height="41dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
+                    android:background="@drawable/scratch"
+                    android:gravity="center"
                     android:text="@string/title_new_Series"
-                    android:textSize="22sp"
-                    android:theme="@style/AppTheme.AppBarOverlay" />
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/imdb"
+                    android:textSize="19sp"
+                    android:textStyle="bold|italic"
+                    android:theme="@style/AppTheme.AppBarOverlay"
+                    android:translationX="-55dp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/home_serie_slider"

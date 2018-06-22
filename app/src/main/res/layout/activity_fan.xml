@@ -38,13 +38,21 @@
 
                 <TextView
                     android:id="@+id/fan_films"
-                    android:layout_width="315dp"
-                    android:layout_height="41dp"
+                    android:text="@string/my_fav_films"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
-                    android:text="@string/my_fav_films"
-                    android:textSize="22sp"
-                    android:theme="@style/AppTheme.AppBarOverlay" />
+                    android:background="@drawable/scratch"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/imdb"
+                    android:textSize="19sp"
+                    android:textStyle="bold|italic"
+                    android:theme="@style/AppTheme.AppBarOverlay"
+                    android:translationX="-80dp"/>
 
                 <TextView
                     android:id="@+id/noFavFilms"
@@ -75,13 +83,21 @@
 
                 <TextView
                     android:id="@+id/fan_salle"
-                    android:layout_width="315dp"
-                    android:layout_height="41dp"
+                    android:text="@string/my_fav_salles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
-                    android:text="@string/my_fav_salles"
-                    android:textSize="22sp"
-                    android:theme="@style/AppTheme.AppBarOverlay" />
+                    android:background="@drawable/scratch"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/imdb"
+                    android:textSize="19sp"
+                    android:textStyle="bold|italic"
+                    android:theme="@style/AppTheme.AppBarOverlay"
+                    android:translationX="-80dp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/fan_salle_slider"

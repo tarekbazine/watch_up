@@ -43,9 +43,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 
-
 class FilmDetailActivity : AppCompatActivity() {
-
+    val NB_REQUEST = 3
     //Video attributes
     var trailer_video = R.raw.trailer2
     private var mediaController: MediaController? = null
@@ -61,7 +60,8 @@ class FilmDetailActivity : AppCompatActivity() {
     var glide: RequestManager? = null
     var index: Int? = null
 
-    var dialog: AlertDialog? = null
+    var dialog : AlertDialog? = null
+    var nbSuccess = 0
 
 
     //Init adapters
@@ -78,15 +78,24 @@ class FilmDetailActivity : AppCompatActivity() {
         val adapter_films = HomeMovieRecyclerViewAdapter(this, assFilms, offline)
         associatedFilmsRecyclerView.setAdapter(adapter_films)
         if (!offline) {
-            hideDialog(dialog)
+            nbSuccess++
+            if(nbSuccess == NB_REQUEST){
+                hideDialog(dialog)
+            }
         }
     }
 
-    private fun initCommentsRecyclerView(comments: List<Comment>) {
+    private fun initCommentsRecyclerView(comments: List<Comment>, offline: Boolean = false) {
         val layoutManager = LinearLayoutManager(this)
         commentsFilmRecyclerView.setLayoutManager(layoutManager)
         val adapter_comments = CommentRecyclerViewAdapter(this, comments)
         commentsFilmRecyclerView.setAdapter(adapter_comments)
+        if (!offline) {
+            nbSuccess++
+            if(nbSuccess == NB_REQUEST){
+                hideDialog(dialog)
+            }
+        }
     }
 
     var offline: Boolean? = null
@@ -131,7 +140,6 @@ class FilmDetailActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_love, menu)
         loveItem = menu.findItem(R.id.love_item)
-
         initDB()
         menu.findItem(R.id.love_item).setIcon(R.drawable.heart_inactive)
         return true
@@ -299,6 +307,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 act.db = MovieDB.getInstance(act)
                 act.movieDao = act.db!!.movieDAO()
                 act.relatedMovieDao = act.db!!.relatedMoviesDAO()
+                act.commentsDao = act.db!!.commentsDAO()
                 return null
             }
 
@@ -335,14 +344,17 @@ class FilmDetailActivity : AppCompatActivity() {
         var act = this
         object : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg voids: Void): Void? {
-                val comments = act.commentsDao?.getFilmComments(film!!.id)
-                film!!.comments = comments
-                Log.i("comments_writers", film!!.comments!![0].author!!.toString())
+                film!!.comments = act.commentsDao?.getFilmComments(film!!.id)
                 return null
             }
 
             override fun onPostExecute(result: Void?) {
                 act.setUpLayout()
+                // Comments
+                if (film!!.comments != null && film!!.comments!!.isNotEmpty()){
+                    initCommentsRecyclerView(film!!.comments!!,true)
+                    Log.i("___'comment_auth'___", film!!.comments!![0].author)
+                }
                 act.getAssociateMovies()
             }
         }.execute()
@@ -386,7 +398,10 @@ class FilmDetailActivity : AppCompatActivity() {
                     val comments = response.body()!!.results
                     if (comments.isEmpty()) noComments.visibility = TextView.VISIBLE
                     film!!.comments = comments
-                    initCommentsRecyclerView(comments)
+                    for (comment in film!!.comments!!){
+                        comment.filmId = film!!.id
+                    }
+                    initCommentsRecyclerView(comments,false)
                 }
             }
 
@@ -411,6 +426,12 @@ class FilmDetailActivity : AppCompatActivity() {
                         }
 
                         actors_names.text = film!!.actorsList
+
+                        nbSuccess++
+                        if(nbSuccess == NB_REQUEST){
+                            hideDialog(dialog)
+                        }
+
                     }
 
 
@@ -487,8 +508,8 @@ class FilmDetailActivity : AppCompatActivity() {
                     }
                     var index = 0
                     // Save comments
-                    for (comment in movie.comments!!) {
-                        act.saveComment(comment)
+                    for (comment in movie.comments!!){
+                        saveComment(comment)
                     }
                     // Save assoc films
                     for (relatedMv in movie.linkedMovies!!) {
@@ -511,6 +532,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
 
             override fun onPostExecute(result: Void?) {
+                val list = act.commentsDao!!.getComments()
             }
         }.execute()
     }
@@ -522,7 +544,8 @@ class FilmDetailActivity : AppCompatActivity() {
                 movie.fav = false
                 act.favoriteMoviesId!!.remove(movie.id)
                 val nb = act.relatedMovieDao?.nbrAssociation(movie.id)!!
-                act.relatedMovieDao?.deleteAllRelated(movie.id)  // delete all related
+                act.relatedMovieDao?.deleteAllRelated(movie.id)
+                // delete all related
                 for (relatedMv in movie.linkedMovies!!) {
                     if (!act.favoriteMoviesId!!.contains(relatedMv.id) && act.relatedMovieDao?.nbrAssociation(relatedMv.id)!! == 0) {
                         act.movieDao?.delete(relatedMv)
@@ -530,6 +553,10 @@ class FilmDetailActivity : AppCompatActivity() {
                     }
                 }
                 if (nb == 0) {
+                    // delete all comments
+                    for (comment in movie.comments!!) {
+                        act.deleteComment(comment)
+                    }
                     act.movieDao?.delete(movie)
                     Log.i("deleted?", ImageManager.deleteImage(movie.id.toString()).toString())
                 } else {
@@ -608,6 +635,10 @@ class FilmDetailActivity : AppCompatActivity() {
 
     fun saveComment(comment: Comment) {
         commentsDao!!.insert(comment)
+    }
+
+    fun deleteComment(comment: Comment){
+        commentsDao!!.delete(comment)
     }
 
     // this function shows a dialog_progress dialogue
