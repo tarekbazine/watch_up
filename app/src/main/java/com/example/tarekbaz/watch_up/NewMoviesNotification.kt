@@ -1,7 +1,10 @@
 package com.example.tarekbaz.watch_up
 
 import android.annotation.SuppressLint
-import android.app.*
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -14,10 +17,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.example.tarekbaz.watch_up.API.MovieService
+import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
 import com.example.tarekbaz.watch_up.Models.Genre
 import com.example.tarekbaz.watch_up.Models.Movie
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
-import com.example.tarekbaz.watch_up.Models.Service
 import com.example.tarekbaz.watch_up.Models.Store
 import com.google.gson.GsonBuilder
 import retrofit2.Call
@@ -43,7 +46,7 @@ class NewMoviesNotification {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
 
-            val service = retrofit.create<Service>(Service::class.java!!)
+            val service = retrofit.create<MovieService>(MovieService::class.java!!)
 
             val prefGenres = context.getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
             val filmAlreadySeen = prefGenres.getStringSet(ALREADY_SEEN, HashSet<String>())
@@ -63,8 +66,8 @@ class NewMoviesNotification {
             val date_bonr_sup = sdf.format(cal.time)
 
             service.latestMovies(date_bonr_inf.toString(), date_bonr_sup.toString(), genresList)
-                    .enqueue(object : Callback<MoviesResponse> {
-                        override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
+                    .enqueue(object : Callback<ListPaginatedResponse<Movie>> {
+                        override fun onResponse(call: Call<ListPaginatedResponse<Movie>>, response: retrofit2.Response<ListPaginatedResponse<Movie>>?) {
                             if ((response != null) && (response.code() == 200
                                             && !response.body()!!.results.isEmpty())) {
 
@@ -112,7 +115,7 @@ class NewMoviesNotification {
                             }
                         }
 
-                        override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?) {
+                        override fun onFailure(call: Call<ListPaginatedResponse<Movie>>?, t: Throwable?) {
                             Toast.makeText(context, "Echec Noty", Toast.LENGTH_LONG).show()
                         }
                     })
@@ -127,7 +130,7 @@ class NewMoviesNotification {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
 
-            val service = retrofit.create<Service>(Service::class.java)
+            val service = retrofit.create<MovieService>(MovieService::class.java)
 
             val prefGenres = context.getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
             val genres = prefGenres.getStringSet(Genre.KEY, HashSet<String>())
@@ -150,8 +153,8 @@ class NewMoviesNotification {
             val date_bonr_sup = sdf.format(cal.time)
 
             service.latestMovies(date_bonr_inf.toString(), date_bonr_sup.toString(), genresList)
-                    .enqueue(object : Callback<MoviesResponse> {
-                        override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
+                    .enqueue(object : Callback<ListPaginatedResponse<Movie>> {
+                        override fun onResponse(call: Call<ListPaginatedResponse<Movie>>, response: retrofit2.Response<ListPaginatedResponse<Movie>>?) {
                             if ((response != null) && (response.code() == 200
                                             && !response.body()!!.results.isEmpty())) {
                                 val latestMovies = response.body()!!.results
@@ -194,7 +197,7 @@ class NewMoviesNotification {
                             }
                         }
 
-                        override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?) {
+                        override fun onFailure(call: Call<ListPaginatedResponse<Movie>>?, t: Throwable?) {
                             Toast.makeText(context, "Echec Noty", Toast.LENGTH_LONG).show()
                         }
                     })

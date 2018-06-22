@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
+import android.text.TextUtils
 import android.view.Menu
-
+import com.example.tarekbaz.watch_up.Adapters.SeriesRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Models.Store
 import kotlinx.android.synthetic.main.activity_series.*
 import kotlinx.android.synthetic.main.drawer_activity.*
-import android.text.TextUtils
-import com.example.tarekbaz.watch_up.Adapters.SeriesRecyclerViewAdapter
-import com.example.tarekbaz.watch_up.Models.Mocker
-import com.example.tarekbaz.watch_up.Models.Store
 
 
 class SeriesActivity  : BaseActivity()  {

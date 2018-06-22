@@ -1,8 +1,5 @@
 package com.example.tarekbaz.watch_up
 
-import android.app.PendingIntent.getActivity
-import android.content.Context
-import android.support.v7.app.AlertDialog
 import com.google.gson.*
 import java.lang.reflect.Type
 import java.text.ParseException

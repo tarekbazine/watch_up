@@ -4,46 +4,46 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.MediaController
-import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
-import kotlinx.android.synthetic.main.activity_detail_film.*
-import java.text.SimpleDateFormat
-import com.bumptech.glide.Glide
-import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
-import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
-import com.example.tarekbaz.watch_up.Adapters.SalleRecyclerViewAdapter
-import com.example.tarekbaz.watch_up.Models.*
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.AsyncTask
+import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.*
+import android.widget.MediaController
 import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
+import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.example.tarekbaz.watch_up.API.MovieService
+import com.example.tarekbaz.watch_up.API.Responses.CreditsResponse
+import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
+import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Adapters.SalleRecyclerViewAdapter
+import com.example.tarekbaz.watch_up.Models.*
 import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.CreditsResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
 import com.example.tarekbaz.watch_up.Offline.*
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.activity_detail_film.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.collections.ArrayList
+import java.text.SimpleDateFormat
 const val NB_REQUEST = 3
 
 class FilmDetailActivity : AppCompatActivity() {
+
     //Video attributes
     var trailer_video = R.raw.trailer2
     private var mediaController: MediaController? = null
@@ -297,8 +297,6 @@ class FilmDetailActivity : AppCompatActivity() {
         val salles = Mocker.salleList.getRandomElements_(4)
         film!!.cinemas = salles
         initSallesRecyclerView(salles)
-
-
     }
 
     fun initDBOffline() {
@@ -343,7 +341,6 @@ class FilmDetailActivity : AppCompatActivity() {
 
     fun getComments() {
         var act = this
-
         object : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg voids: Void): Void? {
                 film!!.comments = act.commentsDao?.getFilmComments(film!!.id)
@@ -371,11 +368,11 @@ class FilmDetailActivity : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java)
+        val service = retrofit.create<MovieService>(MovieService::class.java)
 
-        service.relatedMovies(movieId).enqueue(object : Callback<MoviesResponse> {
+        service.relatedMovies(movieId).enqueue(object : Callback<ListPaginatedResponse<Movie>> {
 
-            override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
+            override fun onResponse(call: Call<ListPaginatedResponse<Movie>>, response: retrofit2.Response<ListPaginatedResponse<Movie>>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val relatedMovies = response.body()!!.results
                     if (relatedMovies.isEmpty())
@@ -389,13 +386,13 @@ class FilmDetailActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?) {
+            override fun onFailure(call: Call<ListPaginatedResponse<Movie>>?, t: Throwable?) {
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })
 
-        service.reviewsMovie(movieId).enqueue(object : Callback<ReviewsResponse> {
-            override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
+        service.reviewsMovie(movieId).enqueue(object : Callback<ListPaginatedResponse<Comment>> {
+            override fun onResponse(call: Call<ListPaginatedResponse<Comment>>, response: retrofit2.Response<ListPaginatedResponse<Comment>>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val comments = response.body()!!.results
                     if (comments.isEmpty()) noComments.visibility = TextView.VISIBLE
@@ -407,7 +404,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?) {
+            override fun onFailure(call: Call<ListPaginatedResponse<Comment>>?, t: Throwable?) {
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })
@@ -463,7 +460,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        val service = retrofit.create<MovieService>(MovieService::class.java!!)
 
         service.movieDetails(movieId).enqueue(object : Callback<Movie> {
 

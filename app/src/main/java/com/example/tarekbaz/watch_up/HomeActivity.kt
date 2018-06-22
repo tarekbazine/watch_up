@@ -1,25 +1,18 @@
 package com.example.tarekbaz.watch_up
 
-import android.content.Context
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
-import android.view.LayoutInflater
 import android.widget.Toast
+import com.example.tarekbaz.watch_up.API.MovieService
+import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
+import com.example.tarekbaz.watch_up.API.SerieService
 import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
-import com.example.tarekbaz.watch_up.Models.*
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
+import com.example.tarekbaz.watch_up.Models.Movie
+import com.example.tarekbaz.watch_up.Models.Serie
+import com.example.tarekbaz.watch_up.Models.Store
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_activity.*
@@ -121,11 +114,11 @@ class HomeActivity : BaseActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        val service = retrofit.create<MovieService>(MovieService::class.java!!)
 
-        service.getHomeMovies(page).enqueue(object: Callback<MoviesResponse> {
+        service.getHomeMovies(page).enqueue(object: Callback<ListPaginatedResponse<Movie>> {
 
-            override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
+            override fun onResponse(call: Call<ListPaginatedResponse<Movie>>, response: retrofit2.Response<ListPaginatedResponse<Movie>>?) {
                 if ((response != null) && (response.code() == 200)) {
 
                     val movies = response.body()!!.results
@@ -138,7 +131,7 @@ class HomeActivity : BaseActivity() {
 
             }
 
-            override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?){
+            override fun onFailure(call: Call<ListPaginatedResponse<Movie>>?, t: Throwable?){
                 Toast.makeText(baseContext, "Echec p: "+page, Toast.LENGTH_LONG).show()
             }
         })
@@ -151,10 +144,10 @@ class HomeActivity : BaseActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        val service = retrofit.create<SerieService>(SerieService::class.java!!)
 
-        service.getTodayAiringSeries(page).enqueue(object: Callback<SeriesResponse> {
-            override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
+        service.getTodayAiringSeries(page).enqueue(object: Callback<ListPaginatedResponse<Serie>> {
+            override fun onResponse(call: Call<ListPaginatedResponse<Serie>>, response: retrofit2.Response<ListPaginatedResponse<Serie>>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val series = response.body()!!.results
 
@@ -163,7 +156,7 @@ class HomeActivity : BaseActivity() {
                     adapter_series!!.notifyDataSetChanged()
                 }
             }
-            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?){
+            override fun onFailure(call: Call<ListPaginatedResponse<Serie>>?, t: Throwable?){
                 Toast.makeText(baseContext, "Echec page S "+ page, Toast.LENGTH_LONG).show()
             }
         })

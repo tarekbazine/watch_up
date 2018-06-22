@@ -3,12 +3,11 @@ package com.example.tarekbaz.watch_up
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
 import android.support.design.widget.TabLayout
-
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
@@ -20,11 +19,9 @@ import android.widget.Toast
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Comment
 import com.example.tarekbaz.watch_up.Models.Mocker
-
 import kotlinx.android.synthetic.main.activity_comment_evaluation.*
-import kotlinx.android.synthetic.main.popup_add_comment.*
-
 import kotlinx.android.synthetic.main.drawer_activity.*
+import kotlinx.android.synthetic.main.popup_add_comment.*
 
 class CommentEvaluationActivity : BaseActivity() {
 

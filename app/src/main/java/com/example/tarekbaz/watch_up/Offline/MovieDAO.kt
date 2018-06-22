@@ -1,10 +1,9 @@
 package com.example.tarekbaz.watch_up.Offline
 
 import android.arch.persistence.room.*
-import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Models.AssotiationMovies
-import android.arch.persistence.room.Transaction
 import com.example.tarekbaz.watch_up.Models.Comment
+import com.example.tarekbaz.watch_up.Models.Movie
 
 
 interface BaseDao<T> {

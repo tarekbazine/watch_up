@@ -1,12 +1,9 @@
 package com.example.tarekbaz.watch_up
 
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -14,13 +11,13 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.tarekbaz.watch_up.API.Responses.CreditsResponse
+import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
+import com.example.tarekbaz.watch_up.API.SerieService
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SeasonRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.CreditsResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_detail_serie.*
 import retrofit2.Call
@@ -162,7 +159,7 @@ class SerieDetailActivity : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        val service = retrofit.create<SerieService>(SerieService::class.java!!)
 
 
         service.serieDetails(serieId).enqueue(object : Callback<Serie> {
@@ -180,9 +177,9 @@ class SerieDetailActivity : AppCompatActivity() {
             }
         })
 
-        service.relatedSeries(serieId).enqueue(object : Callback<SeriesResponse> {
+        service.relatedSeries(serieId).enqueue(object : Callback<ListPaginatedResponse<Serie>> {
 
-            override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
+            override fun onResponse(call: Call<ListPaginatedResponse<Serie>>, response: retrofit2.Response<ListPaginatedResponse<Serie>>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val relatedSeriers = response.body()!!.results
                     if(relatedSeriers.isEmpty())
@@ -196,15 +193,15 @@ class SerieDetailActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?) {
+            override fun onFailure(call: Call<ListPaginatedResponse<Serie>>?, t: Throwable?) {
                 Toast.makeText(baseContext, "Echec related", Toast.LENGTH_LONG).show()
             }
         })
 
 
 
-        service.reviewsSerie(serieId).enqueue(object: Callback<ReviewsResponse> {
-            override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
+        service.reviewsSerie(serieId).enqueue(object: Callback<ListPaginatedResponse<Comment>> {
+            override fun onResponse(call: Call<ListPaginatedResponse<Comment>>, response: retrofit2.Response<ListPaginatedResponse<Comment>>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val comments = response.body()!!.results
                     if (comments.isEmpty()) noComments.visibility = TextView.VISIBLE
@@ -212,13 +209,13 @@ class SerieDetailActivity : AppCompatActivity() {
                     initCommentsRecyclerView(comments)
                 }
             }
-            override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?){
+            override fun onFailure(call: Call<ListPaginatedResponse<Comment>>?, t: Throwable?){
                 Toast.makeText(baseContext, "Echec reviews", Toast.LENGTH_LONG).show()
             }
         })
 
 
-        service.creditsMovie(serieId).enqueue(object : Callback<CreditsResponse> {
+        service.creditsSerie(serieId).enqueue(object : Callback<CreditsResponse> {
             override fun onResponse(call: Call<CreditsResponse>, response: retrofit2.Response<CreditsResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val cast = response.body()!!.cast
