@@ -558,6 +558,8 @@ class FilmDetailActivity : AppCompatActivity() {
                         act.deleteComment(comment)
                     }
                     act.movieDao?.delete(movie)
+                    // delete image
+                    ImageManager.deleteImage(movie.id.toString())
                 } else {
                     act.movieDao?.setFav(movie.id, 0)
                 }
