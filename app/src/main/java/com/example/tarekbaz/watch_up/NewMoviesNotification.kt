@@ -17,8 +17,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.example.tarekbaz.watch_up.API.MovieService
 import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
-import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Models.Genre
 import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Models.Store
@@ -46,7 +46,7 @@ class NewMoviesNotification {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
 
-            val service = retrofit.create<Service>(Service::class.java!!)
+            val service = retrofit.create<MovieService>(MovieService::class.java!!)
 
             val prefGenres = context.getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
             val filmAlreadySeen = prefGenres.getStringSet(ALREADY_SEEN, HashSet<String>())
@@ -130,7 +130,7 @@ class NewMoviesNotification {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
 
-            val service = retrofit.create<Service>(Service::class.java)
+            val service = retrofit.create<MovieService>(MovieService::class.java)
 
             val prefGenres = context.getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
             val genres = prefGenres.getStringSet(Genre.KEY, HashSet<String>())

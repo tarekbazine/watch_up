@@ -24,9 +24,9 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.example.tarekbaz.watch_up.API.MovieService
 import com.example.tarekbaz.watch_up.API.Responses.CreditsResponse
 import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
-import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SalleRecyclerViewAdapter
@@ -353,7 +353,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java)
+        val service = retrofit.create<MovieService>(MovieService::class.java)
 
         service.relatedMovies(movieId).enqueue(object : Callback<ListPaginatedResponse<Movie>> {
 
@@ -436,7 +436,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        val service = retrofit.create<MovieService>(MovieService::class.java!!)
 
         service.movieDetails(movieId).enqueue(object : Callback<Movie> {
 

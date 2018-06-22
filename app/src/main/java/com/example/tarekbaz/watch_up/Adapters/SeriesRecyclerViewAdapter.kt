@@ -14,7 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
-import com.example.tarekbaz.watch_up.API.Service
+import com.example.tarekbaz.watch_up.API.SerieService
 import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.Models.Serie
 import com.example.tarekbaz.watch_up.Models.Store
@@ -110,7 +110,7 @@ class SeriesRecyclerViewAdapter(private val mContext: Context, var series: List<
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        val service = retrofit.create<SerieService>(SerieService::class.java!!)
 
         service.searchSeries(query).enqueue(object : Callback<ListPaginatedResponse<Serie>> {
 

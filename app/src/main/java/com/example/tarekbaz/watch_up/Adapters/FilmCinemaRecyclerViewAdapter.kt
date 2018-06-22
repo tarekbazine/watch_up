@@ -13,8 +13,8 @@ import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.example.tarekbaz.watch_up.API.MovieService
 import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
-import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.FilmDetailActivity
 import com.example.tarekbaz.watch_up.Models.Movie
@@ -114,7 +114,7 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films: Li
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        val service = retrofit.create<MovieService>(MovieService::class.java!!)
 
         service.searchMovies(query).enqueue(object : Callback<ListPaginatedResponse<Movie>> {
 

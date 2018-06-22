@@ -5,8 +5,9 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
+import com.example.tarekbaz.watch_up.API.MovieService
 import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
-import com.example.tarekbaz.watch_up.API.Service
+import com.example.tarekbaz.watch_up.API.SerieService
 import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Movie
@@ -113,7 +114,7 @@ class HomeActivity : BaseActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        val service = retrofit.create<MovieService>(MovieService::class.java!!)
 
         service.getHomeMovies(page).enqueue(object: Callback<ListPaginatedResponse<Movie>> {
 
@@ -143,7 +144,7 @@ class HomeActivity : BaseActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        val service = retrofit.create<SerieService>(SerieService::class.java!!)
 
         service.getTodayAiringSeries(page).enqueue(object: Callback<ListPaginatedResponse<Serie>> {
             override fun onResponse(call: Call<ListPaginatedResponse<Serie>>, response: retrofit2.Response<ListPaginatedResponse<Serie>>?) {

@@ -13,7 +13,7 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.API.Responses.CreditsResponse
 import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
-import com.example.tarekbaz.watch_up.API.Service
+import com.example.tarekbaz.watch_up.API.SerieService
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SeasonRecyclerViewAdapter
@@ -159,7 +159,7 @@ class SerieDetailActivity : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-        val service = retrofit.create<Service>(Service::class.java!!)
+        val service = retrofit.create<SerieService>(SerieService::class.java!!)
 
 
         service.serieDetails(serieId).enqueue(object : Callback<Serie> {
@@ -215,7 +215,7 @@ class SerieDetailActivity : AppCompatActivity() {
         })
 
 
-        service.creditsMovie(serieId).enqueue(object : Callback<CreditsResponse> {
+        service.creditsSerie(serieId).enqueue(object : Callback<CreditsResponse> {
             override fun onResponse(call: Call<CreditsResponse>, response: retrofit2.Response<CreditsResponse>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val cast = response.body()!!.cast
