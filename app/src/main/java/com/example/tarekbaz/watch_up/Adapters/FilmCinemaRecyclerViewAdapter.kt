@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -31,6 +32,7 @@ import java.text.SimpleDateFormat
 class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films: List<Movie>) : RecyclerView.Adapter<FilmCinemaRecyclerViewAdapter.ViewHolder>() {
 
     var fullFilms = films
+    var lastPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_film, parent, false)
@@ -63,6 +65,14 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films: Li
 
             }
         })
+        // Animation
+        val animation = AnimationUtils.loadAnimation(mContext,
+                if (position > lastPosition)
+                    R.anim.buttom_from_top
+                else
+                    R.anim.top_from_buttom)
+        holder.itemView.startAnimation(animation)
+        lastPosition = position
     }
 
     override fun getItemCount(): Int {

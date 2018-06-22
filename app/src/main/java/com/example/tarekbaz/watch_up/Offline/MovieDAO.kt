@@ -4,7 +4,7 @@ import android.arch.persistence.room.*
 import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Models.AssotiationMovies
 import android.arch.persistence.room.Transaction
-
+import com.example.tarekbaz.watch_up.Models.Comment
 
 
 interface BaseDao<T> {
@@ -75,16 +75,14 @@ abstract class RelatedMoviesDAO:BaseDao<AssotiationMovies> {
 }
 
 
+@Dao
+abstract class CommentDAO:BaseDao<Comment>{
+    @Query("SELECT * FROM comment")
+    abstract fun getComments(): List<Comment>
 
-
-//@Dao
-//abstract class PersonDAO:BaseDao<Person>{
-//    @Query("SELECT * FROM person")
-//    abstract fun getPersons(): List<Person>
-//
-//    @Query("SELECT * FROM person WHERE id = :id")
-//    abstract fun getPerson(id: Int): List<Person>
-//}
+    @Query("SELECT * FROM comment WHERE film = :film_id")
+    abstract fun getFilmComments(film_id: Int): List<Comment>
+}
 //
 //@Dao
 //abstract class CinemaDAO:BaseDao<Cinema>{

@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
-                        android:text="La Belle et La Bète"
+                        android:text="Chargement..."
                         android:textAlignment="center"
                         android:textColor="#fff"
                         android:textSize="24sp" />
@@ -85,7 +85,7 @@
                         android:id="@+id/filmDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="(2017)"
+                        android:text="(0000)"
                         android:textAlignment="center"
                         android:textColor="#fff" />
 
@@ -94,7 +94,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:gravity="center"
-                        android:text="Fantasy / Family / Musical"
+                        android:text="Aucune Catégorie..."
                         android:textAlignment="center"
                         android:textColor="@color/colorAccent" />
 
@@ -114,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="7.9"
+                            android:text="0.0"
                             android:textAlignment="center"
                             android:textColor="@color/colorAccent" />
 
@@ -148,7 +148,7 @@
                     android:paddingEnd="20dp"
                     android:paddingStart="20dp"
                     android:paddingTop="10dp"
-                    android:text="A drawable resource is a general concept for a graphic that can be drawn to the screen. Drawables are used to define shapes, colors, borders, gradients, etc. which can then be applied to views within an Activity.  This is typically used for customizing the view graphics that are displayed within a particular view or context."
+                    android:text="Aucun Contenu..."
                     android:textAlignment="viewStart"
                     android:textColor="#FFF" />
 
@@ -172,7 +172,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Emma Watson, Luke Evans"
+                        android:text="Aucun acteur..."
                         android:textColor="#fff"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -200,7 +200,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Bill CONDON"
+                        android:text="Aucun directeur..."
                         android:textColor="#fff"
                         android:textSize="15sp"
                         android:textStyle="bold" />

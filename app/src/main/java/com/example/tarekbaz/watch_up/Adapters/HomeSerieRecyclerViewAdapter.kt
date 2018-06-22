@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.tarekbaz.watch_up.Config
@@ -17,7 +18,7 @@ import com.example.tarekbaz.watch_up.SerieDetailActivity
 
 
 class HomeSerieRecyclerViewAdapter(private val mContext: Context, val series: List<Serie>) : RecyclerView.Adapter<HomeSerieRecyclerViewAdapter.ViewHolder>() {
-
+    var lastPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_home_film, parent, false)
@@ -44,6 +45,16 @@ class HomeSerieRecyclerViewAdapter(private val mContext: Context, val series: Li
                 startActivity(mContext, intent, null)
             }
         })
+
+        // Animation
+        val animation = AnimationUtils.loadAnimation(mContext,
+                if (position > lastPosition)
+                    R.anim.right_from_left
+                else
+                    R.anim.left_from_right)
+        holder.itemView.startAnimation(animation)
+        lastPosition = position
+
     }
 
     override fun getItemCount(): Int {

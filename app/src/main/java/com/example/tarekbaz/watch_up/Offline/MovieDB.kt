@@ -8,12 +8,14 @@ import android.content.Context
 import android.util.Log
 import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Models.AssotiationMovies
+import com.example.tarekbaz.watch_up.Models.Comment
 
-@Database(entities = arrayOf(Movie::class, AssotiationMovies::class), version = 1)
+@Database(entities = arrayOf(Movie::class, AssotiationMovies::class, Comment::class), version = 1)
 @TypeConverters(DateTypeConverter::class)
         abstract class MovieDB : RoomDatabase() {
         abstract fun movieDAO(): MovieDAO
         abstract fun relatedMoviesDAO(): RelatedMoviesDAO
+        abstract fun commentsDAO(): CommentDAO
 
     companion object {
         private var instance: MovieDB? = null
