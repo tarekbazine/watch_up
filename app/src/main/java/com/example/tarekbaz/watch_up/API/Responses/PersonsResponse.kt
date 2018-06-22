@@ -1,6 +1,5 @@
-package com.example.tarekbaz.watch_up.Models.ResponsesAPI
+package com.example.tarekbaz.watch_up.API.Responses
 
-import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Models.Person
 
 class PersonsResponse (

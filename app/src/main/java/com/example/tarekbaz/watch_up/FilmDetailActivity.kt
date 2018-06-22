@@ -31,9 +31,10 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.CreditsResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
+import com.example.tarekbaz.watch_up.API.Responses.CreditsResponse
+import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
+import com.example.tarekbaz.watch_up.API.Responses.ReviewsResponse
+import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Offline.*
 import com.google.gson.GsonBuilder
 import retrofit2.Call
@@ -356,9 +357,9 @@ class FilmDetailActivity : AppCompatActivity() {
 
         val service = retrofit.create<Service>(Service::class.java)
 
-        service.relatedMovies(movieId).enqueue(object : Callback<MoviesResponse> {
+        service.relatedMovies(movieId).enqueue(object : Callback<ListPaginatedResponse<Movie>> {
 
-            override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
+            override fun onResponse(call: Call<ListPaginatedResponse<Movie>>, response: retrofit2.Response<ListPaginatedResponse<Movie>>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val relatedMovies = response.body()!!.results
                     if (relatedMovies.isEmpty())
@@ -372,7 +373,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?) {
+            override fun onFailure(call: Call<ListPaginatedResponse<Movie>>?, t: Throwable?) {
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })

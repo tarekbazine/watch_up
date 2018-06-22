@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,29 +14,19 @@ import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.tarekbaz.watch_up.Config
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
+import com.example.tarekbaz.watch_up.API.Responses.SeriesResponse
 import com.example.tarekbaz.watch_up.Models.Serie
-import com.example.tarekbaz.watch_up.Models.Service
+import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Models.Store
 import com.example.tarekbaz.watch_up.R
 import com.example.tarekbaz.watch_up.SerieDetailActivity
 import com.example.tarekbaz.watch_up.Utils
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
-import java.util.*
-import com.google.gson.JsonParseException
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonElement
-import com.google.gson.JsonDeserializer
 import retrofit2.Response
-import java.lang.reflect.Type
-import java.text.ParseException
 
 
 class SeriesRecyclerViewAdapter(private val mContext: Context, var series: List<Serie>) : RecyclerView.Adapter<SeriesRecyclerViewAdapter.ViewHolder>() {

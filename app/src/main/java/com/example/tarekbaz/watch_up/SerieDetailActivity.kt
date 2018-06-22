@@ -1,12 +1,9 @@
 package com.example.tarekbaz.watch_up
 
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -18,9 +15,10 @@ import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SeasonRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.CreditsResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
+import com.example.tarekbaz.watch_up.API.Responses.CreditsResponse
+import com.example.tarekbaz.watch_up.API.Responses.ReviewsResponse
+import com.example.tarekbaz.watch_up.API.Responses.SeriesResponse
+import com.example.tarekbaz.watch_up.API.Service
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_detail_serie.*
 import retrofit2.Call

@@ -1,6 +1,5 @@
 package com.example.tarekbaz.watch_up
 
-import android.app.Activity
 import android.content.Context
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -22,10 +21,9 @@ import android.support.v7.widget.SearchView
 import android.util.Log
 import android.widget.Toast
 import com.example.tarekbaz.watch_up.Adapters.PersonneRecyclerViewAdapter
-import com.example.tarekbaz.watch_up.Models.Mocker
 import com.example.tarekbaz.watch_up.Models.Person
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.PersonsResponse
-import com.example.tarekbaz.watch_up.Models.Service
+import com.example.tarekbaz.watch_up.API.Responses.PersonsResponse
+import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Models.Store
 import com.google.gson.GsonBuilder
 import retrofit2.Call

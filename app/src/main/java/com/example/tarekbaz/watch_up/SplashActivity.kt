@@ -5,12 +5,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.tarekbaz.watch_up.Models.Genre
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
-import com.example.tarekbaz.watch_up.Models.Service
+import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
+import com.example.tarekbaz.watch_up.API.Responses.SeriesResponse
+import com.example.tarekbaz.watch_up.API.Service
+import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Models.Store
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -41,9 +41,9 @@ class SplashActivity : AppCompatActivity() {
 
         val service = retrofit.create<Service>(Service::class.java!!)
 
-        service.getHomeMovies(1).enqueue(object: Callback<MoviesResponse> {
+        service.getHomeMovies(1).enqueue(object: Callback<ListPaginatedResponse<Movie>> {
 
-            override fun onResponse(call: Call<MoviesResponse>, response: retrofit2.Response<MoviesResponse>?) {
+            override fun onResponse(call: Call<ListPaginatedResponse<Movie>>, response: retrofit2.Response<ListPaginatedResponse<Movie>>?) {
                 if ((response != null) && (response.code() == 200)) {
 
                     val movies = response.body()!!.results
@@ -72,7 +72,7 @@ class SplashActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?){
+            override fun onFailure(call: Call<ListPaginatedResponse<Movie>>?, t: Throwable?){
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
                 Timer().schedule(object : TimerTask() {
                     override fun run() {

@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.EpisodeRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*

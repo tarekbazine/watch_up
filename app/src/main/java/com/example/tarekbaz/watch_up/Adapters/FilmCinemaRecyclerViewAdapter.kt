@@ -16,9 +16,8 @@ import com.bumptech.glide.Glide
 import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.FilmDetailActivity
 import com.example.tarekbaz.watch_up.Models.Movie
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
-import com.example.tarekbaz.watch_up.Models.ResponsesAPI.SeriesResponse
-import com.example.tarekbaz.watch_up.Models.Service
+import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
+import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Models.Store
 import com.example.tarekbaz.watch_up.R
 import com.example.tarekbaz.watch_up.Utils
@@ -117,17 +116,17 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films: Li
 
         val service = retrofit.create<Service>(Service::class.java!!)
 
-        service.searchMovies(query).enqueue(object : Callback<MoviesResponse> {
+        service.searchMovies(query).enqueue(object : Callback<ListPaginatedResponse<Movie>> {
 
-            override fun onResponse(call: Call<MoviesResponse>,
-                                    response: Response<MoviesResponse>?) {
+            override fun onResponse(call: Call<ListPaginatedResponse<Movie>>,
+                                    response: Response<ListPaginatedResponse<Movie>>?) {
                 if ((response != null) && (response.code() == 200)) {
                     films = response.body()!!.results
                     notifyDataSetChanged()
                 }
             }
 
-            override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?) {
+            override fun onFailure(call: Call<ListPaginatedResponse<Movie>>?, t: Throwable?) {
                 Toast.makeText(mContext, "Echec", Toast.LENGTH_LONG).show()
 //                Log.i("myLogapi2", "" + t?.stackTrace)
             }
