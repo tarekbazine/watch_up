@@ -2,10 +2,7 @@ package com.example.tarekbaz.watch_up.API
 
 import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.API.Responses.*
-import com.example.tarekbaz.watch_up.Models.Movie
-import com.example.tarekbaz.watch_up.Models.Person
-import com.example.tarekbaz.watch_up.Models.Season
-import com.example.tarekbaz.watch_up.Models.Serie
+import com.example.tarekbaz.watch_up.Models.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -24,7 +21,7 @@ interface Service {
     fun relatedMovies(@Path("movie_id") id: Int): Call<ListPaginatedResponse<Movie>>
 
     @GET("movie/{movie_id}/reviews?api_key=${Config.API_KEY}&language=en-US&page=1")
-    fun reviewsMovie(@Path("movie_id") id: Int): Call<ReviewsResponse>
+    fun reviewsMovie(@Path("movie_id") id: Int): Call<ListPaginatedResponse<Comment>>
 
     @GET("movie/{movie_id}/credits?api_key=${Config.API_KEY}&language=en-US")
     fun creditsMovie(@Path("movie_id") id: Int): Call<CreditsResponse>
@@ -53,7 +50,7 @@ interface Service {
     fun searchSeries(@Query("query") query: String): Call<SeriesResponse>
 
     @GET("tv/{tv_id}/reviews?api_key=${Config.API_KEY}&language=en-US&page=1")
-    fun reviewsSerie(@Path("tv_id") id: Int): Call<ReviewsResponse>
+    fun reviewsSerie(@Path("tv_id") id: Int): Call<ListPaginatedResponse<Comment>>
 
     @GET("tv/{tv_id}/credits?api_key=${Config.API_KEY}&language=en-US")
     fun creditsSerie(@Path("tv_id") id: Int): Call<CreditsResponse>
@@ -65,7 +62,7 @@ interface Service {
 
     /***Person***/
     @GET("person/popular?api_key=${Config.API_KEY}&language=en-US")
-    fun getPersons(@Query("page") page: Int): Call<PersonsResponse>
+    fun getPersons(@Query("page") page: Int): Call<ListPaginatedResponse<Person>>
 
     @GET("person/{person_id}?api_key=${Config.API_KEY}&language=en-US")
     fun getPersonDetail(@Path("person_id") id: Int): Call<Person>

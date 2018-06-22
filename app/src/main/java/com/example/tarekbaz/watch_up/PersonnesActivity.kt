@@ -22,7 +22,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.tarekbaz.watch_up.Adapters.PersonneRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Person
-import com.example.tarekbaz.watch_up.API.Responses.PersonsResponse
+import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
 import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Models.Store
 import com.google.gson.GsonBuilder
@@ -231,9 +231,9 @@ class PersonnesActivity : BaseActivity() {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
             val service = retrofit.create<Service>(Service::class.java!!)
-            service.getPersons(1).enqueue(object: Callback<PersonsResponse> {
+            service.getPersons(1).enqueue(object: Callback<ListPaginatedResponse<Person>> {
 
-                override fun onResponse(call: Call<PersonsResponse>, response: retrofit2.Response<PersonsResponse>?) {
+                override fun onResponse(call: Call<ListPaginatedResponse<Person>>, response: retrofit2.Response<ListPaginatedResponse<Person>>?) {
                     if ((response != null) && (response.code() == 200)) {
 
                         // init actors
@@ -245,7 +245,7 @@ class PersonnesActivity : BaseActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<PersonsResponse>?, t: Throwable?){
+                override fun onFailure(call: Call<ListPaginatedResponse<Person>>?, t: Throwable?){
                     Toast.makeText(activity, "Erreur de connexion", Toast.LENGTH_LONG).show()
                 }
             })
@@ -258,9 +258,9 @@ class PersonnesActivity : BaseActivity() {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
             val service = retrofit.create<Service>(Service::class.java!!)
-            service.getPersons(page).enqueue(object: Callback<PersonsResponse> {
+            service.getPersons(page).enqueue(object: Callback<ListPaginatedResponse<Person>> {
 
-                override fun onResponse(call: Call<PersonsResponse>, response: retrofit2.Response<PersonsResponse>?) {
+                override fun onResponse(call: Call<ListPaginatedResponse<Person>>, response: retrofit2.Response<ListPaginatedResponse<Person>>?) {
                     if ((response != null) && (response.code() == 200)) {
                         val _actors = response.body()!!.results
                         // Save actors
@@ -271,7 +271,7 @@ class PersonnesActivity : BaseActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<PersonsResponse>?, t: Throwable?){
+                override fun onFailure(call: Call<ListPaginatedResponse<Person>>?, t: Throwable?){
                     Toast.makeText(activity, "Erreur de pag "+ page, Toast.LENGTH_LONG).show()
                 }
             })

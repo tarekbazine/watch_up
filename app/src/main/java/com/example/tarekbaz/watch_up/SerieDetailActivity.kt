@@ -16,7 +16,7 @@ import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SeasonRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
 import com.example.tarekbaz.watch_up.API.Responses.CreditsResponse
-import com.example.tarekbaz.watch_up.API.Responses.ReviewsResponse
+import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
 import com.example.tarekbaz.watch_up.API.Responses.SeriesResponse
 import com.example.tarekbaz.watch_up.API.Service
 import com.google.gson.GsonBuilder
@@ -201,8 +201,8 @@ class SerieDetailActivity : AppCompatActivity() {
 
 
 
-        service.reviewsSerie(serieId).enqueue(object: Callback<ReviewsResponse> {
-            override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
+        service.reviewsSerie(serieId).enqueue(object: Callback<ListPaginatedResponse<Comment>> {
+            override fun onResponse(call: Call<ListPaginatedResponse<Comment>>, response: retrofit2.Response<ListPaginatedResponse<Comment>>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val comments = response.body()!!.results
                     if (comments.isEmpty()) noComments.visibility = TextView.VISIBLE
@@ -210,7 +210,7 @@ class SerieDetailActivity : AppCompatActivity() {
                     initCommentsRecyclerView(comments)
                 }
             }
-            override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?){
+            override fun onFailure(call: Call<ListPaginatedResponse<Comment>>?, t: Throwable?){
                 Toast.makeText(baseContext, "Echec reviews", Toast.LENGTH_LONG).show()
             }
         })

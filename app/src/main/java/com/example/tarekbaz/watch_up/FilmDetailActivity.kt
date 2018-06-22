@@ -33,7 +33,6 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
 import com.example.tarekbaz.watch_up.API.Responses.CreditsResponse
 import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
-import com.example.tarekbaz.watch_up.API.Responses.ReviewsResponse
 import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Offline.*
 import com.google.gson.GsonBuilder
@@ -378,8 +377,8 @@ class FilmDetailActivity : AppCompatActivity() {
             }
         })
 
-        service.reviewsMovie(movieId).enqueue(object : Callback<ReviewsResponse> {
-            override fun onResponse(call: Call<ReviewsResponse>, response: retrofit2.Response<ReviewsResponse>?) {
+        service.reviewsMovie(movieId).enqueue(object : Callback<ListPaginatedResponse<Comment>> {
+            override fun onResponse(call: Call<ListPaginatedResponse<Comment>>, response: retrofit2.Response<ListPaginatedResponse<Comment>>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val comments = response.body()!!.results
                     if (comments.isEmpty()) noComments.visibility = TextView.VISIBLE
@@ -388,7 +387,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ReviewsResponse>?, t: Throwable?) {
+            override fun onFailure(call: Call<ListPaginatedResponse<Comment>>?, t: Throwable?) {
                 Toast.makeText(baseContext, "Echec", Toast.LENGTH_LONG).show()
             }
         })
