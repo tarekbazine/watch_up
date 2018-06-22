@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.widget.TextView
 import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SalleFanRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
@@ -28,6 +29,7 @@ class FanActivity : BaseActivity() {
 
     var adapter_films :HomeMovieRecyclerViewAdapter? = null
     private fun initRecyclerView() {
+        if(!fanFilms!!.isEmpty()) noFavFilms.visibility = TextView.GONE
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         fan_film_slider.setLayoutManager(layoutManager)
         adapter_films = HomeMovieRecyclerViewAdapter(this, fanFilms!!,true)
@@ -68,11 +70,11 @@ class FanActivity : BaseActivity() {
                 act.relatedMovieDao = act.db!!.relatedMoviesDAO()
                 act.fanFilms = act.movieDao?.getFavMovies()
                 Store.favFilms = act.fanFilms as ArrayList<Movie>
-                act.initRecyclerView()
                 return null
             }
 
             override fun onPostExecute(result: Void?) {
+                act.initRecyclerView()
                 act.associateMovies()
                 Log.i("bd","bd created")
             }
