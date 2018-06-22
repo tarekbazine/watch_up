@@ -1,11 +1,10 @@
 package com.example.tarekbaz.watch_up
 
+import android.os.Bundle
 import android.support.design.widget.TabLayout
-
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -19,7 +18,6 @@ import com.example.tarekbaz.watch_up.Adapters.FilmCinemaRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SalleCinemaRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.Mocker
 import com.example.tarekbaz.watch_up.Models.Store
-
 import kotlinx.android.synthetic.main.activity_cinema.*
 import kotlinx.android.synthetic.main.drawer_activity.*
 

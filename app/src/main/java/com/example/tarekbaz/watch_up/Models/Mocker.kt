@@ -1,7 +1,5 @@
 package com.example.tarekbaz.watch_up.Models
 
-import android.os.Build
-import android.support.annotation.RequiresApi
 import com.example.tarekbaz.watch_up.R
 import java.util.*
 import kotlin.collections.ArrayList

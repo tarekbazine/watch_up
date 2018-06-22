@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -15,10 +16,6 @@ import com.example.tarekbaz.watch_up.FilmDetailActivity
 import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Offline.ImageManager
 import com.example.tarekbaz.watch_up.R
-import android.view.animation.AnimationUtils
-import android.view.animation.Animation
-
-
 
 
 class HomeMovieRecyclerViewAdapter(private val mContext: Context, val films: List<Movie>, val offline: Boolean = false) : RecyclerView.Adapter<HomeMovieRecyclerViewAdapter.ViewHolder>() {

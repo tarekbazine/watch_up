@@ -13,20 +13,20 @@ import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.example.tarekbaz.watch_up.Config
-import com.example.tarekbaz.watch_up.API.Responses.SeriesResponse
-import com.example.tarekbaz.watch_up.Models.Serie
+import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
 import com.example.tarekbaz.watch_up.API.Service
+import com.example.tarekbaz.watch_up.Config
+import com.example.tarekbaz.watch_up.Models.Serie
 import com.example.tarekbaz.watch_up.Models.Store
 import com.example.tarekbaz.watch_up.R
 import com.example.tarekbaz.watch_up.SerieDetailActivity
 import com.example.tarekbaz.watch_up.Utils
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
-import retrofit2.Response
 
 
 class SeriesRecyclerViewAdapter(private val mContext: Context, var series: List<Serie>) : RecyclerView.Adapter<SeriesRecyclerViewAdapter.ViewHolder>() {
@@ -112,17 +112,17 @@ class SeriesRecyclerViewAdapter(private val mContext: Context, var series: List<
 
         val service = retrofit.create<Service>(Service::class.java!!)
 
-        service.searchSeries(query).enqueue(object : Callback<SeriesResponse> {
+        service.searchSeries(query).enqueue(object : Callback<ListPaginatedResponse<Serie>> {
 
-            override fun onResponse(call: Call<SeriesResponse>,
-                                    response: Response<SeriesResponse>?) {
+            override fun onResponse(call: Call<ListPaginatedResponse<Serie>>,
+                                    response: Response<ListPaginatedResponse<Serie>>?) {
                 if ((response != null) && (response.code() == 200)) {
                     series = response.body()!!.results
                     notifyDataSetChanged()
                 }
             }
 
-            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?) {
+            override fun onFailure(call: Call<ListPaginatedResponse<Serie>>?, t: Throwable?) {
                 Toast.makeText(mContext, "Echec Search", Toast.LENGTH_LONG).show()
             }
         })

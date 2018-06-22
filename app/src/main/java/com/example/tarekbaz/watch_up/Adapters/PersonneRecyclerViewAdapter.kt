@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.*
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.tarekbaz.watch_up.Config
 import com.example.tarekbaz.watch_up.Models.Person

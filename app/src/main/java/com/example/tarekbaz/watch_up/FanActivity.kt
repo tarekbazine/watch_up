@@ -6,16 +6,13 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
-import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SalleFanRecyclerViewAdapter
-import com.example.tarekbaz.watch_up.Models.AssotiationMovies
 import com.example.tarekbaz.watch_up.Models.Mocker
 import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Models.Store
 import com.example.tarekbaz.watch_up.Offline.MovieDAO
 import com.example.tarekbaz.watch_up.Offline.MovieDB
 import com.example.tarekbaz.watch_up.Offline.RelatedMoviesDAO
-import com.example.tarekbaz.watch_up.R.drawable.film
 import kotlinx.android.synthetic.main.activity_fan.*
 import kotlinx.android.synthetic.main.drawer_activity.*
 

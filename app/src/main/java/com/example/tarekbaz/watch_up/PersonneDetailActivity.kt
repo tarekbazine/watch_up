@@ -1,19 +1,21 @@
 package com.example.tarekbaz.watch_up
 
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.annotation.RequiresApi
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import kotlinx.android.synthetic.main.activity_detail_personne.*
 import android.view.MenuItem
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Adapters.HomeMovieRecyclerViewAdapter
-import com.example.tarekbaz.watch_up.Models.*
+import com.example.tarekbaz.watch_up.Models.Movie
+import com.example.tarekbaz.watch_up.Models.Person
+import com.example.tarekbaz.watch_up.Models.Store
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.activity_detail_personne.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit

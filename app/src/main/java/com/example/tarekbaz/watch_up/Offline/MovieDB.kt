@@ -6,9 +6,9 @@ import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import android.util.Log
-import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Models.AssotiationMovies
 import com.example.tarekbaz.watch_up.Models.Comment
+import com.example.tarekbaz.watch_up.Models.Movie
 
 @Database(entities = arrayOf(Movie::class, AssotiationMovies::class, Comment::class), version = 1)
 @TypeConverters(DateTypeConverter::class)

@@ -11,14 +11,13 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.tarekbaz.watch_up.API.Responses.CreditsResponse
+import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
+import com.example.tarekbaz.watch_up.API.Service
 import com.example.tarekbaz.watch_up.Adapters.CommentRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.HomeSerieRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Adapters.SeasonRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
-import com.example.tarekbaz.watch_up.API.Responses.CreditsResponse
-import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
-import com.example.tarekbaz.watch_up.API.Responses.SeriesResponse
-import com.example.tarekbaz.watch_up.API.Service
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_detail_serie.*
 import retrofit2.Call
@@ -178,9 +177,9 @@ class SerieDetailActivity : AppCompatActivity() {
             }
         })
 
-        service.relatedSeries(serieId).enqueue(object : Callback<SeriesResponse> {
+        service.relatedSeries(serieId).enqueue(object : Callback<ListPaginatedResponse<Serie>> {
 
-            override fun onResponse(call: Call<SeriesResponse>, response: retrofit2.Response<SeriesResponse>?) {
+            override fun onResponse(call: Call<ListPaginatedResponse<Serie>>, response: retrofit2.Response<ListPaginatedResponse<Serie>>?) {
                 if ((response != null) && (response.code() == 200)) {
                     val relatedSeriers = response.body()!!.results
                     if(relatedSeriers.isEmpty())
@@ -194,7 +193,7 @@ class SerieDetailActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<SeriesResponse>?, t: Throwable?) {
+            override fun onFailure(call: Call<ListPaginatedResponse<Serie>>?, t: Throwable?) {
                 Toast.makeText(baseContext, "Echec related", Toast.LENGTH_LONG).show()
             }
         })

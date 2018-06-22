@@ -1,14 +1,14 @@
 package com.example.tarekbaz.watch_up
 
+import android.content.Context
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.CheckBox
 import com.example.tarekbaz.watch_up.Models.Genre
 import com.example.tarekbaz.watch_up.Models.Store
 import kotlinx.android.synthetic.main.activity_settings.*
-import android.content.Context
 import java.util.*
 import kotlin.collections.HashSet
 

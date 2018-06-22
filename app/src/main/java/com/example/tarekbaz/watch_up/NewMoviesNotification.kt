@@ -1,7 +1,10 @@
 package com.example.tarekbaz.watch_up
 
 import android.annotation.SuppressLint
-import android.app.*
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -14,10 +17,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import com.example.tarekbaz.watch_up.Models.Genre
-import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.API.Responses.ListPaginatedResponse
 import com.example.tarekbaz.watch_up.API.Service
+import com.example.tarekbaz.watch_up.Models.Genre
+import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Models.Store
 import com.google.gson.GsonBuilder
 import retrofit2.Call

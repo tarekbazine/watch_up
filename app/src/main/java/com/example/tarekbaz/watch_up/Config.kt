@@ -1,13 +1,5 @@
 package com.example.tarekbaz.watch_up
 
-import android.content.Intent
-import android.widget.Toast
-import android.graphics.Bitmap
-import java.nio.file.Files.exists
-import android.os.Environment.DIRECTORY_PICTURES
-import android.os.Environment.getExternalStoragePublicDirectory
-
-
 
 class Config{
     companion object {
