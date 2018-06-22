@@ -225,7 +225,7 @@ class PersonnesActivity : BaseActivity() {
                     .baseUrl(Config.API_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
-            val service = retrofit.create<Service>(Service::class.java!!)
+            val service = retrofit.create<Service>(Service::class.java)
             service.getPersons(1).enqueue(object: Callback<ListPaginatedResponse<Person>> {
 
                 override fun onResponse(call: Call<ListPaginatedResponse<Person>>, response: retrofit2.Response<ListPaginatedResponse<Person>>?) {
@@ -263,6 +263,7 @@ class PersonnesActivity : BaseActivity() {
 
                         Log.i("actorlog",""+page)
                         adapter_person!!.notifyDataSetChanged()
+                        Log.i("ActorLog","next p "+page)
                     }
                 }
 
@@ -297,7 +298,7 @@ class PersonnesActivity : BaseActivity() {
                     if (visibleItemCount + pastVisiblesItems >= (totalItemCount - Config.NEXT_PAGE_LIMIT)
                             && alreadyRequestedPages <= availablePages){
                         alreadyRequestedPages = availablePages + 1
-                    Log.i("ActorLog","next p "+availablePages+" "+visibleItemCount +" " +pastVisiblesItems+" "+totalItemCount)
+                        Log.i("ActorLog","next p "+availablePages+" "+visibleItemCount +" " +pastVisiblesItems+" "+totalItemCount)
                         getActors(availablePages + 1)
                     }
                 }

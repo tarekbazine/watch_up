@@ -487,7 +487,9 @@ class FilmDetailActivity : AppCompatActivity() {
         // Save images
         ImageManager.saveImageBitmap(this, filmCard, movie.id.toString())
         for (movieR in movie.linkedMovies!!) {
-            saveImageGlide(movieR)
+            if (movieR.poster_path != null){
+                saveImageGlide(movieR)
+            }
         }
     }
 
