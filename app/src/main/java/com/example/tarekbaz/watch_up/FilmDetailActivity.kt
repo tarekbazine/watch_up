@@ -15,6 +15,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.*
+import android.view.animation.AnimationUtils
+import android.view.animation.Interpolator
+import android.widget.ImageView
 import android.widget.MediaController
 import android.widget.TextView
 import android.widget.Toast
@@ -40,10 +43,10 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
-const val NB_REQUEST = 3
+
 
 class FilmDetailActivity : AppCompatActivity() {
-
+    val NB_REQUEST = 3
     //Video attributes
     var trailer_video = R.raw.trailer2
     private var mediaController: MediaController? = null
@@ -59,9 +62,8 @@ class FilmDetailActivity : AppCompatActivity() {
     var glide: RequestManager? = null
     var index: Int? = null
 
-    var dialog : AlertDialog? = null
+    var dialog: AlertDialog? = null
     var nbSuccess = 0
-
 
 
     //Init adapters
@@ -153,6 +155,7 @@ class FilmDetailActivity : AppCompatActivity() {
             if (!favoriteMoviesId!!.contains(film!!.id)) {
                 item.setIcon(R.drawable.heart2)
                 saveMovieAndRelatedMovies(film!!)
+                didTapButton()
                 Toast.makeText(this, "Film ajouté à Mes Fans", LENGTH_SHORT).show()
             } else {
                 item.setIcon(R.drawable.heart_inactive)
@@ -436,7 +439,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
                     val crew = response.body()!!.crew
                     crew.forEach {
-                        if (it.job == CreditsResponse.DIRECTOR){
+                        if (it.job == CreditsResponse.DIRECTOR) {
                             producertext.text = it.name
                             film!!.director = it.name
                             return
@@ -604,6 +607,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 //Set fun heart icon for the first time
                 if (favoriteMoviesId!!.contains(film!!.id)) {
                     act.loveItem!!.setIcon(R.drawable.heart2)
+                    didTapButton()
                 }
             }
         }.execute()
@@ -631,7 +635,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 })
     }
 
-    fun saveComment(comment: Comment){
+    fun saveComment(comment: Comment) {
         commentsDao!!.insert(comment)
     }
 
@@ -643,8 +647,8 @@ class FilmDetailActivity : AppCompatActivity() {
     fun showDialog(): AlertDialog {
         //Loading spinner
         val builder = AlertDialog.Builder(this)
-        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE  ) as LayoutInflater
-        val view = inflater.inflate(R.layout.dialog_progress,null)
+        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.dialog_progress, null)
         builder.setView(view)
         builder.setCancelable(false)
         val dialog = builder.create()
@@ -652,8 +656,17 @@ class FilmDetailActivity : AppCompatActivity() {
         return dialog
     }
 
-    fun hideDialog(dialog: AlertDialog?){
+    fun hideDialog(dialog: AlertDialog?) {
         //Loading spinner
         dialog!!.dismiss()
+    }
+
+    fun didTapButton() {
+        val myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce)
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        myAnim.interpolator = Interpolator { time -> (-1 * Math.pow(Math.E, -time / 0.2) * Math.cos((20 * time).toDouble()) + 1).toFloat() }
+
+        this.findViewById<View>(R.id.love_item).startAnimation(myAnim)
     }
 }

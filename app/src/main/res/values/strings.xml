@@ -65,11 +65,10 @@
     <!--fan activity-->
     <string name="title_toolbar_fan">Fan</string>
     <string name="my_fav_films">Mes Films</string>
+    <string name="no_fav_films">Votre favorie est vide</string>
     <string name="my_fav_series">Mes Feuilletons</string>
     <string name="my_fav_salles">Mes Salles</string>
 
-
-    <string name="baseurl">https://api.themoviedb.org/3/</string>
 
     <string name="loading_message">Chargement du contenu...</string>
     <string name="failed_title">Chargement Echoué</string>
