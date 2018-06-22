@@ -8,7 +8,7 @@ import com.example.tarekbaz.watch_up.Models.Comment
 
 
 interface BaseDao<T> {
-    @Insert(onConflict = OnConflictStrategy.ROLLBACK)
+    @Insert(onConflict = OnConflictStrategy.FAIL)
     fun insert(vararg obj: T)
 
     @Delete
@@ -80,8 +80,8 @@ abstract class CommentDAO:BaseDao<Comment>{
     @Query("SELECT * FROM comment")
     abstract fun getComments(): List<Comment>
 
-    @Query("SELECT * FROM comment WHERE film = :film_id")
-    abstract fun getFilmComments(film_id: Int): List<Comment>
+    @Query("SELECT * FROM comment WHERE film_id = :fid")
+    abstract fun getFilmComments(fid: Int): List<Comment>
 }
 //
 //@Dao
