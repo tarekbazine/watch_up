@@ -107,6 +107,4 @@ class FanActivity : BaseActivity() {
     }
 
 
-
-
 }
