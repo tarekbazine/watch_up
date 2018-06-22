@@ -48,6 +48,7 @@ class NewMoviesNotification {
             val prefGenres = context.getSharedPreferences(Genre.KEY, Context.MODE_PRIVATE)
             val filmAlreadySeen = prefGenres.getStringSet(ALREADY_SEEN, HashSet<String>())
 
+            Log.i("notyLog film alr0 ", filmAlreadySeen.toString())
 
             val keys = ArrayList(Store.preferedGenres)
             var genresList = keys[0].toString()
@@ -81,12 +82,16 @@ class NewMoviesNotification {
                                         break
                                     }
                                 }
+                                Log.i("notyLog film alr ", latestMovie.toString())
 
                                 if (latestMovie == null) {
                                     Toast.makeText(context, "No up movie " + response.toString()
                                             , Toast.LENGTH_LONG).show()
                                     return
                                 }
+
+                                Store.homeFilms.add(latestMovie)
+                                initNotificatioData(latestMovie, context)
 
                                 val editor = prefGenres.edit()
 
@@ -99,8 +104,6 @@ class NewMoviesNotification {
                                 editor.putStringSet(ALREADY_SEEN, filmAlreadySeen)
                                 editor.commit()
 
-                                Store.homeFilms.add(latestMovie)
-                                initNotificatioData(latestMovie, context)
                             } else if (response != null) {
                                 Toast.makeText(context, "No up movie " + response.toString()
                                         , Toast.LENGTH_LONG).show()
@@ -132,7 +135,7 @@ class NewMoviesNotification {
             val filmAlreadySeen = prefGenres.getStringSet(ALREADY_SEEN, HashSet<String>())
 
             Log.i("myLogiii1122", genres.toString())
-            Log.i("myLogiii1122 film ", filmAlreadySeen.toString())
+            Log.i("notyLog film alr ", filmAlreadySeen.toString())
 
             val keys = ArrayList(genres)
             var genresList = keys[0].toString()
