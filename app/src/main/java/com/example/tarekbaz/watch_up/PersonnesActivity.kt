@@ -34,9 +34,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class PersonnesActivity : BaseActivity() {
 
-//    val actors = Mocker.actorList
-
-
     var tabActeur: ActorsFragment? = null
     var tabRealisateur: ProducersFragment? = null
 
@@ -92,11 +89,11 @@ class PersonnesActivity : BaseActivity() {
             override fun onQueryTextChange(newText: String): Boolean {
 
                 if (TextUtils.isEmpty(newText)) {
-                    tabRealisateur!!.adapter_producers!!.filter("")
-                    tabActeur!!.adapter_person!!.filter("")
+                    tabRealisateur?.adapter_producers?.filter("")
+                    tabActeur?.adapter_person?.filter("")
                 } else {
-                    tabRealisateur!!.adapter_producers!!.filter(newText)
-                    tabActeur!!.adapter_person!!.filter(newText)
+                    tabRealisateur?.adapter_producers?.filter(newText)
+                    tabActeur?.adapter_person?.filter(newText)
                 }
 
                 return true
@@ -149,10 +146,8 @@ class PersonnesActivity : BaseActivity() {
             val layoutManager = LinearLayoutManager(context)
             val personneRecycler = rootView.findViewById<RecyclerView>(R.id.recyclerView)
             personneRecycler.setLayoutManager(layoutManager)
-            val adapter_producers = PersonneRecyclerViewAdapter(context!!, directors, isActor = false)
+            adapter_producers = PersonneRecyclerViewAdapter(context!!, directors, isActor = false)
             personneRecycler.setAdapter(adapter_producers)
-
-            this.adapter_producers = adapter_producers
 
             return rootView
         }
@@ -241,7 +236,6 @@ class PersonnesActivity : BaseActivity() {
                         // Save actors
                         Store.acteurs = ArrayList(actors)
                         setUpLayout()
-                        Log.i("reponse", " "+actors[0] )
                     }
                 }
 
@@ -267,6 +261,7 @@ class PersonnesActivity : BaseActivity() {
                         Store.acteurs.addAll(_actors)
                         actors = Store.acteurs
 
+                        Log.i("actorlog",""+page)
                         adapter_person!!.notifyDataSetChanged()
                     }
                 }
@@ -302,7 +297,7 @@ class PersonnesActivity : BaseActivity() {
                     if (visibleItemCount + pastVisiblesItems >= (totalItemCount - Config.NEXT_PAGE_LIMIT)
                             && alreadyRequestedPages <= availablePages){
                         alreadyRequestedPages = availablePages + 1
-//                    Log.i("ActorLog","next p "+availablePages+" "+visibleItemCount +" " +pastVisiblesItems+" "+totalItemCount)
+                    Log.i("ActorLog","next p "+availablePages+" "+visibleItemCount +" " +pastVisiblesItems+" "+totalItemCount)
                         getActors(availablePages + 1)
                     }
                 }

@@ -82,12 +82,3 @@ abstract class CommentDAO:BaseDao<Comment>{
     @Query("SELECT * FROM comment WHERE film_id = :fid")
     abstract fun getFilmComments(fid: Int): List<Comment>
 }
-//
-//@Dao
-//abstract class CinemaDAO:BaseDao<Cinema>{
-//    @Query("SELECT * FROM cinema")
-//    abstract fun getSalles(): List<Cinema>
-//
-//    @Query("SELECT * FROM cinema WHERE id = :id")
-//    abstract fun getCinema(id: Int): List<Cinema>
-//}

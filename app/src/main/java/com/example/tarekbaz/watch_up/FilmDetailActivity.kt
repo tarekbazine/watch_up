@@ -328,7 +328,6 @@ class FilmDetailActivity : AppCompatActivity() {
             override fun doInBackground(vararg voids: Void): Void? {
                 val associatedMovies = act.relatedMovieDao?.getRelatedMovies(film!!.id)
                 film!!.linkedMovies = associatedMovies
-                Log.i("related", film!!.linkedMovies!!.toString())
                 return null
             }
 
@@ -353,7 +352,6 @@ class FilmDetailActivity : AppCompatActivity() {
                 // Comments
                 if (film!!.comments != null && film!!.comments!!.isNotEmpty()){
                     initCommentsRecyclerView(film!!.comments!!,true)
-                    Log.i("___'comment_auth'___", film!!.comments!![0].author)
                 }
                 act.getAssociateMovies()
             }
@@ -558,7 +556,6 @@ class FilmDetailActivity : AppCompatActivity() {
                         act.deleteComment(comment)
                     }
                     act.movieDao?.delete(movie)
-                    Log.i("deleted?", ImageManager.deleteImage(movie.id.toString()).toString())
                 } else {
                     act.movieDao?.setFav(movie.id, 0)
                 }

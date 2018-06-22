@@ -10,8 +10,6 @@ import android.widget.Toast
 class AlarmReceiver :  BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-//        Log.i("myLogiii", "noty")
-
 //        Toast.makeText(context.applicationContext,"alarm set",Toast.LENGTH_SHORT).show()
 
         //auto start noty after boot

@@ -24,16 +24,17 @@ class FanActivity : BaseActivity() {
     private var db: MovieDB? = null
     private var movieDao: MovieDAO? = null
     private var relatedMovieDao: RelatedMoviesDAO? = null
-    private var fanFilms : List<Movie>? = null
+    private var fanFilms: List<Movie>? = null
 
     val fanSalles = Mocker.favCinemaList
 
-    var adapter_films :HomeMovieRecyclerViewAdapter? = null
+    var adapter_films: HomeMovieRecyclerViewAdapter? = null
     private fun initRecyclerView() {
-        if(fanFilms!!.isEmpty()) noFavFilms.visibility = TextView.VISIBLE
+        if (fanFilms!!.isEmpty()) noFavFilms.visibility = TextView.VISIBLE
+
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         fan_film_slider.setLayoutManager(layoutManager)
-        adapter_films = HomeMovieRecyclerViewAdapter(this, fanFilms!!,true)
+        adapter_films = HomeMovieRecyclerViewAdapter(this, fanFilms!!, true)
         fan_film_slider.setAdapter(adapter_films)
 
         val layoutManager3 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -62,6 +63,11 @@ class FanActivity : BaseActivity() {
         refreshFav()
     }
 
+    override fun onResume() {
+        super.onResume()
+        refreshFav()
+    }
+
     fun initDB() {
         var act = this
         object : AsyncTask<Void, Void, Void>() {
@@ -77,25 +83,24 @@ class FanActivity : BaseActivity() {
             override fun onPostExecute(result: Void?) {
                 act.initRecyclerView()
                 act.associateMovies()
-                Log.i("bd","bd created")
+                Log.i("bd", "bd created")
             }
         }.execute()
     }
 
     fun refreshFav() {
-        adapter_films!!.notifyDataSetChanged()
-        Timer().schedule(object : TimerTask() {
-            override fun run() {
-                adapter_films!!.notifyDataSetChanged()
-            }
-        }, 1000)
+        Log.i("test", "called")
+        adapter_films?.notifyDataSetChanged()
+
+        if (fanFilms != null)
+            if (fanFilms!!.isEmpty()) noFavFilms.visibility = TextView.VISIBLE
     }
 
     fun associateMovies() {
         var act = this
         object : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg voids: Void): Void? {
-                for(movie in act.fanFilms!!){
+                for (movie in act.fanFilms!!) {
                     val associatedMovies = act.relatedMovieDao?.getRelatedMovies(movie.id)
                     movie.linkedMovies = associatedMovies
                     Log.i("related", movie.linkedMovies!!.toString())
@@ -106,7 +111,7 @@ class FanActivity : BaseActivity() {
             override fun onPostExecute(result: Void?) {
                 Store.favFilms = act.fanFilms as ArrayList<Movie>
                 act.initRecyclerView()
-                Log.i("bd","bd created")
+                Log.i("bd", "bd created")
             }
         }.execute()
     }
