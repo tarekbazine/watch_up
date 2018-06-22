@@ -44,7 +44,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 
-
 class FilmDetailActivity : AppCompatActivity() {
     val NB_REQUEST = 3
     //Video attributes
@@ -62,7 +61,7 @@ class FilmDetailActivity : AppCompatActivity() {
     var glide: RequestManager? = null
     var index: Int? = null
 
-    var dialog: AlertDialog? = null
+    var dialog : AlertDialog? = null
     var nbSuccess = 0
 
 
