@@ -9,5 +9,5 @@ data class Comment(@ColumnInfo(name = "author") var author : String?,
                    @ColumnInfo(name = "date") var date : String?,
                    @ColumnInfo(name = "film") var filmName: String,
                    @ColumnInfo(name = "content") var content : String) {
-    @PrimaryKey (autoGenerate = true) var id: Int = 0
+    @PrimaryKey (autoGenerate = true) var code: Int = 0
 }
