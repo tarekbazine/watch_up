@@ -15,10 +15,15 @@ import com.example.tarekbaz.watch_up.FilmDetailActivity
 import com.example.tarekbaz.watch_up.Models.Movie
 import com.example.tarekbaz.watch_up.Offline.ImageManager
 import com.example.tarekbaz.watch_up.R
+import android.view.animation.AnimationUtils
+import android.view.animation.Animation
+
+
 
 
 class HomeMovieRecyclerViewAdapter(private val mContext: Context, val films: List<Movie>, val offline: Boolean = false) : RecyclerView.Adapter<HomeMovieRecyclerViewAdapter.ViewHolder>() {
 
+    var lastPosition = -1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_home_film, parent, false)
         return ViewHolder(view)
@@ -57,6 +62,15 @@ class HomeMovieRecyclerViewAdapter(private val mContext: Context, val films: Lis
                 startActivity(mContext, intent, null)
             }
         })
+
+        val animation = AnimationUtils.loadAnimation(mContext,
+                if (position > lastPosition)
+                    R.anim.right_from_left
+                else
+                    R.anim.left_from_right)
+        holder.itemView.startAnimation(animation)
+        lastPosition = position
+
     }
 
     override fun getItemCount(): Int {
@@ -73,6 +87,11 @@ class HomeMovieRecyclerViewAdapter(private val mContext: Context, val films: Lis
             name = itemView.findViewById(R.id.name_card_film)
 
         }
+    }
+
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.itemView.clearAnimation()
     }
 
 

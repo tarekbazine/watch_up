@@ -21,8 +21,6 @@ import com.example.tarekbaz.watch_up.Adapters.SalleRecyclerViewAdapter
 import com.example.tarekbaz.watch_up.Models.*
 import android.graphics.drawable.Drawable
 import android.os.AsyncTask
-import android.os.Build
-import android.support.annotation.RequiresApi
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
@@ -35,18 +33,13 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.tarekbaz.watch_up.Models.Mocker.getRandomElements_
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.CreditsResponse
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.MoviesResponse
-import com.example.tarekbaz.watch_up.Offline.ImageManager
-import com.example.tarekbaz.watch_up.Offline.MovieDAO
-import com.example.tarekbaz.watch_up.Offline.MovieDB
-import com.example.tarekbaz.watch_up.Offline.RelatedMoviesDAO
 import com.example.tarekbaz.watch_up.Models.ResponsesAPI.ReviewsResponse
+import com.example.tarekbaz.watch_up.Offline.*
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.DateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -60,7 +53,7 @@ class FilmDetailActivity : AppCompatActivity() {
     private var db: MovieDB? = null
     private var movieDao: MovieDAO? = null
     private var relatedMovieDao: RelatedMoviesDAO? = null
-    private var relatedMovies: List<Movie>? = null
+    private var commentsDao: CommentDAO? = null
     private var favoriteMoviesId: ArrayList<Int>? = ArrayList()
 
     var loveItem: MenuItem? = null
@@ -109,6 +102,7 @@ class FilmDetailActivity : AppCompatActivity() {
         fromNotification = intent.extras.getBoolean("fromNotification", false)
 
         if (fromNotification!!) {
+            dialog = showDialog()
             initDetailFilmDataAPIFromNotification(index!!)
         } else if (!offline!!) {
             film = Store.homeFilms[0]
@@ -268,6 +262,10 @@ class FilmDetailActivity : AppCompatActivity() {
 
         filmType.text = film!!.genresList
 
+        actors_names.text = film!!.actorsList
+
+        producertext.text = film!!.director
+
         setSupportActionBar(toolbar_detail_film)
         // add back arrow to toolbar
         if (getSupportActionBar() != null) {
@@ -306,14 +304,13 @@ class FilmDetailActivity : AppCompatActivity() {
                     if (it.id == act.index)
                         film = it
                 }
-                act.setUpLayout()
-                act.associateMovies()
+                act.getComments()
                 Log.i("bd", "bd created")
             }
         }.execute()
     }
 
-    fun associateMovies() {
+    fun getAssociateMovies() {
         var act = this
         object : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg voids: Void): Void? {
@@ -330,6 +327,24 @@ class FilmDetailActivity : AppCompatActivity() {
             }
         }.execute()
     }
+
+    fun getComments() {
+        var act = this
+        object : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg voids: Void): Void? {
+                val comments = act.commentsDao?.getFilmComments(film!!.id)
+                film!!.comments = comments
+                Log.i("comments_writers", film!!.comments!![0].author!!.toString())
+                return null
+            }
+
+            override fun onPostExecute(result: Void?) {
+                act.setUpLayout()
+                act.getAssociateMovies()
+            }
+        }.execute()
+    }
+
 
     fun initDetailFilmDataAPI(movieId: Int) {
 
@@ -468,6 +483,11 @@ class FilmDetailActivity : AppCompatActivity() {
                         act.movieDao?.insert(movie)
                     }
                     var index = 0
+                    // Save comments
+                    for (comment in movie.comments!!){
+                        act.saveComment(comment)
+                    }
+                    // Save assoc films
                     for (relatedMv in movie.linkedMovies!!) {
                         saveMovie(movie = movie, related = relatedMv, recursive = false)
 //                            act.saveImageGlide(relatedMv)
@@ -544,6 +564,7 @@ class FilmDetailActivity : AppCompatActivity() {
                 act.db = MovieDB.getInstance(act)
                 act.movieDao = act.db!!.movieDAO()
                 act.relatedMovieDao = act.db!!.relatedMoviesDAO()
+                act.commentsDao = act.db!!.commentsDAO()
                 act.favoriteMoviesId = act.movieDao?.getFavMoviesId() as ArrayList<Int>?
                 return null
             }
@@ -579,6 +600,10 @@ class FilmDetailActivity : AppCompatActivity() {
                         ImageManager.saveImage(this@FilmDetailActivity, resource, movie.id.toString())
                     }
                 })
+    }
+
+    fun saveComment(comment: Comment){
+        commentsDao!!.insert(comment)
     }
 
     // this function shows a dialog_progress dialogue
