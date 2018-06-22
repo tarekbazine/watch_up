@@ -52,7 +52,7 @@ class FilmCinemaRecyclerViewAdapter(private val mContext: Context, var films: Li
             holder.film_date.text = "Acune date est specifie"
         }
 
-        holder.film_rating.rating = films.get(position).vote_average.toFloat()
+        holder.film_rating.rating = films.get(position).vote_average!!.toFloat()
 
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {

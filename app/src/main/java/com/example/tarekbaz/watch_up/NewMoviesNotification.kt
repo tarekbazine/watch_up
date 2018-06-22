@@ -8,6 +8,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.media.RingtoneManager
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
@@ -78,7 +79,6 @@ class NewMoviesNotification {
 
                                 var latestMovie : Movie? = null
 
-                                //todo test if the film is alredy seen
                                 for (i in 0 until latestMovies.size){
                                     if (!filmAlreadySeen.contains(latestMovies[i].id.toString())){
                                         latestMovie = latestMovies[i]
@@ -255,7 +255,9 @@ class NewMoviesNotification {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     // Set the intent that will fire when the user taps the notification
                     .setContentIntent(pendingIntent)
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                     .setAutoCancel(true)
+
 
 
             //run
