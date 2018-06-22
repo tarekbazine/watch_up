@@ -302,18 +302,11 @@ class NewMoviesNotification {
             //todo PendingIntent.FLAG_CANCEL_CURRENT
             val alarm = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
-//    //                    calendar.timeInMillis,
-//                        System.currentTimeMillis()+60000,
-//                        pintent)
-//            }else {
+
             alarm.setRepeating(AlarmManager.RTC_WAKEUP,
-//                    calendar.timeInMillis,
                     calendar.timeInMillis,
                     AlarmManager.INTERVAL_FIFTEEN_MINUTES/*todo*/,
                     pintent)
-//            }
 
             Log.i("myLogiii", "already service started ")
 
@@ -323,49 +316,5 @@ class NewMoviesNotification {
 //            }
 
         }
-
-
-//
-//        val HOUR = "HOUR"
-//        val MIN = "MIN"
-//        val SEC = "SEC"
-//
-//        fun setAlarmTime(context: Context) {
-//            val sp = context.getSharedPreferences(KEY, Context.MODE_PRIVATE)
-//
-//            val sdf = SimpleDateFormat("yyyy-MM-dd")
-//            val cal = Calendar.getInstance()
-//            val todayDate = sdf.format(cal.time)
-//
-//            val lastDaySharedSet = sp.getString(DAY, "2000-02-20")
-//
-//            if (todayDate.toString() != lastDaySharedSet) {
-//                val editor = sp.edit()
-//                editor.putInt(HOUR, cal.get(Calendar.HOUR_OF_DAY))
-//                editor.putInt(MIN, cal.get(Calendar.MINUTE))
-//                editor.putInt(SEC, cal.get(Calendar.SECOND))
-//                editor.commit()
-//            }
-//        }
-
-//        Context ctx = getApplicationContext();
-//        /** this gives us the time for the first trigger.  */
-//        Calendar cal = Calendar.getInstance();
-//        AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-//        long interval = 1000 * 60 * 5; // 5 minutes in milliseconds
-//        Intent serviceIntent = new Intent(ctx, NewsCheckingService.class);
-//// make sure you **don't** use *PendingIntent.getBroadcast*, it wouldn't work
-//        PendingIntent servicePendingIntent =
-//        PendingIntent.getService(ctx,
-//        NewsCheckingService.SERVICE_ID, // integer constant used to identify the service
-//        serviceIntent,
-//        PendingIntent.FLAG_CANCEL_CURRENT);  // FLAG to avoid creating a second service if there's already one running
-//// there are other options like setInexactRepeating, check the docs
-//        am.setRepeating(
-//        AlarmManager.RTC_WAKEUP,//type of alarm. This one will wake up the device when it goes off, but there are others, check the docs
-//        cal.getTimeInMillis(),
-//        interval,
-//        servicePendingIntent
-//        );
     }
 }

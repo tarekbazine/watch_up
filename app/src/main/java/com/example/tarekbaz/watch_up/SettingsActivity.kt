@@ -38,16 +38,9 @@ class SettingsActivity : AppCompatActivity() {
             cb.setOnCheckedChangeListener { _cb, b ->
                 if (b) {
                     Store.preferedGenres.add(_cb.id)
-//                    genres.add(_cb.id.toString())
-//                    editor.putStringSet(Genre.KEY, genres)
                 } else {
                     Store.preferedGenres.remove(_cb.id)
-//                    genres.remove(_cb.id.toString())
-//                    editor.putStringSet(Genre.KEY, genres)
                 }
-//                editor.commit()
-//                Log.i("myLogiii", genres.toString())
-//                Log.i("myLogiii2", prefGenres.getStringSet(Genre.KEY, HashSet<String>()).toString())
             }
             checkBoxList.add(cb)
 

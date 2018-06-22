@@ -16,6 +16,7 @@ import com.example.tarekbaz.watch_up.Offline.MovieDB
 import com.example.tarekbaz.watch_up.Offline.RelatedMoviesDAO
 import kotlinx.android.synthetic.main.activity_fan.*
 import kotlinx.android.synthetic.main.drawer_activity.*
+import java.util.*
 
 
 class FanActivity : BaseActivity() {
@@ -29,7 +30,7 @@ class FanActivity : BaseActivity() {
 
     var adapter_films :HomeMovieRecyclerViewAdapter? = null
     private fun initRecyclerView() {
-        if(!fanFilms!!.isEmpty()) noFavFilms.visibility = TextView.GONE
+        if(fanFilms!!.isEmpty()) noFavFilms.visibility = TextView.VISIBLE
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         fan_film_slider.setLayoutManager(layoutManager)
         adapter_films = HomeMovieRecyclerViewAdapter(this, fanFilms!!,true)
@@ -82,8 +83,12 @@ class FanActivity : BaseActivity() {
     }
 
     fun refreshFav() {
-//            fanFilms =  Store.favFilms
         adapter_films!!.notifyDataSetChanged()
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                adapter_films!!.notifyDataSetChanged()
+            }
+        }, 1000)
     }
 
     fun associateMovies() {

@@ -17,7 +17,6 @@ import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.view.animation.Interpolator
-import android.widget.ImageView
 import android.widget.MediaController
 import android.widget.TextView
 import android.widget.Toast
